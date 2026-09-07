@@ -23,9 +23,7 @@ body {
     overflow-x: hidden;
 }
 
-/* =========================
-   КОСМОС
-========================= */
+/* ФОН */
 
 .space {
     position: fixed;
@@ -34,8 +32,8 @@ body {
     background:
         radial-gradient(
             circle at center,
-            #090909 0%,
-            #020202 55%,
+            #161616 0%,
+            #050505 45%,
             #000 100%
         );
     z-index: -10;
@@ -76,284 +74,38 @@ body {
     opacity: .55;
 }
 
-/* =========================
-   ЧЁРНАЯ ДЫРА
-========================= */
+/* СТАРЫЙ КРУГ */
 
-.black-hole {
+.space::after {
+    content: "";
+
     position: absolute;
 
-    width: 760px;
-    height: 500px;
+    width: 650px;
+    height: 650px;
 
     left: 50%;
     top: 50%;
 
     transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(35,35,35,.7) 0%,
+            rgba(15,15,15,.45) 35%,
+            rgba(5,5,5,.2) 60%,
+            transparent 72%
+        );
+
+    filter: blur(12px);
 
     pointer-events: none;
 }
 
-/* Весь вращающийся диск */
-
-.hole-rotation {
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-
-    left: 0;
-    top: 0;
-
-    animation: holeSpin 7s linear infinite;
-}
-
-/* Основной горизонтальный диск */
-
-.disk {
-    position: absolute;
-
-    width: 760px;
-    height: 125px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            #fff4d5 0%,
-            #ffd27a 7%,
-            #ff8c00 17%,
-            #ff3b00 30%,
-            #c81700 48%,
-            #650500 68%,
-            #220000 82%,
-            transparent 100%
-        );
-
-    filter: blur(4px);
-
-    box-shadow:
-        0 0 15px rgba(255,70,0,.9),
-        0 0 35px rgba(255,40,0,.7),
-        0 0 70px rgba(255,20,0,.35);
-}
-
-/* Яркая тонкая линия */
-
-.disk-line {
-    position: absolute;
-
-    width: 760px;
-    height: 15px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent 0%,
-            #8b0800 8%,
-            #ff2a00 22%,
-            #ff9b22 38%,
-            #fff1c7 50%,
-            #ff9b22 62%,
-            #ff2a00 78%,
-            #8b0800 92%,
-            transparent 100%
-        );
-
-    filter: blur(3px);
-
-    opacity: .95;
-}
-
-/* =========================
-   ИСКРИВЛЁННЫЙ ДИСК СВЕРХУ
-========================= */
-
-.top-lens {
-    position: absolute;
-
-    width: 440px;
-    height: 300px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            transparent 0%,
-            transparent 29%,
-            rgba(255,230,180,.95) 30%,
-            rgba(255,155,40,.95) 34%,
-            #ff4a00 39%,
-            #c41400 46%,
-            transparent 58%
-        );
-
-    filter: blur(4px);
-
-    clip-path: inset(0 0 50% 0);
-
-    opacity: .95;
-}
-
-/* Второе тонкое кольцо сверху */
-
-.top-lens::after {
-    content: "";
-
-    position: absolute;
-
-    width: 390px;
-    height: 255px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    border: 8px solid rgba(255,120,20,.7);
-
-    box-shadow:
-        0 0 15px #ff4500,
-        0 0 30px rgba(255,50,0,.7);
-
-    clip-path: inset(0 0 50% 0);
-}
-
-/* =========================
-   ИСКРИВЛЁННЫЙ ДИСК СНИЗУ
-========================= */
-
-.bottom-lens {
-    position: absolute;
-
-    width: 360px;
-    height: 245px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            transparent 0%,
-            transparent 28%,
-            rgba(255,205,120,.9) 30%,
-            #ff7b00 36%,
-            #ff3100 43%,
-            #8d0800 52%,
-            transparent 65%
-        );
-
-    filter: blur(4px);
-
-    clip-path: inset(50% 0 0 0);
-
-    opacity: .85;
-}
-
-/* =========================
-   ГОРИЗОНТ СОБЫТИЙ
-========================= */
-
-.event-horizon {
-    position: absolute;
-
-    width: 210px;
-    height: 210px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background: #000;
-
-    z-index: 10;
-
-    box-shadow:
-        0 0 10px #000,
-        0 0 25px #000,
-        0 0 50px #000,
-        0 0 80px rgba(0,0,0,.95);
-}
-
-/* Тонкая светящаяся граница */
-
-.event-horizon::before {
-    content: "";
-
-    position: absolute;
-
-    inset: -2px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(255,110,30,.45);
-
-    box-shadow:
-        0 0 8px rgba(255,60,0,.35);
-}
-
-/* Чёрная сердцевина */
-
-.event-horizon::after {
-    content: "";
-
-    position: absolute;
-
-    inset: 12px;
-
-    border-radius: 50%;
-
-    background: #000;
-}
-
-/* =========================
-   ВРАЩЕНИЕ
-========================= */
-
-@keyframes holeSpin {
-
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-
-}
-
-/* =========================
-   МЕНЮ
-========================= */
+/* МЕНЮ */
 
 nav {
     position: fixed;
@@ -365,7 +117,6 @@ nav {
     height: 70px;
 
     display: flex;
-
     align-items: center;
     justify-content: space-between;
 
@@ -383,27 +134,20 @@ nav {
 
 .logo {
     font-size: 18px;
-
     font-weight: bold;
-
     letter-spacing: 1px;
 }
 
 nav ul {
     display: flex;
-
     gap: 30px;
-
     list-style: none;
 }
 
 nav a {
     color: white;
-
     text-decoration: none;
-
     font-size: 14px;
-
     transition: .3s;
 }
 
@@ -411,42 +155,32 @@ nav a:hover {
     color: #ff4a20;
 }
 
-/* =========================
-   ГЛАВНАЯ
-========================= */
+/* ГЛАВНАЯ */
 
 .hero {
     min-height: 100vh;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     padding: 100px 8%;
 
     position: relative;
-
     z-index: 10;
 }
 
 .hero-content {
     display: flex;
-
     align-items: center;
 
     gap: 70px;
 
     max-width: 1100px;
-
-    position: relative;
-
-    z-index: 20;
 }
 
 .characters {
     width: 440px;
-
     max-width: 45vw;
 
     transform:
@@ -472,10 +206,6 @@ nav a:hover {
 
 .text {
     max-width: 500px;
-
-    position: relative;
-
-    z-index: 30;
 }
 
 .text h1 {
@@ -485,8 +215,6 @@ nav a:hover {
     line-height: .95;
 
     margin-bottom: 20px;
-
-    white-space: nowrap;
 }
 
 .text p {
@@ -517,10 +245,6 @@ nav a:hover {
     font-size: 16px;
 
     transition: .3s;
-
-    position: relative;
-
-    z-index: 40;
 }
 
 .button:hover {
@@ -530,9 +254,7 @@ nav a:hover {
         0 0 25px rgba(255,50,20,.6);
 }
 
-/* =========================
-   СЕКЦИИ
-========================= */
+/* СЕКЦИИ */
 
 section {
     min-height: 100vh;
@@ -540,25 +262,20 @@ section {
     padding: 120px 8%;
 
     position: relative;
-
     z-index: 10;
 }
 
 section h2 {
     font-size: 50px;
-
     margin-bottom: 30px;
 }
 
 section p {
     color: #aaa;
-
     font-size: 18px;
 }
 
-/* =========================
-   СЕРДЦА
-========================= */
+/* СЕРДЦА */
 
 .heart {
     position: fixed;
@@ -600,12 +317,9 @@ section p {
             scale(var(--scale))
             rotate(var(--rotation));
     }
-
 }
 
-/* =========================
-   ТЕЛЕФОН
-========================= */
+/* МОБИЛЬНАЯ ВЕРСИЯ */
 
 @media (max-width: 800px) {
 
@@ -631,24 +345,16 @@ section p {
 
     .characters {
         width: 330px;
-
         max-width: 80vw;
     }
 
-    .black-hole {
-        width: 600px;
-
-        height: 400px;
-
-        transform:
-            translate(-50%, -50%)
-            scale(.65);
+    .space::after {
+        width: 450px;
+        height: 450px;
     }
 
     .text h1 {
         font-size: 48px;
-
-        white-space: normal;
     }
 
     .text p {
@@ -659,42 +365,16 @@ section p {
         font-size: 38px;
     }
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     ФОН
-========================= -->
+<!-- ФОН -->
 
-<div class="space">
+<div class="space"></div>
 
-    <div class="black-hole">
-
-        <div class="hole-rotation">
-
-            <div class="disk"></div>
-
-            <div class="top-lens"></div>
-
-            <div class="bottom-lens"></div>
-
-            <div class="disk-line"></div>
-
-        </div>
-
-        <div class="event-horizon"></div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     МЕНЮ
-========================= -->
+<!-- МЕНЮ -->
 
 <nav>
 
@@ -726,10 +406,7 @@ section p {
 
 </nav>
 
-
-<!-- =========================
-     ГЛАВНАЯ
-========================= -->
+<!-- ГЛАВНАЯ -->
 
 <main>
 
@@ -769,10 +446,7 @@ section p {
 
 </section>
 
-
-<!-- =========================
-     ФОТО
-========================= -->
+<!-- НАШИ ФОТО -->
 
 <section id="photos">
 
@@ -786,10 +460,7 @@ section p {
 
 </section>
 
-
-<!-- =========================
-     КОНТАКТЫ
-========================= -->
+<!-- КОНТАКТЫ -->
 
 <section id="contacts">
 
@@ -805,12 +476,7 @@ section p {
 
 </main>
 
-
 <script>
-
-/* =========================
-   СЕРДЦА
-========================= */
 
 function createHearts() {
 
