@@ -1,1250 +1,702 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>кайфовать.вместе</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-
-            background: #020202;
-
-            color: white;
-
-            font-family: Arial, sans-serif;
-
-            overflow-x: hidden;
-        }
-
-
-        /* ОСНОВНОЙ КОСМИЧЕСКИЙ ФОН */
-
-        body::before {
-
-            content: "";
-
-            position: fixed;
-
-            inset: 0;
-
-            z-index: -10;
-
-            background:
-                radial-gradient(
-                    circle at 50% 50%,
-                    #171717 0%,
-                    #080808 35%,
-                    #020202 70%,
-                    #000000 100%
-                );
-        }
-
-
-        /* ЗВЁЗДЫ */
-
-        .stars {
-
-            position: fixed;
-
-            inset: 0;
-
-            z-index: -9;
-
-            pointer-events: none;
-
-            background-image:
-
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.8) 1px,
-                    transparent 1px
-                ),
-
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.5) 1px,
-                    transparent 1px
-                ),
-
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.35) 1px,
-                    transparent 1px
-                );
-
-            background-size:
-                130px 130px,
-                210px 210px,
-                310px 310px;
-
-            background-position:
-                20px 40px,
-                80px 100px,
-                150px 30px;
-
-            opacity: 0.35;
-        }
-
-
-        /* ЧЁРНАЯ ДЫРА */
-
-        .black-hole {
-
-            position: fixed;
-
-            width: 650px;
-            height: 650px;
-
-            left: 50%;
-            top: 50%;
-
-            transform:
-                translate(-50%, -50%);
-
-            z-index: -8;
-
-            pointer-events: none;
-        }
-
-
-        /* СВЕЧЕНИЕ ВОКРУГ */
-
-        .black-hole::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 100%;
-            height: 100%;
-
-            border-radius: 50%;
-
-            background:
-
-                radial-gradient(
-                    circle,
-
-                    #000000 0%,
-                    #000000 26%,
-
-                    rgba(255, 190, 70, 0.12) 27%,
-
-                    rgba(255, 90, 0, 0.22) 32%,
-
-                    rgba(130, 20, 0, 0.12) 42%,
-
-                    transparent 62%
-                );
-
-            box-shadow:
-
-                0 0 70px
-                rgba(255, 80, 0, 0.14),
-
-                0 0 150px
-                rgba(255, 40, 0, 0.08);
-        }
-
-
-        /* АККРЕЦИОННЫЙ ДИСК */
-
-        .accretion-disk {
-
-            position: absolute;
-
-            width: 100%;
-            height: 100%;
-
-            border-radius: 50%;
-
-
-            background:
-
-                conic-gradient(
-
-                    from 0deg,
-
-                    transparent 0deg,
-
-                    #350700 20deg,
-
-                    #741300 35deg,
-
-                    #d52f00 48deg,
-
-                    #ff6500 60deg,
-
-                    #ffb52e 70deg,
-
-                    #fff0a8 80deg,
-
-                    #fff9d0 88deg,
-
-                    #ffbd38 96deg,
-
-                    #ff6900 108deg,
-
-                    #a92500 125deg,
-
-                    #3d0800 145deg,
-
-                    transparent 160deg,
-
-
-                    transparent 180deg,
-
-
-                    #3d0800 200deg,
-
-                    #8e1b00 215deg,
-
-                    #e13c00 230deg,
-
-                    #ff7000 242deg,
-
-                    #ffc84c 252deg,
-
-                    #fff3b0 262deg,
-
-                    #fff9d6 270deg,
-
-                    #ffbf3a 278deg,
-
-                    #ff6200 290deg,
-
-                    #9b1e00 305deg,
-
-                    #410800 325deg,
-
-                    transparent 340deg,
-
-
-                    #350700 355deg,
-
-                    transparent 360deg
-                );
-
-
-            filter:
-
-                blur(11px)
-                contrast(1.35)
-                saturate(1.25);
-
-
-            transform:
-
-                rotateX(65deg);
-
-
-            animation:
-
-                rotateDisk
-                8s
-                linear
-                infinite;
-
-
-            box-shadow:
-
-                0 0 35px
-                rgba(255, 80, 0, 0.35),
-
-                0 0 80px
-                rgba(255, 40, 0, 0.20),
-
-                0 0 140px
-                rgba(180, 20, 0, 0.12);
-        }
-
-
-        /* ВНУТРЕННИЕ ПОТОКИ ГАЗА */
-
-        .accretion-disk::before {
-
-            content: "";
-
-            position: absolute;
-
-            inset: 13%;
-
-            border-radius: 50%;
-
-
-            background:
-
-                conic-gradient(
-
-                    from 180deg,
-
-                    transparent 0deg,
-
-                    rgba(130, 15, 0, 0.5) 30deg,
-
-                    rgba(255, 55, 0, 0.8) 55deg,
-
-                    rgba(255, 180, 45, 0.95) 75deg,
-
-                    rgba(255, 245, 180, 1) 88deg,
-
-                    rgba(255, 110, 0, 0.85) 105deg,
-
-                    transparent 135deg,
-
-                    transparent 170deg,
-
-                    rgba(150, 20, 0, 0.6) 205deg,
-
-                    rgba(255, 60, 0, 0.85) 225deg,
-
-                    rgba(255, 195, 55, 0.95) 250deg,
-
-                    rgba(255, 242, 170, 1) 265deg,
-
-                    rgba(255, 90, 0, 0.8) 285deg,
-
-                    transparent 320deg,
-
-                    transparent 360deg
-                );
-
-
-            filter:
-
-                blur(8px);
-
-
-            animation:
-
-                rotateInnerDisk
-                4s
-                linear
-                infinite;
-        }
-
-
-        /* ЦЕНТР ЧЁРНОЙ ДЫРЫ */
-
-        .event-horizon {
-
-            position: absolute;
-
-            width: 250px;
-            height: 250px;
-
-            left: 50%;
-            top: 50%;
-
-            transform:
-                translate(-50%, -50%);
-
-            border-radius: 50%;
-
-            background: #000000;
-
-
-            box-shadow:
-
-                0 0 30px
-                #000000,
-
-                0 0 60px
-                #000000,
-
-                0 0 100px
-                rgba(0,0,0,0.98),
-
-                inset 0 0 30px
-                #000000;
-        }
-
-
-        /* ВРАЩЕНИЕ ДИСКА */
-
-        @keyframes rotateDisk {
-
-            from {
-
-                transform:
-                    rotateX(65deg)
-                    rotateZ(0deg);
-            }
-
-            to {
-
-                transform:
-                    rotateX(65deg)
-                    rotateZ(360deg);
-            }
-        }
-
-
-        /* ВРАЩЕНИЕ ВНУТРЕННЕГО СЛОЯ */
-
-        @keyframes rotateInnerDisk {
-
-            from {
-
-                transform:
-                    rotate(0deg);
-            }
-
-            to {
-
-                transform:
-                    rotate(-360deg);
-            }
-        }
-
-
-        /* ВЕРХНЕЕ МЕНЮ */
-
-        nav {
-
-            position: fixed;
-
-            top: 0;
-            left: 0;
-
-            width: 100%;
-            height: 60px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 42px;
-
-            background:
-                rgba(3, 3, 3, 0.65);
-
-            border-bottom:
-                1px solid #202020;
-
-            backdrop-filter:
-                blur(10px);
-
-            z-index: 100;
-        }
-
-
-        .logo {
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            letter-spacing: 3px;
-        }
-
-
-        .menu {
-
-            display: flex;
-
-            gap: 42px;
-        }
-
-
-        .menu a {
-
-            color: #777;
-
-            text-decoration: none;
-
-            font-size: 15px;
-
-            transition:
-                0.25s;
-        }
-
-
-        .menu a:hover {
-
-            color: white;
-        }
-
-
-        /* ГЛАВНАЯ */
-
-        .hero {
-
-            width: 100%;
-
-            height: 100vh;
-
-            display: flex;
-
-            align-items: center;
-
-            padding-top: 60px;
-
-            position: relative;
-        }
-
-
-        /* ПЕРСОНАЖИ */
-
-        .characters {
-
-            width: 58%;
-
-            height:
-                calc(100vh - 60px);
-
-            display: flex;
-
-            align-items: flex-end;
-
-            justify-content: center;
-
-            position: relative;
-        }
-
-
-        .characters img {
-
-            width: 1250px;
-
-            max-width: 140%;
-
-            height: auto;
-
-            display: block;
-
-            pointer-events: none;
-
-            transform:
-
-                scaleY(1.5)
-                translateY(-1px);
-
-            transform-origin:
-                bottom center;
-
-            filter:
-
-                drop-shadow(
-                    0 0 30px
-                    rgba(255,255,255,0.07)
-                );
-
-
-            -webkit-mask-image:
-
-                linear-gradient(
-
-                    to bottom,
-
-                    black 88%,
-
-                    rgba(0,0,0,0.95) 94%,
-
-                    rgba(0,0,0,0.8) 98%,
-
-                    transparent 100%
-                );
-
-
-            mask-image:
-
-                linear-gradient(
-
-                    to bottom,
-
-                    black 88%,
-
-                    rgba(0,0,0,0.95) 94%,
-
-                    rgba(0,0,0,0.8) 98%,
-
-                    transparent 100%
-                );
-        }
-
-
-        /* ТЕКСТ */
-
-        .text {
-
-            width: 42%;
-
-            padding-left: 5px;
-
-            margin-top: -30px;
-
-            position: relative;
-
-            z-index: 5;
-        }
-
-
-        .text h1 {
-
-            margin: 0;
-
-            font-size: 54px;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            text-shadow:
-
-                0 0 10px
-                rgba(255,255,255,0.25),
-
-                0 0 30px
-                rgba(255,255,255,0.12);
-        }
-
-
-        .text p {
-
-            margin-top: 25px;
-
-            color: #888;
-
-            font-size: 18px;
-        }
-
-
-        /* КНОПКА */
-
-        button {
-
-            margin-top: 25px;
-
-            padding:
-                13px 30px;
-
-            background:
-                rgba(15,15,15,0.8);
-
-            color: white;
-
-            border:
-                1px solid #383838;
-
-            border-radius:
-                8px;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-            transition:
-                0.25s;
-
-            position: relative;
-
-            z-index: 20;
-        }
-
-
-        button:hover {
-
-            background:
-                #222;
-
-            border-color:
-                #555;
-
-            transform:
-                scale(1.05);
-
-            box-shadow:
-
-                0 0 25px
-                rgba(255,255,255,0.12);
-        }
-
-
-        /* РАЗДЕЛ ФОТО */
-
-        .photos {
-
-            min-height: 100vh;
-
-            padding:
-                120px 60px 80px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background:
-
-                radial-gradient(
-                    circle at center,
-                    rgba(20,20,20,0.85),
-                    #030303 70%
-                );
-        }
-
-
-        .photos h2 {
-
-            margin:
-                0 0 15px;
-
-            font-size: 42px;
-        }
-
-
-        .photos p {
-
-            margin:
-                0 0 45px;
-
-            color: #777;
-
-            font-size: 16px;
-        }
-
-
-        .photo-card {
-
-            width:
-                min(900px, 90vw);
-
-            padding: 25px;
-
-            background:
-                rgba(15,15,15,0.7);
-
-            border:
-                1px solid #242424;
-
-            border-radius:
-                18px;
-
-            box-shadow:
-
-                0 0 50px
-                rgba(0,0,0,0.5);
-        }
-
-
-        .photo-card img {
-
-            width: 100%;
-
-            max-height: 600px;
-
-            object-fit: contain;
-
-            display: block;
-
-            border-radius:
-                12px;
-        }
-
-
-        /* КОНТАКТЫ */
-
-        .contacts {
-
-            min-height: 40vh;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            text-align: center;
-
-            border-top:
-                1px solid #181818;
-
-            background:
-                #020202;
-        }
-
-
-        .contacts h2 {
-
-            font-size: 32px;
-
-            margin-bottom: 10px;
-        }
-
-
-        .contacts p {
-
-            color: #777;
-        }
-
-
-        /* СЕРДЕЧКИ */
-
-        .heart {
-
-            position: fixed;
-
-            left: 0;
-            top: 0;
-
-            color: #ff2b2b;
-
-            pointer-events: none;
-
-            z-index: 200;
-
-            opacity: 1;
-
-            animation:
-
-                flyHeart
-                var(--duration)
-                ease-out
-                forwards;
-        }
-
-
-        @keyframes flyHeart {
-
-            0% {
-
-                transform:
-
-                    translate(
-                        var(--start-x),
-                        var(--start-y)
-                    )
-
-                    scale(0.2)
-
-                    rotate(0deg);
-
-                opacity: 1;
-            }
-
-
-            20% {
-
-                opacity: 1;
-            }
-
-
-            100% {
-
-                transform:
-
-                    translate(
-                        var(--end-x),
-                        var(--end-y)
-                    )
-
-                    scale(var(--scale))
-
-                    rotate(var(--rotation));
-
-                opacity: 0;
-            }
-        }
-
-
-        /* МОБИЛЬНАЯ ВЕРСИЯ */
-
-        @media (max-width: 800px) {
-
-            .black-hole {
-
-                width: 400px;
-
-                height: 400px;
-            }
-
-
-            .event-horizon {
-
-                width: 155px;
-
-                height: 155px;
-            }
-
-
-            nav {
-
-                padding:
-                    0 20px;
-            }
-
-
-            .logo {
-
-                font-size: 13px;
-
-                letter-spacing: 1px;
-            }
-
-
-            .menu {
-
-                gap: 15px;
-            }
-
-
-            .menu a {
-
-                font-size: 12px;
-            }
-
-
-            .hero {
-
-                flex-direction: column;
-
-                height: auto;
-
-                min-height: 100vh;
-
-                padding-top: 80px;
-            }
-
-
-            .characters {
-
-                width: 100%;
-
-                height: 50vh;
-            }
-
-
-            .characters img {
-
-                width: 850px;
-
-                max-width: 150%;
-            }
-
-
-            .text {
-
-                width: 100%;
-
-                padding: 30px;
-
-                margin-top: 0;
-
-                text-align: center;
-            }
-
-
-            .text h1 {
-
-                font-size: 38px;
-
-                white-space: normal;
-            }
-
-
-            .photos {
-
-                padding:
-                    100px 20px 60px;
-            }
-
-
-            .photos h2 {
-
-                font-size: 34px;
-            }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>suspectstyle for nikto242</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   КОСМОС
+========================= */
+
+.space {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at center, #080808 0%, #010101 55%, #000 100%);
+    z-index: -10;
+}
+
+.space::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.35) .7px, transparent 1px);
+    background-size: 110px 110px, 170px 170px, 70px 70px;
+    background-position: 10px 20px, 40px 80px, 20px 40px;
+    opacity: .55;
+}
+
+/* =========================
+   ЧЁРНАЯ ДЫРА
+========================= */
+
+.black-hole {
+    position: absolute;
+    width: 720px;
+    height: 430px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 900px;
+}
+
+/* основное свечение диска */
+.accretion-disk {
+    position: absolute;
+    width: 720px;
+    height: 150px;
+    left: 50%;
+    top: 50%;
+    transform:
+        translate(-50%, -50%)
+        rotateX(68deg);
+    border-radius: 50%;
+    background:
+        conic-gradient(
+            from 0deg,
+            #3a0000,
+            #7d0900,
+            #ff2400,
+            #ff6a00,
+            #ffd08a,
+            #fff1cf,
+            #ff8a00,
+            #ff3200,
+            #8e0900,
+            #300000,
+            #ff1e00,
+            #ff8c00,
+            #ffd18b,
+            #ff4d00,
+            #7b0500,
+            #260000,
+            #ff2800,
+            #ff7800,
+            #ffcf85,
+            #ff2c00,
+            #6d0300,
+            #240000,
+            #ff1c00,
+            #ff6700,
+            #ffb84c,
+            #720400,
+            #220000
+        );
+    filter: blur(5px);
+    box-shadow:
+        0 0 15px #ff1800,
+        0 0 35px #ff3300,
+        0 0 70px rgba(255,45,0,.8),
+        0 0 120px rgba(255,20,0,.35);
+    animation: diskRotate 4s linear infinite;
+}
+
+/* внутреннее кольцо */
+.accretion-disk::before {
+    content: "";
+    position: absolute;
+    inset: 18px 35px;
+    border-radius: 50%;
+    background:
+        conic-gradient(
+            from 180deg,
+            #ff2100,
+            #ffb000,
+            #fff3d0,
+            #ff6a00,
+            #ff1900,
+            #8c0500,
+            #ff3d00,
+            #ffd080,
+            #ff2600,
+            #710000,
+            #ff2100
+        );
+    filter: blur(3px);
+}
+
+/* ещё одно тонкое кольцо */
+.accretion-disk::after {
+    content: "";
+    position: absolute;
+    width: 94%;
+    height: 42%;
+    left: 3%;
+    top: 29%;
+    border-radius: 50%;
+    border: 2px solid rgba(255,210,130,.8);
+    box-shadow:
+        0 0 8px #ff6700,
+        0 0 18px #ff2b00,
+        inset 0 0 12px #ff4300;
+}
+
+/* чёрный центр */
+.event-horizon {
+    position: absolute;
+    width: 225px;
+    height: 225px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #000;
+    z-index: 5;
+    box-shadow:
+        0 0 10px #000,
+        0 0 30px #000,
+        0 0 55px #000,
+        0 0 90px rgba(0,0,0,.95);
+}
+
+/* тонкий край чёрной дыры */
+.event-horizon::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,110,30,.35);
+    box-shadow:
+        0 0 12px rgba(255,50,0,.3);
+}
+
+/* верхняя часть искривлённого диска */
+.lensed-top {
+    position: absolute;
+    width: 410px;
+    height: 260px;
+    left: 50%;
+    top: 42px;
+    transform: translateX(-50%);
+    border-radius: 50% 50% 0 0;
+    background:
+        conic-gradient(
+            from 180deg,
+            #5c0200,
+            #ff2600,
+            #ff7800,
+            #ffd18a,
+            #fff0d0,
+            #ff8a00,
+            #ff2700,
+            #600000
+        );
+    filter: blur(5px);
+    clip-path: polygon(
+        0 100%,
+        5% 75%,
+        15% 57%,
+        25% 38%,
+        38% 20%,
+        50% 10%,
+        62% 20%,
+        75% 38%,
+        85% 57%,
+        95% 75%,
+        100% 100%
+    );
+    z-index: 3;
+    animation: topRotate 4s linear infinite;
+    box-shadow:
+        0 0 25px #ff3700,
+        0 0 55px rgba(255,40,0,.8);
+}
+
+/* нижняя часть диска */
+.lensed-bottom {
+    position: absolute;
+    width: 300px;
+    height: 155px;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    border-radius: 0 0 50% 50%;
+    background:
+        conic-gradient(
+            from 0deg,
+            #ff1900,
+            #ff7600,
+            #ffcf75,
+            #ff4300,
+            #7b0400,
+            #ff2800,
+            #ff9a20,
+            #ff2600
+        );
+    filter: blur(5px);
+    clip-path: ellipse(48% 45% at 50% 0%);
+    z-index: 2;
+    animation: bottomRotate 4s linear infinite reverse;
+    box-shadow:
+        0 0 25px #ff3000,
+        0 0 55px rgba(255,40,0,.7);
+}
+
+/* тонкая горизонтальная линия диска */
+.disk-line {
+    position: absolute;
+    width: 720px;
+    height: 18px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            #8b0900 8%,
+            #ff2700 22%,
+            #ffb43c 40%,
+            #fff0ca 50%,
+            #ffb43c 60%,
+            #ff2700 78%,
+            #8b0900 92%,
+            transparent 100%
+        );
+    filter: blur(4px);
+    z-index: 7;
+    animation: linePulse 2s ease-in-out infinite alternate;
+}
+
+/* =========================
+   АНИМАЦИЯ ЧЁРНОЙ ДЫРЫ
+========================= */
+
+@keyframes diskRotate {
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(360deg);
+    }
+}
+
+@keyframes topRotate {
+    from {
+        transform: translateX(-50%) rotateZ(0deg);
+    }
+
+    to {
+        transform: translateX(-50%) rotateZ(360deg);
+    }
+}
+
+@keyframes bottomRotate {
+    from {
+        transform: translateX(-50%) rotateZ(0deg);
+    }
+
+    to {
+        transform: translateX(-50%) rotateZ(360deg);
+    }
+}
+
+@keyframes linePulse {
+    from {
+        opacity: .7;
+        transform: translate(-50%, -50%) scaleX(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleX(1.02);
+    }
+}
+
+/* =========================
+   МЕНЮ
+========================= */
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 45px;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    z-index: 100;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #ff4a20;
+}
+
+/* =========================
+   ГЛАВНАЯ
+========================= */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 8%;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    max-width: 1100px;
+}
+
+.characters {
+    width: 440px;
+    max-width: 45vw;
+    transform: scaleY(1.5) translateY(-1px);
+    pointer-events: none;
+    mask-image: linear-gradient(
+        to bottom,
+        black 75%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        black 75%,
+        transparent 100%
+    );
+}
+
+.text {
+    max-width: 500px;
+}
+
+.text h1 {
+    font-size: clamp(45px, 7vw, 85px);
+    line-height: .95;
+    margin-bottom: 20px;
+}
+
+.text p {
+    font-size: 20px;
+    color: #aaa;
+    margin-bottom: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 1px solid #ff3b1f;
+    border-radius: 6px;
+    background: rgba(255,50,20,.08);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: .3s;
+}
+
+.button:hover {
+    background: #ff3b1f;
+    box-shadow: 0 0 25px rgba(255,50,20,.6);
+}
+
+/* =========================
+   СЕКЦИИ
+========================= */
+
+section {
+    min-height: 100vh;
+    padding: 120px 8%;
+    position: relative;
+    z-index: 10;
+}
+
+section h2 {
+    font-size: 50px;
+    margin-bottom: 30px;
+}
+
+section p {
+    color: #aaa;
+    font-size: 18px;
+}
+
+/* =========================
+   СЕРДЦА
+========================= */
+
+.heart {
+    position: fixed;
+    pointer-events: none;
+    color: #ff2b2b;
+    font-size: 20px;
+    z-index: 999;
+    animation: heartFly var(--duration) ease-out forwards;
+}
+
+@keyframes heartFly {
+    0% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(.5)
+            rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(
+                calc(var(--x) - 50%),
+                calc(var(--y) - 50%)
+            )
+            scale(var(--scale))
+            rotate(var(--rotation));
+    }
+}
+
+/* =========================
+   ТЕЛЕФОН
+========================= */
+
+@media (max-width: 800px) {
+
+    nav {
+        padding: 0 20px;
+    }
+
+    nav ul {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .characters {
+        width: 330px;
+        max-width: 80vw;
+    }
+
+    .black-hole {
+        width: 500px;
+        height: 320px;
+        transform: translate(-50%, -50%) scale(.65);
+    }
+
+    .text h1 {
+        font-size: 48px;
+    }
+
+    .text p {
+        font-size: 16px;
+    }
+
+    section h2 {
+        font-size: 38px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-
-    <!-- ЗВЁЗДЫ -->
-
-    <div class="stars"></div>
-
-
-    <!-- ЧЁРНАЯ ДЫРА -->
+<div class="space">
 
     <div class="black-hole">
 
         <div class="accretion-disk"></div>
 
+        <div class="lensed-top"></div>
+
+        <div class="lensed-bottom"></div>
+
         <div class="event-horizon"></div>
+
+        <div class="disk-line"></div>
 
     </div>
 
+</div>
 
-    <!-- МЕНЮ -->
+<nav>
+    <div class="logo">suspectstyle for nikto242</div>
 
-    <nav>
+    <ul>
+        <li><a href="#home">Главная</a></li>
+        <li><a href="#photos">Наши фото</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+    </ul>
+</nav>
 
-        <div class="logo">
-            suspectstyle for nikto242
-        </div>
+<main>
 
+<section class="hero" id="home">
 
-        <div class="menu">
+    <div class="hero-content">
 
-            <a href="#home">
-                Главная
-            </a>
-
-
-            <a href="#photos">
-                Наши фото
-            </a>
-
-
-            <a href="#contacts">
-                Контакты
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- ГЛАВНАЯ -->
-
-    <main
-        class="hero"
-        id="home"
-    >
-
-        <div class="characters">
-
-            <img
-                src="characters.png"
-                alt="Персонажи"
-            >
-
-        </div>
-
+        <img
+            src="characters.png"
+            class="characters"
+            alt="characters"
+        >
 
         <div class="text">
 
-            <h1>
-                кайфовать.вместе
-            </h1>
+            <h1>кайфовать.вместе</h1>
 
+            <p>Это моя первая страница.</p>
 
-            <p>
-                Это моя первая страница.
-            </p>
-
-
-            <button onclick="createHearts()">
+            <button
+                class="button"
+                onclick="createHearts()"
+            >
                 Нажми меня
             </button>
 
         </div>
 
-    </main>
+    </div>
 
+</section>
 
-    <!-- НАШИ ФОТО -->
+<section id="photos">
 
-    <section
-        class="photos"
-        id="photos"
-    >
+    <h2>Наши фото</h2>
 
-        <h2>
-            Наши фото
-        </h2>
+    <p>
+        Здесь позже можно сделать отдельную галерею.
+    </p>
 
+</section>
 
-        <p>
-            Немного того, что мы любим.
-        </p>
+<section id="contacts">
 
+    <h2>Контакты</h2>
 
-        <div class="photo-card">
+    <p>
+        Здесь можно разместить контакты.
+    </p>
 
-            <img
-                src="characters.png"
-                alt="Наше фото"
-            >
+</section>
 
-        </div>
+</main>
 
-    </section>
+<script>
 
+function createHearts() {
 
-    <!-- КОНТАКТЫ -->
+    const button = document.querySelector(".button");
+    const rect = button.getBoundingClientRect();
 
-    <section
-        class="contacts"
-        id="contacts"
-    >
+    const startX = rect.left + rect.width / 2;
+    const startY = rect.top + rect.height / 2;
 
-        <h2>
-            Контакты
-        </h2>
+    for (let i = 0; i < 80; i++) {
 
+        const heart = document.createElement("div");
 
-        <p>
-            Здесь скоро появятся наши контакты.
-        </p>
+        heart.className = "heart";
+        heart.textContent = "♥";
 
-    </section>
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
 
+        const scale = 0.5 + Math.random() * 2;
+        const duration = 1.5 + Math.random() * 2;
+        const rotation = -180 + Math.random() * 360;
 
-    <script>
+        heart.style.left = startX + "px";
+        heart.style.top = startY + "px";
 
-        function createHearts() {
+        heart.style.setProperty(
+            "--x",
+            x + "px"
+        );
 
-            const button =
-                document.querySelector("button");
+        heart.style.setProperty(
+            "--y",
+            y + "px"
+        );
 
+        heart.style.setProperty(
+            "--scale",
+            scale
+        );
 
-            const rect =
-                button.getBoundingClientRect();
+        heart.style.setProperty(
+            "--duration",
+            duration + "s"
+        );
 
+        heart.style.setProperty(
+            "--rotation",
+            rotation + "deg"
+        );
 
-            const startX =
-                rect.left +
-                rect.width / 2;
+        document.body.appendChild(heart);
 
+        setTimeout(() => {
+            heart.remove();
+        }, duration * 1000);
+    }
+}
 
-            const startY =
-                rect.top +
-                rect.height / 2;
-
-
-            for (
-                let i = 0;
-                i < 80;
-                i++
-            ) {
-
-                const heart =
-                    document.createElement("div");
-
-
-                heart.className =
-                    "heart";
-
-
-                heart.textContent =
-                    "♥";
-
-
-                const endX =
-                    Math.random() *
-                    window.innerWidth;
-
-
-                const endY =
-                    Math.random() *
-                    window.innerHeight;
-
-
-                const size =
-                    Math.random() * 25 + 15;
-
-
-                const rotation =
-                    Math.random() * 720 - 360;
-
-
-                const duration =
-                    Math.random() * 1.5 + 1.5;
-
-
-                const scale =
-                    Math.random() * 0.8 + 0.8;
-
-
-                heart.style.setProperty(
-                    "--start-x",
-                    startX + "px"
-                );
-
-
-                heart.style.setProperty(
-                    "--start-y",
-                    startY + "px"
-                );
-
-
-                heart.style.setProperty(
-                    "--end-x",
-                    endX + "px"
-                );
-
-
-                heart.style.setProperty(
-                    "--end-y",
-                    endY + "px"
-                );
-
-
-                heart.style.setProperty(
-                    "--rotation",
-                    rotation + "deg"
-                );
-
-
-                heart.style.setProperty(
-                    "--scale",
-                    scale
-                );
-
-
-                heart.style.setProperty(
-                    "--duration",
-                    duration + "s"
-                );
-
-
-                heart.style.fontSize =
-                    size + "px";
-
-
-                document.body.appendChild(
-                    heart
-                );
-
-
-                setTimeout(
-
-                    () => {
-                        heart.remove();
-                    },
-
-                    (duration + 0.2) * 1000
-                );
-
-            }
-
-        }
-
-    </script>
-
+</script>
 
 </body>
 </html>
