@@ -7,10 +7,12 @@
     <title>кайфовать.вместе</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             scroll-behavior: smooth;
         }
+
 
         body {
             margin: 0;
@@ -19,15 +21,17 @@
             background: #020202;
 
             color: white;
+
             font-family: Arial, sans-serif;
 
             overflow-x: hidden;
         }
 
 
-        /* КОСМИЧЕСКИЙ ФОН */
+        /* ОСНОВНОЙ КОСМИЧЕСКИЙ ФОН */
 
         body::before {
+
             content: "";
 
             position: fixed;
@@ -39,8 +43,8 @@
             background:
                 radial-gradient(
                     circle at 50% 50%,
-                    #161616 0%,
-                    #070707 35%,
+                    #171717 0%,
+                    #080808 35%,
                     #020202 70%,
                     #000000 100%
                 );
@@ -50,6 +54,7 @@
         /* ЗВЁЗДЫ */
 
         .stars {
+
             position: fixed;
 
             inset: 0;
@@ -59,9 +64,24 @@
             pointer-events: none;
 
             background-image:
-                radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px);
+
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.8) 1px,
+                    transparent 1px
+                ),
+
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.5) 1px,
+                    transparent 1px
+                ),
+
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.35) 1px,
+                    transparent 1px
+                );
 
             background-size:
                 130px 130px,
@@ -80,6 +100,7 @@
         /* ЧЁРНАЯ ДЫРА */
 
         .black-hole {
+
             position: fixed;
 
             width: 650px;
@@ -88,7 +109,8 @@
             left: 50%;
             top: 50%;
 
-            transform: translate(-50%, -50%);
+            transform:
+                translate(-50%, -50%);
 
             z-index: -8;
 
@@ -96,9 +118,10 @@
         }
 
 
-        /* СВЕЧЕНИЕ ВОКРУГ ДЫРЫ */
+        /* СВЕЧЕНИЕ ВОКРУГ */
 
         .black-hole::before {
+
             content: "";
 
             position: absolute;
@@ -109,25 +132,36 @@
             border-radius: 50%;
 
             background:
+
                 radial-gradient(
                     circle,
+
                     #000000 0%,
-                    #000000 27%,
-                    rgba(255,255,255,0.05) 28%,
-                    rgba(255,255,255,0.12) 34%,
-                    rgba(255,255,255,0.03) 45%,
+                    #000000 26%,
+
+                    rgba(255, 190, 70, 0.12) 27%,
+
+                    rgba(255, 90, 0, 0.22) 32%,
+
+                    rgba(130, 20, 0, 0.12) 42%,
+
                     transparent 62%
                 );
 
             box-shadow:
-                0 0 80px rgba(255,255,255,0.08),
-                0 0 160px rgba(255,255,255,0.04);
+
+                0 0 70px
+                rgba(255, 80, 0, 0.14),
+
+                0 0 150px
+                rgba(255, 40, 0, 0.08);
         }
 
 
-        /* ВРАЩАЮЩИЙСЯ АККРЕЦИОННЫЙ ДИСК */
+        /* АККРЕЦИОННЫЙ ДИСК */
 
         .accretion-disk {
+
             position: absolute;
 
             width: 100%;
@@ -135,62 +169,176 @@
 
             border-radius: 50%;
 
+
             background:
+
                 conic-gradient(
+
                     from 0deg,
+
                     transparent 0deg,
-                    rgba(255,255,255,0.04) 25deg,
-                    rgba(255,255,255,0.35) 55deg,
-                    rgba(255,255,255,0.06) 90deg,
-                    transparent 130deg,
-                    rgba(255,255,255,0.04) 180deg,
-                    rgba(255,255,255,0.3) 225deg,
-                    rgba(255,255,255,0.05) 260deg,
-                    transparent 310deg,
-                    rgba(255,255,255,0.25) 345deg,
+
+                    #350700 20deg,
+
+                    #741300 35deg,
+
+                    #d52f00 48deg,
+
+                    #ff6500 60deg,
+
+                    #ffb52e 70deg,
+
+                    #fff0a8 80deg,
+
+                    #fff9d0 88deg,
+
+                    #ffbd38 96deg,
+
+                    #ff6900 108deg,
+
+                    #a92500 125deg,
+
+                    #3d0800 145deg,
+
+                    transparent 160deg,
+
+
+                    transparent 180deg,
+
+
+                    #3d0800 200deg,
+
+                    #8e1b00 215deg,
+
+                    #e13c00 230deg,
+
+                    #ff7000 242deg,
+
+                    #ffc84c 252deg,
+
+                    #fff3b0 262deg,
+
+                    #fff9d6 270deg,
+
+                    #ffbf3a 278deg,
+
+                    #ff6200 290deg,
+
+                    #9b1e00 305deg,
+
+                    #410800 325deg,
+
+                    transparent 340deg,
+
+
+                    #350700 355deg,
+
                     transparent 360deg
                 );
 
-            filter: blur(10px);
 
-            transform: rotateX(65deg);
+            filter:
+
+                blur(11px)
+                contrast(1.35)
+                saturate(1.25);
+
+
+            transform:
+
+                rotateX(65deg);
+
 
             animation:
+
                 rotateDisk
                 8s
+                linear
+                infinite;
+
+
+            box-shadow:
+
+                0 0 35px
+                rgba(255, 80, 0, 0.35),
+
+                0 0 80px
+                rgba(255, 40, 0, 0.20),
+
+                0 0 140px
+                rgba(180, 20, 0, 0.12);
+        }
+
+
+        /* ВНУТРЕННИЕ ПОТОКИ ГАЗА */
+
+        .accretion-disk::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 13%;
+
+            border-radius: 50%;
+
+
+            background:
+
+                conic-gradient(
+
+                    from 180deg,
+
+                    transparent 0deg,
+
+                    rgba(130, 15, 0, 0.5) 30deg,
+
+                    rgba(255, 55, 0, 0.8) 55deg,
+
+                    rgba(255, 180, 45, 0.95) 75deg,
+
+                    rgba(255, 245, 180, 1) 88deg,
+
+                    rgba(255, 110, 0, 0.85) 105deg,
+
+                    transparent 135deg,
+
+                    transparent 170deg,
+
+                    rgba(150, 20, 0, 0.6) 205deg,
+
+                    rgba(255, 60, 0, 0.85) 225deg,
+
+                    rgba(255, 195, 55, 0.95) 250deg,
+
+                    rgba(255, 242, 170, 1) 265deg,
+
+                    rgba(255, 90, 0, 0.8) 285deg,
+
+                    transparent 320deg,
+
+                    transparent 360deg
+                );
+
+
+            filter:
+
+                blur(8px);
+
+
+            animation:
+
+                rotateInnerDisk
+                4s
                 linear
                 infinite;
         }
 
 
-        /* ВТОРОЙ СЛОЙ ДИСКА */
-
-        .accretion-disk::before {
-            content: "";
-
-            position: absolute;
-
-            inset: 12%;
-
-            border-radius: 50%;
-
-            background:
-                conic-gradient(
-                    from 90deg,
-                    transparent,
-                    rgba(255,255,255,0.25),
-                    transparent,
-                    rgba(255,255,255,0.18),
-                    transparent
-                );
-
-            filter: blur(7px);
-        }
-
-
-        /* САМА ЧЁРНАЯ ОБЛАСТЬ */
+        /* ЦЕНТР ЧЁРНОЙ ДЫРЫ */
 
         .event-horizon {
+
             position: absolute;
 
             width: 250px;
@@ -199,28 +347,43 @@
             left: 50%;
             top: 50%;
 
-            transform: translate(-50%, -50%);
+            transform:
+                translate(-50%, -50%);
 
             border-radius: 50%;
 
-            background: #000;
+            background: #000000;
+
 
             box-shadow:
-                0 0 35px #000,
-                0 0 70px #000,
-                0 0 100px rgba(0,0,0,0.95);
+
+                0 0 30px
+                #000000,
+
+                0 0 60px
+                #000000,
+
+                0 0 100px
+                rgba(0,0,0,0.98),
+
+                inset 0 0 30px
+                #000000;
         }
 
+
+        /* ВРАЩЕНИЕ ДИСКА */
 
         @keyframes rotateDisk {
 
             from {
+
                 transform:
                     rotateX(65deg)
                     rotateZ(0deg);
             }
 
             to {
+
                 transform:
                     rotateX(65deg)
                     rotateZ(360deg);
@@ -228,9 +391,28 @@
         }
 
 
+        /* ВРАЩЕНИЕ ВНУТРЕННЕГО СЛОЯ */
+
+        @keyframes rotateInnerDisk {
+
+            from {
+
+                transform:
+                    rotate(0deg);
+            }
+
+            to {
+
+                transform:
+                    rotate(-360deg);
+            }
+        }
+
+
         /* ВЕРХНЕЕ МЕНЮ */
 
         nav {
+
             position: fixed;
 
             top: 0;
@@ -240,22 +422,28 @@
             height: 60px;
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
             padding: 0 42px;
 
-            background: rgba(3, 3, 3, 0.65);
+            background:
+                rgba(3, 3, 3, 0.65);
 
-            border-bottom: 1px solid #202020;
+            border-bottom:
+                1px solid #202020;
 
-            backdrop-filter: blur(10px);
+            backdrop-filter:
+                blur(10px);
 
             z-index: 100;
         }
 
 
         .logo {
+
             font-size: 18px;
 
             font-weight: bold;
@@ -265,6 +453,7 @@
 
 
         .menu {
+
             display: flex;
 
             gap: 42px;
@@ -272,17 +461,20 @@
 
 
         .menu a {
+
             color: #777;
 
             text-decoration: none;
 
             font-size: 15px;
 
-            transition: 0.25s;
+            transition:
+                0.25s;
         }
 
 
         .menu a:hover {
+
             color: white;
         }
 
@@ -290,7 +482,9 @@
         /* ГЛАВНАЯ */
 
         .hero {
+
             width: 100%;
+
             height: 100vh;
 
             display: flex;
@@ -306,9 +500,11 @@
         /* ПЕРСОНАЖИ */
 
         .characters {
+
             width: 58%;
 
-            height: calc(100vh - 60px);
+            height:
+                calc(100vh - 60px);
 
             display: flex;
 
@@ -321,6 +517,7 @@
 
 
         .characters img {
+
             width: 1250px;
 
             max-width: 140%;
@@ -332,31 +529,49 @@
             pointer-events: none;
 
             transform:
+
                 scaleY(1.5)
                 translateY(-1px);
 
-            transform-origin: bottom center;
+            transform-origin:
+                bottom center;
 
             filter:
+
                 drop-shadow(
-                    0 0 30px rgba(255,255,255,0.07)
+                    0 0 30px
+                    rgba(255,255,255,0.07)
                 );
 
+
             -webkit-mask-image:
+
                 linear-gradient(
+
                     to bottom,
+
                     black 88%,
+
                     rgba(0,0,0,0.95) 94%,
+
                     rgba(0,0,0,0.8) 98%,
+
                     transparent 100%
                 );
 
+
             mask-image:
+
                 linear-gradient(
+
                     to bottom,
+
                     black 88%,
+
                     rgba(0,0,0,0.95) 94%,
+
                     rgba(0,0,0,0.8) 98%,
+
                     transparent 100%
                 );
         }
@@ -365,6 +580,7 @@
         /* ТЕКСТ */
 
         .text {
+
             width: 42%;
 
             padding-left: 5px;
@@ -378,6 +594,7 @@
 
 
         .text h1 {
+
             margin: 0;
 
             font-size: 54px;
@@ -387,12 +604,17 @@
             white-space: nowrap;
 
             text-shadow:
-                0 0 10px rgba(255,255,255,0.25),
-                0 0 30px rgba(255,255,255,0.12);
+
+                0 0 10px
+                rgba(255,255,255,0.25),
+
+                0 0 30px
+                rgba(255,255,255,0.12);
         }
 
 
         .text p {
+
             margin-top: 25px;
 
             color: #888;
@@ -404,23 +626,29 @@
         /* КНОПКА */
 
         button {
+
             margin-top: 25px;
 
-            padding: 13px 30px;
+            padding:
+                13px 30px;
 
-            background: rgba(15,15,15,0.8);
+            background:
+                rgba(15,15,15,0.8);
 
             color: white;
 
-            border: 1px solid #383838;
+            border:
+                1px solid #383838;
 
-            border-radius: 8px;
+            border-radius:
+                8px;
 
             font-size: 16px;
 
             cursor: pointer;
 
-            transition: 0.25s;
+            transition:
+                0.25s;
 
             position: relative;
 
@@ -429,23 +657,31 @@
 
 
         button:hover {
-            background: #222;
 
-            border-color: #555;
+            background:
+                #222;
 
-            transform: scale(1.05);
+            border-color:
+                #555;
+
+            transform:
+                scale(1.05);
 
             box-shadow:
-                0 0 25px rgba(255,255,255,0.12);
+
+                0 0 25px
+                rgba(255,255,255,0.12);
         }
 
 
         /* РАЗДЕЛ ФОТО */
 
         .photos {
+
             min-height: 100vh;
 
-            padding: 120px 60px 80px;
+            padding:
+                120px 60px 80px;
 
             display: flex;
 
@@ -456,6 +692,7 @@
             justify-content: center;
 
             background:
+
                 radial-gradient(
                     circle at center,
                     rgba(20,20,20,0.85),
@@ -465,14 +702,18 @@
 
 
         .photos h2 {
-            margin: 0 0 15px;
+
+            margin:
+                0 0 15px;
 
             font-size: 42px;
         }
 
 
         .photos p {
-            margin: 0 0 45px;
+
+            margin:
+                0 0 45px;
 
             color: #777;
 
@@ -481,22 +722,30 @@
 
 
         .photo-card {
-            width: min(900px, 90vw);
+
+            width:
+                min(900px, 90vw);
 
             padding: 25px;
 
-            background: rgba(15,15,15,0.7);
+            background:
+                rgba(15,15,15,0.7);
 
-            border: 1px solid #242424;
+            border:
+                1px solid #242424;
 
-            border-radius: 18px;
+            border-radius:
+                18px;
 
             box-shadow:
-                0 0 50px rgba(0,0,0,0.5);
+
+                0 0 50px
+                rgba(0,0,0,0.5);
         }
 
 
         .photo-card img {
+
             width: 100%;
 
             max-height: 600px;
@@ -505,13 +754,15 @@
 
             display: block;
 
-            border-radius: 12px;
+            border-radius:
+                12px;
         }
 
 
         /* КОНТАКТЫ */
 
         .contacts {
+
             min-height: 40vh;
 
             display: flex;
@@ -524,13 +775,16 @@
 
             text-align: center;
 
-            border-top: 1px solid #181818;
+            border-top:
+                1px solid #181818;
 
-            background: #020202;
+            background:
+                #020202;
         }
 
 
         .contacts h2 {
+
             font-size: 32px;
 
             margin-bottom: 10px;
@@ -538,6 +792,7 @@
 
 
         .contacts p {
+
             color: #777;
         }
 
@@ -545,6 +800,7 @@
         /* СЕРДЕЧКИ */
 
         .heart {
+
             position: fixed;
 
             left: 0;
@@ -559,6 +815,7 @@
             opacity: 1;
 
             animation:
+
                 flyHeart
                 var(--duration)
                 ease-out
@@ -569,28 +826,39 @@
         @keyframes flyHeart {
 
             0% {
+
                 transform:
+
                     translate(
                         var(--start-x),
                         var(--start-y)
                     )
+
                     scale(0.2)
+
                     rotate(0deg);
 
                 opacity: 1;
             }
 
+
             20% {
+
                 opacity: 1;
             }
 
+
             100% {
+
                 transform:
+
                     translate(
                         var(--end-x),
                         var(--end-y)
                     )
+
                     scale(var(--scale))
+
                     rotate(var(--rotation));
 
                 opacity: 0;
@@ -598,28 +866,35 @@
         }
 
 
-        /* ТЕЛЕФОН */
+        /* МОБИЛЬНАЯ ВЕРСИЯ */
 
         @media (max-width: 800px) {
 
             .black-hole {
+
                 width: 400px;
+
                 height: 400px;
             }
 
 
             .event-horizon {
+
                 width: 155px;
+
                 height: 155px;
             }
 
 
             nav {
-                padding: 0 20px;
+
+                padding:
+                    0 20px;
             }
 
 
             .logo {
+
                 font-size: 13px;
 
                 letter-spacing: 1px;
@@ -627,16 +902,19 @@
 
 
             .menu {
+
                 gap: 15px;
             }
 
 
             .menu a {
+
                 font-size: 12px;
             }
 
 
             .hero {
+
                 flex-direction: column;
 
                 height: auto;
@@ -648,6 +926,7 @@
 
 
             .characters {
+
                 width: 100%;
 
                 height: 50vh;
@@ -655,6 +934,7 @@
 
 
             .characters img {
+
                 width: 850px;
 
                 max-width: 150%;
@@ -662,6 +942,7 @@
 
 
             .text {
+
                 width: 100%;
 
                 padding: 30px;
@@ -673,6 +954,7 @@
 
 
             .text h1 {
+
                 font-size: 38px;
 
                 white-space: normal;
@@ -680,11 +962,14 @@
 
 
             .photos {
-                padding: 100px 20px 60px;
+
+                padding:
+                    100px 20px 60px;
             }
 
 
             .photos h2 {
+
                 font-size: 34px;
             }
         }
@@ -696,7 +981,7 @@
 <body>
 
 
-    <!-- КОСМИЧЕСКИЙ ФОН -->
+    <!-- ЗВЁЗДЫ -->
 
     <div class="stars"></div>
 
@@ -727,9 +1012,11 @@
                 Главная
             </a>
 
+
             <a href="#photos">
                 Наши фото
             </a>
+
 
             <a href="#contacts">
                 Контакты
@@ -839,14 +1126,20 @@
 
 
             const startX =
-                rect.left + rect.width / 2;
+                rect.left +
+                rect.width / 2;
 
 
             const startY =
-                rect.top + rect.height / 2;
+                rect.top +
+                rect.height / 2;
 
 
-            for (let i = 0; i < 80; i++) {
+            for (
+                let i = 0;
+                i < 80;
+                i++
+            ) {
 
                 const heart =
                     document.createElement("div");
@@ -937,11 +1230,14 @@
                 );
 
 
-                setTimeout(() => {
+                setTimeout(
 
-                    heart.remove();
+                    () => {
+                        heart.remove();
+                    },
 
-                }, (duration + 0.2) * 1000);
+                    (duration + 0.2) * 1000
+                );
 
             }
 
