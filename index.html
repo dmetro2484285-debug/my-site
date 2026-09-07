@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>suspectstyle for nikto242</title>
 
 <style>
+
+/* =========================
+   ОСНОВНЫЕ НАСТРОЙКИ
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -23,12 +29,17 @@ body {
     overflow-x: hidden;
 }
 
-/* ФОН */
+
+/* =========================
+   ФОН
+========================= */
 
 .space {
     position: fixed;
     inset: 0;
+
     overflow: hidden;
+
     background:
         radial-gradient(
             circle at center,
@@ -36,12 +47,15 @@ body {
             #050505 45%,
             #000 100%
         );
+
     z-index: -10;
 }
 
 .space::before {
     content: "";
+
     position: absolute;
+
     inset: 0;
 
     background-image:
@@ -74,7 +88,10 @@ body {
     opacity: .55;
 }
 
-/* СТАРЫЙ КРУГ */
+
+/* =========================
+   ЦЕНТРАЛЬНОЕ СВЕЧЕНИЕ
+========================= */
 
 .space::after {
     content: "";
@@ -87,7 +104,8 @@ body {
     left: 50%;
     top: 50%;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
 
     border-radius: 50%;
 
@@ -105,7 +123,10 @@ body {
     pointer-events: none;
 }
 
-/* МЕНЮ */
+
+/* =========================
+   МЕНЮ
+========================= */
 
 nav {
     position: fixed;
@@ -117,12 +138,14 @@ nav {
     height: 70px;
 
     display: flex;
+
     align-items: center;
     justify-content: space-between;
 
     padding: 0 45px;
 
-    background: rgba(0,0,0,.55);
+    background:
+        rgba(0,0,0,.55);
 
     backdrop-filter: blur(12px);
 
@@ -134,20 +157,27 @@ nav {
 
 .logo {
     font-size: 18px;
+
     font-weight: bold;
+
     letter-spacing: 1px;
 }
 
 nav ul {
     display: flex;
+
     gap: 30px;
+
     list-style: none;
 }
 
 nav a {
     color: white;
+
     text-decoration: none;
+
     font-size: 14px;
+
     transition: .3s;
 }
 
@@ -155,57 +185,125 @@ nav a:hover {
     color: #ff4a20;
 }
 
-/* ГЛАВНАЯ */
+
+/* =========================
+   ГЛАВНЫЙ ЭКРАН
+========================= */
 
 .hero {
     min-height: 100vh;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    padding: 100px 8%;
+    padding-top: 70px;
 
     position: relative;
+
     z-index: 10;
 }
 
 .hero-content {
+    width: 100%;
+
+    min-height:
+        calc(100vh - 70px);
+
     display: flex;
-    align-items: center;
 
-    gap: 70px;
+    align-items: flex-end;
 
-    max-width: 1100px;
+    justify-content: center;
+
+    position: relative;
 }
 
+
+/* =========================
+   ПЕРСОНАЖИ
+   ТВОЙ СТАРЫЙ РАЗМЕР
+========================= */
+
 .characters {
-    width: 440px;
-    max-width: 45vw;
+    width: 58%;
+
+    height:
+        calc(100vh - 60px);
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    position: relative;
+
+    flex-shrink: 0;
+}
+
+.characters img {
+    width: 1250px;
+
+    max-width: 140%;
+
+    height: auto;
+
+    display: block;
+
+    pointer-events: none;
 
     transform:
         scaleY(1.5)
         translateY(-1px);
 
-    pointer-events: none;
+    transform-origin:
+        bottom center;
 
-    mask-image:
-        linear-gradient(
-            to bottom,
-            black 75%,
-            transparent 100%
+    filter:
+        drop-shadow(
+            0 0 30px
+            rgba(255,255,255,0.07)
         );
 
     -webkit-mask-image:
         linear-gradient(
             to bottom,
-            black 75%,
+            black 88%,
+            rgba(0,0,0,0.95) 94%,
+            rgba(0,0,0,0.8) 98%,
+            transparent 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black 88%,
+            rgba(0,0,0,0.95) 94%,
+            rgba(0,0,0,0.8) 98%,
             transparent 100%
         );
 }
 
+
+/* =========================
+   ТЕКСТ
+========================= */
+
 .text {
-    max-width: 500px;
+    width: 42%;
+
+    max-width: 650px;
+
+    padding-right: 45px;
+
+    position: relative;
+
+    z-index: 30;
+
+    margin-bottom: 25vh;
 }
 
 .text h1 {
@@ -215,6 +313,8 @@ nav a:hover {
     line-height: .95;
 
     margin-bottom: 20px;
+
+    white-space: nowrap;
 }
 
 .text p {
@@ -224,6 +324,11 @@ nav a:hover {
 
     margin-bottom: 30px;
 }
+
+
+/* =========================
+   КНОПКА
+========================= */
 
 .button {
     display: inline-block;
@@ -245,16 +350,24 @@ nav a:hover {
     font-size: 16px;
 
     transition: .3s;
+
+    position: relative;
+
+    z-index: 40;
 }
 
 .button:hover {
     background: #ff3b1f;
 
     box-shadow:
-        0 0 25px rgba(255,50,20,.6);
+        0 0 25px
+        rgba(255,50,20,.6);
 }
 
-/* СЕКЦИИ */
+
+/* =========================
+   СЕКЦИИ
+========================= */
 
 section {
     min-height: 100vh;
@@ -262,20 +375,26 @@ section {
     padding: 120px 8%;
 
     position: relative;
+
     z-index: 10;
 }
 
 section h2 {
     font-size: 50px;
+
     margin-bottom: 30px;
 }
 
 section p {
     color: #aaa;
+
     font-size: 18px;
 }
 
-/* СЕРДЦА */
+
+/* =========================
+   СЕРДЦА
+========================= */
 
 .heart {
     position: fixed;
@@ -319,9 +438,12 @@ section p {
     }
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ */
 
-@media (max-width: 800px) {
+/* =========================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
+
+@media (max-width: 900px) {
 
     nav {
         padding: 0 20px;
@@ -335,26 +457,54 @@ section p {
         font-size: 12px;
     }
 
+    .hero {
+        padding-top: 70px;
+    }
+
     .hero-content {
         flex-direction: column;
 
-        gap: 20px;
+        align-items: center;
+
+        justify-content: center;
+    }
+
+    .characters {
+        width: 100%;
+
+        height:
+            calc(70vh - 20px);
+
+        display: flex;
+
+        align-items: flex-end;
+
+        justify-content: center;
+    }
+
+    .characters img {
+        width: 1250px;
+
+        max-width: 140%;
+    }
+
+    .text {
+        width: 100%;
+
+        max-width: 600px;
+
+        padding:
+            20px 20px 50px;
+
+        margin-bottom: 0;
 
         text-align: center;
     }
 
-    .characters {
-        width: 330px;
-        max-width: 80vw;
-    }
-
-    .space::after {
-        width: 450px;
-        height: 450px;
-    }
-
     .text h1 {
         font-size: 48px;
+
+        white-space: normal;
     }
 
     .text p {
@@ -365,16 +515,58 @@ section p {
         font-size: 38px;
     }
 }
+
+
+/* =========================
+   МАЛЕНЬКИЙ ЭКРАН
+========================= */
+
+@media (max-width: 500px) {
+
+    .logo {
+        font-size: 14px;
+    }
+
+    nav ul {
+        gap: 8px;
+    }
+
+    nav a {
+        font-size: 10px;
+    }
+
+    .characters {
+        height: 55vh;
+    }
+
+    .characters img {
+        width: 1000px;
+
+        max-width: 150%;
+    }
+
+    .text h1 {
+        font-size: 40px;
+    }
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- ФОН -->
+
+<!-- =========================
+     ФОН
+========================= -->
 
 <div class="space"></div>
 
-<!-- МЕНЮ -->
+
+<!-- =========================
+     МЕНЮ
+========================= -->
 
 <nav>
 
@@ -406,9 +598,17 @@ section p {
 
 </nav>
 
-<!-- ГЛАВНАЯ -->
+
+<!-- =========================
+     ОСНОВНОЙ КОНТЕНТ
+========================= -->
 
 <main>
+
+
+<!-- =========================
+     ГЛАВНАЯ
+========================= -->
 
 <section
     class="hero"
@@ -417,11 +617,20 @@ section p {
 
     <div class="hero-content">
 
-        <img
-            src="characters.png"
-            class="characters"
-            alt="characters"
-        >
+
+        <!-- ПЕРСОНАЖИ -->
+
+        <div class="characters">
+
+            <img
+                src="characters.png"
+                alt="characters"
+            >
+
+        </div>
+
+
+        <!-- ТЕКСТ -->
 
         <div class="text">
 
@@ -442,13 +651,19 @@ section p {
 
         </div>
 
+
     </div>
 
 </section>
 
-<!-- НАШИ ФОТО -->
 
-<section id="photos">
+<!-- =========================
+     НАШИ ФОТО
+========================= -->
+
+<section
+    id="photos"
+>
 
     <h2>
         Наши фото
@@ -460,9 +675,14 @@ section p {
 
 </section>
 
-<!-- КОНТАКТЫ -->
 
-<section id="contacts">
+<!-- =========================
+     КОНТАКТЫ
+========================= -->
+
+<section
+    id="contacts"
+>
 
     <h2>
         Контакты
@@ -474,7 +694,13 @@ section p {
 
 </section>
 
+
 </main>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script>
 
@@ -486,80 +712,114 @@ function createHearts() {
     const rect =
         button.getBoundingClientRect();
 
+
     const startX =
-        rect.left + rect.width / 2;
+        rect.left +
+        rect.width / 2;
+
 
     const startY =
-        rect.top + rect.height / 2;
+        rect.top +
+        rect.height / 2;
 
-    for (let i = 0; i < 80; i++) {
+
+    for (
+        let i = 0;
+        i < 80;
+        i++
+    ) {
 
         const heart =
             document.createElement("div");
 
-        heart.className = "heart";
 
-        heart.textContent = "♥";
+        heart.className =
+            "heart";
+
+
+        heart.textContent =
+            "♥";
+
 
         const x =
             Math.random() *
             window.innerWidth;
 
+
         const y =
             Math.random() *
             window.innerHeight;
 
+
         const scale =
-            0.5 + Math.random() * 2;
+            0.5 +
+            Math.random() * 2;
+
 
         const duration =
-            1.5 + Math.random() * 2;
+            1.5 +
+            Math.random() * 2;
+
 
         const rotation =
             -180 +
             Math.random() * 360;
 
+
         heart.style.left =
             startX + "px";
 
+
         heart.style.top =
             startY + "px";
+
 
         heart.style.setProperty(
             "--x",
             x + "px"
         );
 
+
         heart.style.setProperty(
             "--y",
             y + "px"
         );
+
 
         heart.style.setProperty(
             "--scale",
             scale
         );
 
+
         heart.style.setProperty(
             "--duration",
             duration + "s"
         );
+
 
         heart.style.setProperty(
             "--rotation",
             rotation + "deg"
         );
 
-        document.body.appendChild(heart);
+
+        document.body.appendChild(
+            heart
+        );
+
 
         setTimeout(
             () => heart.remove(),
             duration * 1000
         );
+
     }
+
 }
 
 </script>
+
 
 </body>
 </html>
