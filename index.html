@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>suspectstyle for nikto242</title>
 
 <style>
@@ -27,6 +26,7 @@ body {
     color: white;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
+    min-height: 300vh;
 }
 
 
@@ -35,14 +35,19 @@ body {
 ========================= */
 
 .space {
-    position: fixed;
-    inset: 0;
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 300vh;
 
     overflow: hidden;
 
     background:
         radial-gradient(
-            circle at center,
+            circle at 50% 35%,
             #161616 0%,
             #050505 45%,
             #000 100%
@@ -102,7 +107,7 @@ body {
     height: 650px;
 
     left: 50%;
-    top: 50%;
+    top: 35%;
 
     transform:
         translate(-50%, -50%);
@@ -196,7 +201,6 @@ nav a:hover {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     padding-top: 70px;
@@ -236,7 +240,6 @@ nav a:hover {
     display: flex;
 
     align-items: flex-end;
-
     justify-content: center;
 
     position: relative;
@@ -618,8 +621,6 @@ section p {
     <div class="hero-content">
 
 
-        <!-- ПЕРСОНАЖИ -->
-
         <div class="characters">
 
             <img
@@ -629,8 +630,6 @@ section p {
 
         </div>
 
-
-        <!-- ТЕКСТ -->
 
         <div class="text">
 
