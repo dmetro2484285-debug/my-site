@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>кайфовать.вместе</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 35% 45%,
+                    #191919 0%,
+                    #0b0b0b 48%,
+                    #020202 100%
+                );
+
+            color: white;
+            font-family: Arial, sans-serif;
+
+            overflow: hidden;
+        }
+
+
+        /* ВЕРХНЕЕ МЕНЮ */
+
+        nav {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 60px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 42px;
+
+            background: rgba(3, 3, 3, 0.65);
+
+            border-bottom: 1px solid #202020;
+
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .menu {
+            display: flex;
+            gap: 42px;
+        }
+
+        .menu a {
+            color: #777;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.25s;
+        }
+
+        .menu a:hover {
+            color: white;
+        }
+
+
+        /* ГЛАВНАЯ ЧАСТЬ */
+
+        .hero {
+            width: 100%;
+            height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding-top: 60px;
+        }
+
+
+        /* ПЕРСОНАЖИ */
+
+        .characters {
+            width: 58%;
+            height: calc(100vh - 60px);
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .characters img {
+            width: 1250px;
+            max-width: 140%;
+
+            height: auto;
+
+            display: block;
+
+            pointer-events: none;
+
+            transform:
+                scaleY(1.5)
+                translateY(-1px);
+
+            transform-origin: bottom center;
+
+            filter:
+                drop-shadow(
+                    0 0 30px rgba(255, 255, 255, 0.07)
+                );
+
+            -webkit-mask-image:
+                linear-gradient(
+                    to bottom,
+                    black 88%,
+                    rgba(0, 0, 0, 0.95) 94%,
+                    rgba(0, 0, 0, 0.8) 98%,
+                    transparent 100%
+                );
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black 88%,
+                    rgba(0, 0, 0, 0.95) 94%,
+                    rgba(0, 0, 0, 0.8) 98%,
+                    transparent 100%
+                );
+        }
+
+
+        /* ТЕКСТ */
+
+        .text {
+            width: 42%;
+
+            padding-left: 5px;
+
+            margin-top: -30px;
+        }
+
+        .text h1 {
+            margin: 0;
+
+            font-size: 54px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.25),
+                0 0 30px rgba(255, 255, 255, 0.12);
+        }
+
+        .text p {
+            margin-top: 25px;
+
+            color: #888;
+
+            font-size: 18px;
+        }
+
+
+        /* КНОПКА */
+
+        button {
+            margin-top: 25px;
+
+            padding: 13px 30px;
+
+            background: rgba(15, 15, 15, 0.8);
+
+            color: white;
+
+            border: 1px solid #383838;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+            position: relative;
+            z-index: 20;
+        }
+
+        button:hover {
+            background: #222;
+
+            border-color: #555;
+
+            transform: scale(1.05);
+
+            box-shadow:
+                0 0 25px rgba(255, 255, 255, 0.12);
+        }
+
+
+        /* СЕРДЕЧКИ */
+
+        .heart {
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            color: #ff2b2b;
+
+            pointer-events: none;
+
+            z-index: 100;
+
+            opacity: 1;
+
+            animation:
+                flyHeart
+                var(--duration)
+                ease-out
+                forwards;
+        }
+
+        @keyframes flyHeart {
+
+            0% {
+                transform:
+                    translate(
+                        var(--start-x),
+                        var(--start-y)
+                    )
+                    scale(0.2)
+                    rotate(0deg);
+
+                opacity: 1;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translate(
+                        var(--end-x),
+                        var(--end-y)
+                    )
+                    scale(var(--scale))
+                    rotate(var(--rotation));
+
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            suspectstyle for nikto242
+        </div>
+
+        <div class="menu">
+
+            <a href="#">
+                Главная
+            </a>
+
+            <a href="#">
+                Наши фото
+            </a>
+
+            <a href="#">
+                Контакты
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="hero">
+
+        <div class="characters">
+
+            <img
+                src="characters.png"
+                alt="Персонажи"
+            >
+
+        </div>
+
+
+        <div class="text">
+
+            <h1>
+                кайфовать.вместе
+            </h1>
+
+            <p>
+                Это моя первая страница.
+            </p>
+
+            <button onclick="createHearts()">
+                Нажми меня
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        function createHearts() {
+
+            const button = document.querySelector("button");
+
+            const rect = button.getBoundingClientRect();
+
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+
+
+            for (let i = 0; i < 80; i++) {
+
+                const heart = document.createElement("div");
+
+                heart.className = "heart";
+                heart.textContent = "♥";
+
+
+                /* Случайная точка по всему экрану */
+
+                const endX =
+                    Math.random() * window.innerWidth;
+
+                const endY =
+                    Math.random() * window.innerHeight;
+
+
+                /* Размер */
+
+                const size =
+                    Math.random() * 25 + 15;
+
+
+                /* Поворот */
+
+                const rotation =
+                    Math.random() * 720 - 360;
+
+
+                /* Скорость */
+
+                const duration =
+                    Math.random() * 1.5 + 1.5;
+
+
+                /* Масштаб */
+
+                const scale =
+                    Math.random() * 0.8 + 0.8;
+
+
+                heart.style.setProperty(
+                    "--start-x",
+                    startX + "px"
+                );
+
+                heart.style.setProperty(
+                    "--start-y",
+                    startY + "px"
+                );
+
+                heart.style.setProperty(
+                    "--end-x",
+                    endX + "px"
+                );
+
+                heart.style.setProperty(
+                    "--end-y",
+                    endY + "px"
+                );
+
+                heart.style.setProperty(
+                    "--rotation",
+                    rotation + "deg"
+                );
+
+                heart.style.setProperty(
+                    "--scale",
+                    scale
+                );
+
+                heart.style.setProperty(
+                    "--duration",
+                    duration + "s"
+                );
+
+                heart.style.fontSize =
+                    size + "px";
+
+
+                document.body.appendChild(heart);
+
+
+                setTimeout(() => {
+                    heart.remove();
+                }, (duration + 0.2) * 1000);
+            }
+        }
+
+    </script>
+
+</body>
+</html>
