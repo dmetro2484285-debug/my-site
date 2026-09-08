@@ -12,11 +12,6 @@
             box-sizing: border-box;
         }
 
-
-        /* =========================
-           ОСНОВА
-        ========================= */
-
         html {
             scroll-behavior: smooth;
         }
@@ -24,59 +19,299 @@
         body {
             margin: 0;
             min-height: 100vh;
-
-            background:
-                radial-gradient(
-                    circle at 50% 50%,
-                    #191919 0%,
-                    #0b0b0b 48%,
-                    #020202 100%
-                );
+            overflow-x: hidden;
 
             color: white;
             font-family: Arial, sans-serif;
 
-            overflow-x: hidden;
+            background:
+                radial-gradient(
+                    ellipse at 50% 45%,
+                    #11182b 0%,
+                    #080b18 38%,
+                    #03040a 72%,
+                    #000000 100%
+                );
         }
 
 
-        /* =========================
-           ЗВЁЗДЫ
-        ========================= */
+        /* ================================= */
+        /*          ГЛУБОКИЙ КОСМОС            */
+        /* ================================= */
 
         body::before {
             content: "";
             position: fixed;
-
-            inset: 0;
+            inset: -20%;
 
             pointer-events: none;
+            z-index: 0;
 
             background-image:
-                radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+
+                /* МЕЛКИЕ ДАЛЁКИЕ ЗВЁЗДЫ */
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.75) 0.35px,
+                    transparent 0.9px
+                ),
+
+                radial-gradient(
+                    circle,
+                    rgba(210,225,255,0.7) 0.45px,
+                    transparent 1px
+                ),
+
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.55) 0.6px,
+                    transparent 1.2px
+                ),
+
+                /* РЕДКИЕ БОЛЕЕ ЯРКИЕ ЗВЁЗДЫ */
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.9) 0.8px,
+                    transparent 1.8px
+                ),
+
+                radial-gradient(
+                    circle,
+                    rgba(190,215,255,0.8) 0.9px,
+                    transparent 2px
+                ),
+
+                /* ГОЛУБАЯ ТУМАННОСТЬ */
+                radial-gradient(
+                    ellipse at 25% 35%,
+                    rgba(55,95,190,0.18) 0%,
+                    rgba(35,65,145,0.10) 18%,
+                    transparent 45%
+                ),
+
+                /* ФИОЛЕТОВАЯ ТУМАННОСТЬ */
+                radial-gradient(
+                    ellipse at 75% 25%,
+                    rgba(120,55,180,0.16) 0%,
+                    rgba(90,35,150,0.08) 20%,
+                    transparent 48%
+                ),
+
+                /* КРАСНАЯ ТУМАННОСТЬ */
+                radial-gradient(
+                    ellipse at 65% 75%,
+                    rgba(160,45,65,0.11) 0%,
+                    rgba(100,25,45,0.06) 20%,
+                    transparent 45%
+                ),
+
+                /* ХОЛОДНАЯ ТУМАННОСТЬ */
+                radial-gradient(
+                    ellipse at 10% 80%,
+                    rgba(40,100,170,0.13) 0%,
+                    rgba(30,70,130,0.06) 22%,
+                    transparent 48%
+                );
 
             background-size:
-                110px 110px,
-                170px 170px;
+                38px 42px,
+                67px 73px,
+                113px 127px,
+                190px 210px,
+                310px 340px,
+                100% 100%,
+                100% 100%,
+                100% 100%,
+                100% 100%;
 
             background-position:
                 0 0,
-                40px 70px;
+                27px 51px,
+                83px 17px,
+                140px 90px,
+                210px 40px,
+                0 0,
+                0 0,
+                0 0,
+                0 0;
 
-            opacity: 0.65;
+            opacity: 0.9;
 
-            z-index: 0;
+            animation: spaceDrift 120s linear infinite;
         }
 
 
-        /* =========================
-           ВЕРХНЕЕ МЕНЮ
-        ========================= */
+        /* ================================= */
+        /*           ЯРКИЕ ЗВЁЗДЫ              */
+        /* ================================= */
 
-        nav {
+        body::after {
+            content: "";
             position: fixed;
+            inset: -10%;
 
+            pointer-events: none;
+            z-index: 0;
+
+            background-image:
+
+                /* БЕЛЫЕ ЯРКИЕ ЗВЁЗДЫ */
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,1) 0px,
+                    rgba(255,255,255,0.95) 1px,
+                    rgba(255,255,255,0.35) 2px,
+                    transparent 5px
+                ),
+
+                /* ГОЛУБЫЕ ЗВЁЗДЫ */
+                radial-gradient(
+                    circle,
+                    rgba(205,225,255,1) 0px,
+                    rgba(175,210,255,0.85) 1px,
+                    rgba(100,160,255,0.25) 3px,
+                    transparent 7px
+                ),
+
+                /* ТЁПЛЫЕ ЗВЁЗДЫ */
+                radial-gradient(
+                    circle,
+                    rgba(255,245,225,1) 0px,
+                    rgba(255,225,190,0.85) 1px,
+                    rgba(255,190,150,0.2) 3px,
+                    transparent 7px
+                ),
+
+                /* БОЛЬШАЯ ГОЛУБАЯ ТУМАННОСТЬ */
+                radial-gradient(
+                    ellipse at 35% 55%,
+                    rgba(50,90,190,0.13) 0%,
+                    rgba(40,65,150,0.08) 15%,
+                    rgba(30,45,100,0.04) 30%,
+                    transparent 58%
+                ),
+
+                /* ФИОЛЕТОВАЯ ОБЛАЧНОСТЬ */
+                radial-gradient(
+                    ellipse at 82% 65%,
+                    rgba(110,45,170,0.12) 0%,
+                    rgba(85,35,130,0.07) 18%,
+                    rgba(50,25,90,0.03) 35%,
+                    transparent 60%
+                );
+
+            background-size:
+                330px 360px,
+                520px 570px,
+                700px 760px,
+                100% 100%,
+                100% 100%;
+
+            background-position:
+                35px 20px,
+                180px 100px,
+                390px 260px,
+                0 0,
+                0 0;
+
+            opacity: 0.65;
+
+            animation:
+                starsTwinkle 9s ease-in-out infinite alternate,
+                nebulaDrift 180s linear infinite;
+        }
+
+
+        @keyframes spaceDrift {
+
+            0% {
+                transform:
+                    translate3d(0, 0, 0)
+                    scale(1);
+            }
+
+            25% {
+                transform:
+                    translate3d(-10px, 7px, 0)
+                    scale(1.015);
+            }
+
+            50% {
+                transform:
+                    translate3d(-20px, 14px, 0)
+                    scale(1.03);
+            }
+
+            75% {
+                transform:
+                    translate3d(-10px, 20px, 0)
+                    scale(1.015);
+            }
+
+            100% {
+                transform:
+                    translate3d(0, 0, 0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes starsTwinkle {
+
+            0% {
+                opacity: 0.42;
+            }
+
+            20% {
+                opacity: 0.52;
+            }
+
+            40% {
+                opacity: 0.68;
+            }
+
+            60% {
+                opacity: 0.48;
+            }
+
+            80% {
+                opacity: 0.72;
+            }
+
+            100% {
+                opacity: 0.55;
+            }
+        }
+
+
+        @keyframes nebulaDrift {
+
+            0% {
+                transform:
+                    translate3d(0, 0, 0)
+                    scale(1);
+            }
+
+            50% {
+                transform:
+                    translate3d(18px, -12px, 0)
+                    scale(1.025);
+            }
+
+            100% {
+                transform:
+                    translate3d(0, 0, 0)
+                    scale(1);
+            }
+        }
+
+
+        /* ================================= */
+        /*              МЕНЮ                  */
+        /* ================================= */
+
+        header {
+            position: fixed;
             top: 0;
             left: 0;
 
@@ -87,63 +322,56 @@
             align-items: center;
             justify-content: space-between;
 
-            padding: 0 42px;
+            padding: 0 35px;
 
-            background: rgba(3, 3, 3, 0.72);
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
 
-            border-bottom: 1px solid #202020;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
 
-            backdrop-filter: blur(8px);
-
-            z-index: 100;
+            z-index: 1000;
         }
 
 
         .logo {
-            font-size: 18px;
-            font-weight: bold;
-
-            letter-spacing: 3px;
-
+            font-size: 17px;
+            font-weight: 600;
             white-space: nowrap;
         }
 
 
-        .menu {
+        nav {
             display: flex;
-
-            gap: 32px;
+            gap: 30px;
         }
 
 
-        .menu a {
-            color: #777;
-
+        nav a {
+            color: white;
             text-decoration: none;
 
-            font-size: 15px;
+            font-size: 14px;
 
             transition: 0.25s;
         }
 
 
-        .menu a:hover {
-            color: white;
+        nav a:hover {
+            color: #ff2b2b;
         }
 
 
-        /* =========================
-           ГЛАВНЫЙ БЛОК
-        ========================= */
+        /* ================================= */
+        /*              ГЛАВНАЯ                */
+        /* ================================= */
 
         .hero {
-            width: 100%;
-            min-height: 100vh;
+            min-height: calc(100vh - 60px);
+
+            margin-top: 60px;
 
             display: flex;
             align-items: center;
-
-            padding-top: 60px;
 
             position: relative;
 
@@ -151,9 +379,9 @@
         }
 
 
-        /* =========================
-           ПЕРСОНАЖИ
-        ========================= */
+        /* ================================= */
+        /*            ПЕРСОНАЖИ                */
+        /* ================================= */
 
         .characters {
             width: 58%;
@@ -164,21 +392,16 @@
             justify-content: center;
 
             position: relative;
-
-            z-index: 2;
         }
 
 
         .characters img {
             width: 1250px;
-
             max-width: 140%;
-
             height: auto;
 
             display: block;
 
-            /* Картинка не блокирует кнопку */
             pointer-events: none;
 
             transform:
@@ -212,9 +435,9 @@
         }
 
 
-        /* =========================
-           ТЕКСТ
-        ========================= */
+        /* ================================= */
+        /*                ТЕКСТ                */
+        /* ================================= */
 
         .text {
             width: 42%;
@@ -232,10 +455,6 @@
         .text h1 {
             margin: 0;
 
-            /*
-               Не даём заголовку уехать
-               за правый край экрана
-            */
             font-size: clamp(38px, 4vw, 54px);
 
             font-weight: 700;
@@ -251,17 +470,17 @@
 
 
         .text p {
-            margin-top: 25px;
+            margin-top: 12px;
 
-            color: #888;
+            color: rgba(255,255,255,0.65);
 
-            font-size: 18px;
+            font-size: 15px;
         }
 
 
-        /* =========================
-           КНОПКА
-        ========================= */
+        /* ================================= */
+        /*              КНОПКА                 */
+        /* ================================= */
 
         button {
             position: relative;
@@ -291,20 +510,16 @@
 
 
         button:hover {
-            background: #222;
-
-            border-color: #ff2b2b;
-
-            transform: scale(1.05);
+            background: #ff2b2b;
 
             box-shadow:
-                0 0 25px rgba(255, 43, 43, 0.35);
+                0 0 20px rgba(255,43,43,0.4);
         }
 
 
-        /* =========================
-           СЛОЙ СЕРДЕЧЕК
-        ========================= */
+        /* ================================= */
+        /*              СЕРДЦА                 */
+        /* ================================= */
 
         #hearts-container {
             position: fixed;
@@ -322,10 +537,6 @@
         }
 
 
-        /* =========================
-           ОТДЕЛЬНОЕ СЕРДЕЧКО
-        ========================= */
-
         .heart {
             position: absolute;
 
@@ -334,15 +545,15 @@
 
             color: #ff2b2b;
 
-            font-size: 24px;
-
             line-height: 1;
 
             pointer-events: none;
 
             user-select: none;
 
-            will-change: transform, opacity;
+            will-change:
+                transform,
+                opacity;
 
             text-shadow:
                 0 0 8px rgba(255, 43, 43, 0.5);
@@ -354,10 +565,6 @@
             animation-fill-mode: forwards;
         }
 
-
-        /* =========================
-           ПОЛЁТ СЕРДЕЧКА
-        ========================= */
 
         @keyframes flyHeart {
 
@@ -391,14 +598,14 @@
         }
 
 
-        /* =========================
-           ВТОРАЯ СЕКЦИЯ
-        ========================= */
+        /* ================================= */
+        /*              ФОТО                   */
+        /* ================================= */
 
         .photos {
             min-height: 100vh;
 
-            padding: 120px 8%;
+            padding: 100px 8%;
 
             position: relative;
 
@@ -407,100 +614,240 @@
 
 
         .photos h2 {
-            margin: 0 0 25px;
+            font-size: 42px;
 
-            font-size: 48px;
+            margin-bottom: 40px;
         }
 
 
-        .photos p {
-            color: #888;
+        /* ================================= */
+        /*              МУЗЫКА                 */
+        /* ================================= */
 
-            font-size: 18px;
+        .music {
+            min-height: 100vh;
+
+            padding: 100px 8%;
+
+            position: relative;
+
+            z-index: 1;
         }
 
 
-        /* =========================
-           АДАПТАЦИЯ
-        ========================= */
+        .music h2 {
+            font-size: 42px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .music p {
+            color: rgba(255,255,255,0.6);
+        }
+
+
+        .music-card {
+            width: 320px;
+
+            margin-top: 40px;
+
+            padding: 25px;
+
+            background:
+                rgba(10, 10, 18, 0.65);
+
+            border:
+                1px solid rgba(255,255,255,0.1);
+
+            border-radius: 12px;
+
+            backdrop-filter: blur(12px);
+        }
+
+
+        .music-title {
+            color: rgba(255,255,255,0.5);
+
+            font-size: 13px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .music-name {
+            font-size: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================================= */
+        /*          КНОПКИ МУЗЫКИ              */
+        /* ================================= */
+
+        .music-controls {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .music-button {
+            margin-top: 0;
+
+            width: 45px;
+            height: 45px;
+
+            padding: 0;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .add-music-button {
+            margin-top: 0;
+
+            padding: 12px 18px;
+
+            border:
+                1px solid rgba(255,255,255,0.18);
+
+            background:
+                rgba(15,15,15,0.9);
+
+            color: white;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+
+        .add-music-button:hover {
+            background: #ff2b2b;
+
+            border-color: #ff2b2b;
+
+            box-shadow:
+                0 0 20px rgba(255,43,43,0.35);
+        }
+
+
+        /* ================================= */
+        /*            АДАПТИВНОСТЬ             */
+        /* ================================= */
 
         @media (max-width: 1000px) {
-
-            nav {
-                padding: 0 25px;
-            }
-
-            .menu {
-                gap: 20px;
-            }
 
             .hero {
                 flex-direction: column;
 
-                align-items: center;
+                min-height: auto;
+
+                padding-top: 40px;
             }
+
 
             .characters {
                 width: 100%;
 
-                height: 60vh;
+                height: 65vh;
             }
+
 
             .characters img {
-                width: 900px;
+                width: 1000px;
 
-                max-width: 130%;
+                max-width: 120%;
             }
+
 
             .text {
                 width: 90%;
 
-                padding: 30px 0;
-
-                text-align: center;
+                padding: 30px 0 80px;
 
                 margin-top: 0;
             }
 
+
             .text h1 {
                 white-space: normal;
+            }
+
+
+            header {
+                padding: 0 18px;
+            }
+
+
+            nav {
+                gap: 15px;
             }
         }
 
 
         @media (max-width: 600px) {
 
-            nav {
-                padding: 0 15px;
+            header {
+                height: 55px;
             }
+
 
             .logo {
-                font-size: 14px;
-
-                letter-spacing: 2px;
+                font-size: 13px;
             }
 
-            .menu {
-                gap: 12px;
+
+            nav {
+                gap: 10px;
             }
 
-            .menu a {
-                font-size: 12px;
+
+            nav a {
+                font-size: 11px;
             }
+
 
             .characters {
                 height: 55vh;
             }
 
-            .characters img {
-                width: 700px;
 
-                max-width: 140%;
+            .characters img {
+                width: 850px;
+
+                max-width: 150%;
             }
+
+
+            .text {
+                width: 90%;
+            }
+
 
             .text h1 {
-                font-size: 36px;
+                font-size: 38px;
             }
+
+
+            .photos,
+            .music {
+                padding: 80px 7%;
+            }
+
         }
 
     </style>
@@ -510,114 +857,141 @@
 <body>
 
 
-    <!-- =========================
-         МЕНЮ
-    ========================= -->
+    <!-- ================================= -->
+    <!--                МЕНЮ                -->
+    <!-- ================================= -->
 
-    <nav>
+    <header>
 
         <div class="logo">
             suspectstyle for nikto242
         </div>
 
+        <nav>
 
-        <div class="menu">
-
-            <a href="#">
+            <a href="#home">
                 Главная
             </a>
 
             <a href="#photos">
+                наши фотачке
+            </a>
+
+            <a href="#music">
+                музяка
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================================= -->
+    <!--              ГЛАВНАЯ               -->
+    <!-- ================================= -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="characters">
+
+                <img
+                    src="characters.png"
+                    alt="Персонажи"
+                >
+
+            </div>
+
+
+            <div class="text">
+
+                <h1>
+                    кайфовать.вместе
+                </h1>
+
+                <p>
+                    просто оставайся здесь
+                </p>
+
+                <button id="heartButton">
+                    Нажми меня
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!--               ФОТО                  -->
+        <!-- ================================= -->
+
+        <section class="photos" id="photos">
+
+            <h2>
                 Наши фото
-            </a>
+            </h2>
 
-            <a href="#">
-                Контакты
-            </a>
-
-        </div>
-
-    </nav>
+        </section>
 
 
 
-    <!-- =========================
-         СЛОЙ СЕРДЕЧЕК
-    ========================= -->
+        <!-- ================================= -->
+        <!--               МУЗЫКА                -->
+        <!-- ================================= -->
 
-    <div id="hearts-container"></div>
+        <section class="music" id="music">
 
-
-
-    <!-- =========================
-         ГЛАВНАЯ
-    ========================= -->
-
-    <main class="hero">
-
-
-        <!-- ПЕРСОНАЖИ -->
-
-        <div class="characters">
-
-            <img
-                src="characters.png"
-                alt="Персонажи"
-            >
-
-        </div>
-
-
-
-        <!-- ТЕКСТ -->
-
-        <div class="text">
-
-            <h1>
-                кайфовать.вместе
-            </h1>
-
+            <h2>
+                музяка
+            </h2>
 
             <p>
-                Это моя первая страница.
+                Это наши плейлисты)
             </p>
 
 
-            <button id="heartButton">
-                Нажми меня
-            </button>
+            <div class="music-card">
 
-        </div>
+                <div class="music-title">
+                    Сейчас играет
+                </div>
 
+                <div class="music-name">
+                    Пока ничего
+                </div>
+
+
+                <div class="music-controls">
+
+                    <button class="music-button">
+                        ▶
+                    </button>
+
+                    <button class="add-music-button">
+                        добавить музыку
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
 
 
-    <!-- =========================
-         НАШИ ФОТО
-    ========================= -->
+    <!-- ================================= -->
+    <!--          КОНТЕЙНЕР СЕРДЕЦ           -->
+    <!-- ================================= -->
 
-    <section
-        class="photos"
-        id="photos"
-    >
-
-        <h2>
-            Наши фото
-        </h2>
-
-        <p>
-            Здесь позже можно сделать отдельную галерею.
-        </p>
-
-    </section>
+    <div id="hearts-container"></div>
 
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
 
     <script>
 
@@ -628,20 +1002,22 @@
             document.getElementById("hearts-container");
 
 
-        button.addEventListener("click", function () {
+        button.addEventListener(
+            "click",
+            function () {
 
-            /*
-                Создаём сразу много сердечек
-            */
+                for (
+                    let i = 0;
+                    i < 70;
+                    i++
+                ) {
 
-            for (let i = 0; i < 70; i++) {
+                    createHeart();
 
-                createHeart();
+                }
 
             }
-
-        });
-
+        );
 
 
         function createHeart() {
@@ -650,87 +1026,63 @@
                 document.createElement("div");
 
 
-            heart.className = "heart";
+            heart.className =
+                "heart";
 
 
-            heart.innerHTML = "♥";
+            heart.innerHTML =
+                "♥";
 
-
-            /*
-                Начальная точка —
-                центр экрана.
-
-                Поэтому сердечки действительно
-                могут лететь во все стороны.
-            */
 
             const startX =
                 window.innerWidth / 2;
+
 
             const startY =
                 window.innerHeight / 2;
 
 
-            /*
-                Случайное направление.
-
-                X:
-                влево или вправо
-
-                Y:
-                вверх или вниз
-            */
-
             const angle =
-                Math.random() * Math.PI * 2;
+                Math.random() *
+                Math.PI *
+                2;
 
-
-            /*
-                Расстояние полёта.
-            */
 
             const distance =
-                250 + Math.random() * 850;
+                300 +
+                Math.random() *
+                1000;
 
 
             const endX =
                 startX +
-                Math.cos(angle) * distance;
+                Math.cos(angle) *
+                distance;
 
 
             const endY =
                 startY +
-                Math.sin(angle) * distance;
+                Math.sin(angle) *
+                distance;
 
-
-            /*
-                Случайный размер.
-            */
 
             const scale =
-                0.6 + Math.random() * 1.4;
+                0.6 +
+                Math.random() *
+                1.4;
 
-
-            /*
-                Случайное вращение.
-            */
 
             const rotation =
-                -360 + Math.random() * 720;
+                -360 +
+                Math.random() *
+                720;
 
-
-            /*
-                Случайная длительность.
-            */
 
             const duration =
-                1.2 + Math.random() * 1.8;
+                1.2 +
+                Math.random() *
+                1.8;
 
-
-            /*
-                Передаём значения
-                в CSS.
-            */
 
             heart.style.setProperty(
                 "--start-x",
@@ -772,38 +1124,30 @@
                 duration + "s";
 
 
-            /*
-                Небольшое случайное
-                отклонение размера.
-            */
-
             heart.style.fontSize =
-                (14 + Math.random() * 24) + "px";
+                (
+                    14 +
+                    Math.random() * 24
+                ) + "px";
 
 
-            /*
-                Добавляем сердце
-                на самый верхний слой.
-            */
-
-            container.appendChild(heart);
+            container.appendChild(
+                heart
+            );
 
 
-            /*
-                Удаляем его после
-                окончания анимации.
-            */
+            setTimeout(
+                function () {
 
-            setTimeout(function () {
+                    heart.remove();
 
-                heart.remove();
-
-            }, duration * 1000 + 100);
+                },
+                duration * 1000 + 100
+            );
 
         }
 
     </script>
-
 
 </body>
 </html>
