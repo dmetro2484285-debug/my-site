@@ -382,16 +382,102 @@
             letter-spacing: 1px;
         }
 
-        .music-name {
-            margin-top: 8px;
+        /* ОБЛОЖКА */
 
+        .player-top {
+            margin-top: 15px;
+
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .track-cover {
+            width: 75px;
+            height: 75px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            flex-shrink: 0;
+        }
+
+        .player-info {
+            min-width: 0;
+        }
+
+        .music-name {
             color: white;
 
             font-size: 17px;
             font-weight: 600;
 
             min-height: 21px;
+
+            word-break: break-word;
         }
+
+        /* ПРОГРЕСС */
+
+        .progress-area {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+
+            appearance: none;
+            -webkit-appearance: none;
+
+            border-radius: 5px;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            cursor: pointer;
+        }
+
+        .progress-bar::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+        .progress-bar::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+        .time-row {
+            margin-top: 7px;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: rgba(255, 255, 255, 0.45);
+
+            font-size: 11px;
+        }
+
+        /* КНОПКИ */
 
         .music-controls {
             display: flex;
@@ -428,6 +514,10 @@
             background: rgba(255, 255, 255, 0.12);
         }
 
+        .music-button.small {
+            font-size: 13px;
+        }
+
         .add-music-button {
             margin-top: 20px;
 
@@ -451,6 +541,69 @@
         .add-music-button:hover {
             background: rgba(255, 255, 255, 0.12);
         }
+
+        /* ГРОМКОСТЬ */
+
+        .volume-row {
+            margin-top: 18px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-icon {
+            width: 20px;
+
+            color: rgba(255, 255, 255, 0.55);
+
+            font-size: 14px;
+
+            text-align: center;
+        }
+
+        .volume-slider {
+            flex: 1;
+
+            height: 4px;
+
+            appearance: none;
+            -webkit-appearance: none;
+
+            border-radius: 5px;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+
+            width: 11px;
+            height: 11px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 11px;
+            height: 11px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+        /* СПИСОК ТРЕКОВ */
 
         .track-list {
             margin-top: 25px;
@@ -635,18 +788,87 @@
                     Сейчас играет
                 </div>
 
-                <div class="music-name" id="musicName">
-                    maduro - u will be my girl
+
+                <!-- ОБЛОЖКА И НАЗВАНИЕ -->
+
+                <div class="player-top">
+
+                    <img
+                        class="track-cover"
+                        id="trackCover"
+                        src="music/covers/cover1.png"
+                        alt="Обложка песни"
+                    >
+
+                    <div class="player-info">
+
+                        <div
+                            class="music-name"
+                            id="musicName"
+                        >
+                            maduro - u will be my girl
+                        </div>
+
+                    </div>
+
                 </div>
 
+
+                <!-- ПРОГРЕСС -->
+
+                <div class="progress-area">
+
+                    <input
+                        type="range"
+                        class="progress-bar"
+                        id="progressBar"
+                        min="0"
+                        max="100"
+                        value="0"
+                        step="0.1"
+                    >
+
+                    <div class="time-row">
+
+                        <span id="currentTime">
+                            0:00
+                        </span>
+
+                        <span id="duration">
+                            0:00
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- КНОПКИ -->
 
                 <div class="music-controls">
 
                     <button
+                        class="music-button small"
+                        id="prevButton"
+                        title="Предыдущая песня"
+                    >
+                        ◀◀
+                    </button>
+
+                    <button
                         class="music-button"
                         id="musicButton"
+                        title="Воспроизвести"
                     >
                         ▶
+                    </button>
+
+                    <button
+                        class="music-button small"
+                        id="nextButton"
+                        title="Следующая песня"
+                    >
+                        ▶▶
                     </button>
 
                     <button
@@ -659,12 +881,37 @@
                 </div>
 
 
+                <!-- ГРОМКОСТЬ -->
+
+                <div class="volume-row">
+
+                    <span
+                        class="volume-icon"
+                        id="volumeIcon"
+                    >
+                        🔊
+                    </span>
+
+                    <input
+                        type="range"
+                        class="volume-slider"
+                        id="volumeSlider"
+                        min="0"
+                        max="1"
+                        value="1"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <!-- СПИСОК ПЕСЕН -->
+
                 <div class="track-list">
 
                     <div
                         class="track active"
-                        data-track="music/song1.mp3"
-                        data-name="maduro - u will be my girl"
+                        data-index="0"
                     >
                         maduro - u will be my girl
                     </div>
@@ -672,8 +919,7 @@
 
                     <div
                         class="track"
-                        data-track="music/song2.mp3"
-                        data-name="макулатура - лесбия"
+                        data-index="1"
                     >
                         макулатура - лесбия
                     </div>
@@ -681,8 +927,7 @@
 
                     <div
                         class="track"
-                        data-track="music/song3.mp3"
-                        data-name="макулатура - точка невозврата"
+                        data-index="2"
                     >
                         макулатура - точка невозврата
                     </div>
@@ -690,8 +935,7 @@
 
                     <div
                         class="track"
-                        data-track="music/song4.mp3"
-                        data-name="Птицу ЕМЬ - Нумеро Уно"
+                        data-index="3"
                     >
                         Птицу ЕМЬ - Нумеро Уно
                     </div>
@@ -712,7 +956,10 @@
 
     <!-- АУДИО -->
 
-    <audio id="audioPlayer" preload="metadata"></audio>
+    <audio
+        id="audioPlayer"
+        preload="metadata"
+    ></audio>
 
 
     <script>
@@ -827,8 +1074,32 @@
         const musicButton =
             document.getElementById("musicButton");
 
+        const prevButton =
+            document.getElementById("prevButton");
+
+        const nextButton =
+            document.getElementById("nextButton");
+
+        const progressBar =
+            document.getElementById("progressBar");
+
+        const currentTimeElement =
+            document.getElementById("currentTime");
+
+        const durationElement =
+            document.getElementById("duration");
+
+        const volumeSlider =
+            document.getElementById("volumeSlider");
+
+        const volumeIcon =
+            document.getElementById("volumeIcon");
+
         const musicName =
             document.getElementById("musicName");
+
+        const trackCover =
+            document.getElementById("trackCover");
 
         const addMusicButton =
             document.getElementById("addMusicButton");
@@ -837,61 +1108,140 @@
             document.querySelectorAll(".track");
 
 
-        let currentTrack =
-            "music/song1.mp3";
+        /* =========================
+           ДАННЫЕ ПЕСЕН
+        ========================= */
 
+        const trackData = [
 
-        audioPlayer.src =
-            currentTrack;
+            {
+                file: "music/song1.mp3",
+                name: "maduro - u will be my girl",
+                cover: "music/covers/cover1.png"
+            },
 
+            {
+                file: "music/song2.mp3",
+                name: "макулатура - лесбия",
+                cover: "music/covers/cover2.png"
+            },
 
-        /* ВЫБОР ТРЕКА */
+            {
+                file: "music/song3.mp3",
+                name: "макулатура - точка невозврата",
+                cover: "music/covers/cover3.png"
+            },
 
-        tracks.forEach(
-            function (track) {
-
-                track.addEventListener(
-                    "click",
-                    function () {
-
-                        tracks.forEach(
-                            function (item) {
-                                item.classList.remove(
-                                    "active"
-                                );
-                            }
-                        );
-
-
-                        track.classList.add("active");
-
-
-                        currentTrack =
-                            track.dataset.track;
-
-
-                        musicName.textContent =
-                            track.dataset.name;
-
-
-                        audioPlayer.src =
-                            currentTrack;
-
-
-                        audioPlayer.load();
-
-
-                        musicButton.textContent =
-                            "▶";
-
-                    }
-                );
-
+            {
+                file: "music/song4.mp3",
+                name: "Птицу ЕМЬ - Нумеро Уно",
+                cover: "music/covers/cover4.png"
             }
-        );
+
+        ];
 
 
-        /* PLAY / PAUSE */
+        let currentIndex = 0;
+
+
+        /* =========================
+           ВРЕМЯ
+        ========================= */
+
+        function formatTime(seconds) {
+
+            if (
+                !Number.isFinite(seconds) ||
+                seconds < 0
+            ) {
+                return "0:00";
+            }
+
+
+            const minutes =
+                Math.floor(seconds / 60);
+
+            const remainingSeconds =
+                Math.floor(seconds % 60);
+
+
+            return (
+                minutes +
+                ":" +
+                String(remainingSeconds).padStart(2, "0")
+            );
+
+        }
+
+
+        /* =========================
+           ЗАГРУЗКА ПЕСНИ
+        ========================= */
+
+        function loadTrack(index) {
+
+            if (
+                index < 0 ||
+                index >= trackData.length
+            ) {
+                return;
+            }
+
+
+            currentIndex = index;
+
+
+            const track =
+                trackData[currentIndex];
+
+
+            audioPlayer.src =
+                track.file;
+
+
+            musicName.textContent =
+                track.name;
+
+
+            trackCover.src =
+                track.cover;
+
+
+            progressBar.value = 0;
+
+
+            currentTimeElement.textContent =
+                "0:00";
+
+
+            durationElement.textContent =
+                "0:00";
+
+
+            tracks.forEach(
+                function (item, i) {
+
+                    item.classList.toggle(
+                        "active",
+                        i === currentIndex
+                    );
+
+                }
+            );
+
+
+            audioPlayer.load();
+
+
+            musicButton.textContent =
+                "▶";
+
+        }
+
+
+        /* =========================
+           PLAY / PAUSE
+        ========================= */
 
         musicButton.addEventListener(
             "click",
@@ -902,8 +1252,10 @@
                     audioPlayer.play()
                         .then(
                             function () {
+
                                 musicButton.textContent =
                                     "❚❚";
+
                             }
                         )
                         .catch(
@@ -930,27 +1282,23 @@
         );
 
 
-        /* КОГДА ПЕСНЯ ЗАКОНЧИЛАСЬ */
+        /* =========================
+           ПРЕДЫДУЩАЯ ПЕСНЯ
+        ========================= */
 
-        audioPlayer.addEventListener(
-            "ended",
+        prevButton.addEventListener(
+            "click",
             function () {
 
-                const currentIndex =
-                    Array.from(tracks).findIndex(
-                        function (track) {
-                            return track.classList.contains(
-                                "active"
-                            );
-                        }
-                    );
+                currentIndex--;
+
+                if (currentIndex < 0) {
+                    currentIndex =
+                        trackData.length - 1;
+                }
 
 
-                const nextIndex =
-                    (currentIndex + 1) % tracks.length;
-
-
-                tracks[nextIndex].click();
+                loadTrack(currentIndex);
 
 
                 audioPlayer.play()
@@ -971,7 +1319,248 @@
         );
 
 
-        /* ОШИБКА АУДИО */
+        /* =========================
+           СЛЕДУЮЩАЯ ПЕСНЯ
+        ========================= */
+
+        nextButton.addEventListener(
+            "click",
+            function () {
+
+                currentIndex++;
+
+                if (
+                    currentIndex >=
+                    trackData.length
+                ) {
+                    currentIndex = 0;
+                }
+
+
+                loadTrack(currentIndex);
+
+
+                audioPlayer.play()
+                    .then(
+                        function () {
+                            musicButton.textContent =
+                                "❚❚";
+                        }
+                    )
+                    .catch(
+                        function () {
+                            musicButton.textContent =
+                                "▶";
+                        }
+                    );
+
+            }
+        );
+
+
+        /* =========================
+           ВЫБОР ПЕСНИ ИЗ СПИСКА
+        ========================= */
+
+        tracks.forEach(
+            function (track) {
+
+                track.addEventListener(
+                    "click",
+                    function () {
+
+                        const index =
+                            Number(
+                                track.dataset.index
+                            );
+
+
+                        loadTrack(index);
+
+
+                        audioPlayer.play()
+                            .then(
+                                function () {
+                                    musicButton.textContent =
+                                        "❚❚";
+                                }
+                            )
+                            .catch(
+                                function () {
+                                    musicButton.textContent =
+                                        "▶";
+                                }
+                            );
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =========================
+           ДЛИТЕЛЬНОСТЬ
+        ========================= */
+
+        audioPlayer.addEventListener(
+            "loadedmetadata",
+            function () {
+
+                durationElement.textContent =
+                    formatTime(
+                        audioPlayer.duration
+                    );
+
+            }
+        );
+
+
+        /* =========================
+           ПРОГРЕСС
+        ========================= */
+
+        audioPlayer.addEventListener(
+            "timeupdate",
+            function () {
+
+                if (
+                    Number.isFinite(
+                        audioPlayer.duration
+                    ) &&
+                    audioPlayer.duration > 0
+                ) {
+
+                    progressBar.value =
+                        (
+                            audioPlayer.currentTime /
+                            audioPlayer.duration
+                        ) * 100;
+
+                }
+
+
+                currentTimeElement.textContent =
+                    formatTime(
+                        audioPlayer.currentTime
+                    );
+
+            }
+        );
+
+
+        /* =========================
+           ПЕРЕМАТЫВАНИЕ
+        ========================= */
+
+        progressBar.addEventListener(
+            "input",
+            function () {
+
+                if (
+                    Number.isFinite(
+                        audioPlayer.duration
+                    ) &&
+                    audioPlayer.duration > 0
+                ) {
+
+                    audioPlayer.currentTime =
+                        (
+                            Number(progressBar.value) /
+                            100
+                        ) *
+                        audioPlayer.duration;
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           ГРОМКОСТЬ
+        ========================= */
+
+        volumeSlider.addEventListener(
+            "input",
+            function () {
+
+                const volume =
+                    Number(volumeSlider.value);
+
+
+                audioPlayer.volume =
+                    volume;
+
+
+                if (volume === 0) {
+
+                    volumeIcon.textContent =
+                        "🔇";
+
+                } else if (volume < 0.5) {
+
+                    volumeIcon.textContent =
+                        "🔉";
+
+                } else {
+
+                    volumeIcon.textContent =
+                        "🔊";
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           ПЕСНЯ ЗАКОНЧИЛАСЬ
+        ========================= */
+
+        audioPlayer.addEventListener(
+            "ended",
+            function () {
+
+                currentIndex++;
+
+
+                if (
+                    currentIndex >=
+                    trackData.length
+                ) {
+                    currentIndex = 0;
+                }
+
+
+                loadTrack(currentIndex);
+
+
+                audioPlayer.play()
+                    .then(
+                        function () {
+
+                            musicButton.textContent =
+                                "❚❚";
+
+                        }
+                    )
+                    .catch(
+                        function () {
+
+                            musicButton.textContent =
+                                "▶";
+
+                        }
+                    );
+
+            }
+        );
+
+
+        /* =========================
+           ОШИБКА АУДИО
+        ========================= */
 
         audioPlayer.addEventListener(
             "error",
@@ -979,14 +1568,16 @@
 
                 console.log(
                     "Не удалось загрузить:",
-                    currentTrack
+                    trackData[currentIndex].file
                 );
 
             }
         );
 
 
-        /* ДОБАВИТЬ МУЗЫКУ */
+        /* =========================
+           ДОБАВИТЬ МУЗЫКУ
+        ========================= */
 
         addMusicButton.addEventListener(
             "click",
@@ -999,6 +1590,15 @@
 
             }
         );
+
+
+        /* =========================
+           ЗАПУСК
+        ========================= */
+
+        audioPlayer.volume = 1;
+
+        loadTrack(0);
 
     </script>
 
