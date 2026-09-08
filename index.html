@@ -668,101 +668,8 @@
             font-size: 20px;
 
             margin-bottom: 20px;
-
-            min-height: 24px;
         }
 
-
-        /* ================================= */
-        /*          ПЛЕЙЛИСТ                   */
-        /* ================================= */
-
-        .playlist {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .playlist-item {
-            width: 100%;
-
-            margin: 0;
-
-            padding: 10px 12px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            background:
-                rgba(255,255,255,0.04);
-
-            border:
-                1px solid rgba(255,255,255,0.08);
-
-            border-radius: 7px;
-
-            color: white;
-
-            font-size: 14px;
-
-            text-align: left;
-        }
-
-
-        .playlist-item:hover {
-            background:
-                rgba(255,255,255,0.08);
-
-            box-shadow: none;
-        }
-
-
-        .playlist-item.active {
-            border-color: #ff2b2b;
-
-            background:
-                rgba(255,43,43,0.12);
-        }
-
-
-        .playlist-number {
-            color: rgba(255,255,255,0.4);
-
-            min-width: 20px;
-        }
-
-
-        .playlist-song-name {
-            flex: 1;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
-        }
-
-
-        .playlist-status {
-            font-size: 12px;
-
-            color: rgba(255,255,255,0.45);
-        }
-
-
-        /* ================================= */
-        /*          КНОПКИ МУЗЫКИ              */
-        /* ================================= */
 
         .music-controls {
             display: flex;
@@ -793,33 +700,57 @@
         .add-music-button {
             margin-top: 0;
 
-            padding: 12px 18px;
-
-            border:
-                1px solid rgba(255,255,255,0.18);
-
-            background:
-                rgba(15,15,15,0.9);
-
-            color: white;
+            padding: 11px 18px;
 
             border-radius: 8px;
 
             font-size: 14px;
 
-            cursor: pointer;
-
-            transition: 0.25s;
+            white-space: nowrap;
         }
 
 
-        .add-music-button:hover {
-            background: #ff2b2b;
+        .track-list {
+            margin-top: 25px;
 
-            border-color: #ff2b2b;
+            display: flex;
 
-            box-shadow:
-                0 0 20px rgba(255,43,43,0.35);
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .track {
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            background: rgba(255,255,255,0.04);
+
+            border: 1px solid rgba(255,255,255,0.06);
+
+            color: rgba(255,255,255,0.7);
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .track:hover {
+            background: rgba(255,255,255,0.08);
+
+            color: white;
+        }
+
+
+        .track.active {
+            background: rgba(255,43,43,0.12);
+
+            border-color: rgba(255,43,43,0.4);
+
+            color: white;
         }
 
 
@@ -935,7 +866,6 @@
             .music-controls {
                 flex-wrap: wrap;
             }
-
         }
 
     </style>
@@ -1053,103 +983,15 @@
                     class="music-name"
                     id="musicName"
                 >
-                    Пока ничего
+                    Название первой песни
                 </div>
 
-
-                <!-- ПЛЕЙЛИСТ -->
-
-                <div
-                    class="playlist"
-                    id="playlist"
-                >
-
-                    <button
-                        class="playlist-item"
-                        data-index="0"
-                        type="button"
-                    >
-                        <span class="playlist-number">
-                            1
-                        </span>
-
-                        <span class="playlist-song-name">
-                            Название первой песни
-                        </span>
-
-                        <span class="playlist-status">
-                            ▶
-                        </span>
-                    </button>
-
-
-                    <button
-                        class="playlist-item"
-                        data-index="1"
-                        type="button"
-                    >
-                        <span class="playlist-number">
-                            2
-                        </span>
-
-                        <span class="playlist-song-name">
-                            Название второй песни
-                        </span>
-
-                        <span class="playlist-status">
-                            ▶
-                        </span>
-                    </button>
-
-
-                    <button
-                        class="playlist-item"
-                        data-index="2"
-                        type="button"
-                    >
-                        <span class="playlist-number">
-                            3
-                        </span>
-
-                        <span class="playlist-song-name">
-                            Название третьей песни
-                        </span>
-
-                        <span class="playlist-status">
-                            ▶
-                        </span>
-                    </button>
-
-
-                    <button
-                        class="playlist-item"
-                        data-index="3"
-                        type="button"
-                    >
-                        <span class="playlist-number">
-                            4
-                        </span>
-
-                        <span class="playlist-song-name">
-                            Название четвёртой песни
-                        </span>
-
-                        <span class="playlist-status">
-                            ▶
-                        </span>
-                    </button>
-
-                </div>
-
-
-                <!-- КНОПКИ -->
 
                 <div class="music-controls">
 
                     <button
                         class="music-button"
-                        id="playButton"
-                        type="button"
+                        id="musicButton"
                     >
                         ▶
                     </button>
@@ -1158,20 +1000,42 @@
                     <button
                         class="add-music-button"
                         id="addMusicButton"
-                        type="button"
                     >
-                        добавить музыку
+                        Добавить музыку
                     </button>
 
                 </div>
 
 
-                <!-- АУДИО -->
+                <div class="track-list">
 
-                <audio
-                    id="audioPlayer"
-                    preload="metadata"
-                ></audio>
+                    <div
+                        class="track active"
+                        data-track="music/song1.mp3"
+                        data-name="Название первой песни"
+                    >
+                        Название первой песни
+                    </div>
+
+
+                    <div
+                        class="track"
+                        data-track="music/song2.mp3"
+                        data-name="Название второй песни"
+                    >
+                        Название второй песни
+                    </div>
+
+
+                    <div
+                        class="track"
+                        data-track="music/song3.mp3"
+                        data-name="Название третьей песни"
+                    >
+                        Название третьей песни
+                    </div>
+
+                </div>
 
             </div>
 
@@ -1189,20 +1053,28 @@
 
 
 
+    <!-- ================================= -->
+    <!--               AUDIO                 -->
+    <!-- ================================= -->
+
+    <audio id="audioPlayer"></audio>
+
+
+
     <script>
 
         /* ================================= */
-        /*              СЕРДЦА                 */
+        /*              СЕРДЦА                */
         /* ================================= */
 
-        const heartButton =
+        const button =
             document.getElementById("heartButton");
 
-        const heartsContainer =
+        const container =
             document.getElementById("hearts-container");
 
 
-        heartButton.addEventListener(
+        button.addEventListener(
             "click",
             function () {
 
@@ -1331,7 +1203,7 @@
                 ) + "px";
 
 
-            heartsContainer.appendChild(
+            container.appendChild(
                 heart
             );
 
@@ -1350,151 +1222,109 @@
 
 
         /* ================================= */
-        /*              МУЗЫКА                 */
+        /*              МУЗЫКА                */
         /* ================================= */
-
-        const songs = [
-
-            {
-                file: "music/song1.mp3",
-                name: "Название первой песни"
-            },
-
-            {
-                file: "music/song2.mp3",
-                name: "Название второй песни"
-            },
-
-            {
-                file: "music/song3.mp3",
-                name: "Название третьей песни"
-            },
-
-            {
-                file: "music/song4.mp3",
-                name: "Название четвёртой песни"
-            }
-
-        ];
-
 
         const audioPlayer =
             document.getElementById("audioPlayer");
 
 
-        const playButton =
-            document.getElementById("playButton");
+        const musicButton =
+            document.getElementById("musicButton");
 
 
         const musicName =
             document.getElementById("musicName");
 
 
-        const playlistItems =
-            document.querySelectorAll(
-                ".playlist-item"
-            );
-
-
         const addMusicButton =
-            document.getElementById(
-                "addMusicButton"
-            );
+            document.getElementById("addMusicButton");
 
 
-        let currentSong =
-            0;
+        const tracks =
+            document.querySelectorAll(".track");
 
 
-
-        /* ================================= */
-        /*        ВЫБОР ПЕСНИ                 */
-        /* ================================= */
-
-        function selectSong(index) {
-
-            if (
-                index < 0 ||
-                index >= songs.length
-            ) {
-                return;
-            }
+        let currentTrack =
+            "music/song1.mp3";
 
 
-            currentSong =
-                index;
-
-
-            audioPlayer.src =
-                songs[currentSong].file;
-
-
-            musicName.textContent =
-                songs[currentSong].name;
-
-
-            playlistItems.forEach(
-                function (item, itemIndex) {
-
-                    item.classList.toggle(
-                        "active",
-                        itemIndex === currentSong
-                    );
-
-                }
-            );
-
-        }
+        let isPlaying =
+            false;
 
 
 
         /* ================================= */
-        /*          ВОСПРОИЗВЕДЕНИЕ           */
+        /*        ЗАГРУЗКА ПЕРВОГО ТРЕКА      */
         /* ================================= */
 
-        function playSong() {
-
-            if (!audioPlayer.src) {
-
-                selectSong(currentSong);
-
-            }
+        audioPlayer.src =
+            currentTrack;
 
 
-            audioPlayer.play()
-                .then(
+
+        /* ================================= */
+        /*          ВЫБОР ТРЕКА               */
+        /* ================================= */
+
+        tracks.forEach(
+            function (track) {
+
+                track.addEventListener(
+                    "click",
                     function () {
 
-                        playButton.textContent =
-                            "❚❚";
+                        tracks.forEach(
+                            function (item) {
 
-                    }
-                )
-                .catch(
-                    function () {
+                                item.classList.remove(
+                                    "active"
+                                );
 
-                        playButton.textContent =
+                            }
+                        );
+
+
+                        track.classList.add(
+                            "active"
+                        );
+
+
+                        currentTrack =
+                            track.dataset.track;
+
+
+                        musicName.textContent =
+                            track.dataset.name;
+
+
+                        audioPlayer.src =
+                            currentTrack;
+
+
+                        isPlaying =
+                            false;
+
+
+                        musicButton.textContent =
                             "▶";
+
+
+                        audioPlayer.load();
 
                     }
                 );
 
-        }
+            }
+        );
 
 
 
-        function pauseSong() {
+        /* ================================= */
+        /*          КНОПКА PLAY                */
+        /* ================================= */
 
-            audioPlayer.pause();
-
-            playButton.textContent =
-                "▶";
-
-        }
-
-
-
-        playButton.addEventListener(
+        musicButton.addEventListener(
             "click",
             function () {
 
@@ -1502,11 +1332,38 @@
                     audioPlayer.paused
                 ) {
 
-                    playSong();
+                    audioPlayer.play()
+                        .then(
+                            function () {
+
+                                isPlaying =
+                                    true;
+
+                                musicButton.textContent =
+                                    "❚❚";
+
+                            }
+                        )
+                        .catch(
+                            function (error) {
+
+                                console.log(
+                                    "Ошибка воспроизведения:",
+                                    error
+                                );
+
+                            }
+                        );
 
                 } else {
 
-                    pauseSong();
+                    audioPlayer.pause();
+
+                    isPlaying =
+                        false;
+
+                    musicButton.textContent =
+                        "▶";
 
                 }
 
@@ -1516,57 +1373,56 @@
 
 
         /* ================================= */
-        /*        НАЖАТИЕ НА ПЕСНУ             */
-        /* ================================= */
-
-        playlistItems.forEach(
-            function (item) {
-
-                item.addEventListener(
-                    "click",
-                    function () {
-
-                        const index =
-                            Number(
-                                item.dataset.index
-                            );
-
-
-                        selectSong(index);
-
-                        playSong();
-
-                    }
-                );
-
-            }
-        );
-
-
-
-        /* ================================= */
-        /*       СЛЕДУЮЩАЯ ПЕСНЯ              */
+        /*       КОГДА ТРЕК ЗАКОНЧИЛСЯ        */
         /* ================================= */
 
         audioPlayer.addEventListener(
             "ended",
             function () {
 
-                currentSong++;
+                const currentIndex =
+                    Array.from(tracks).findIndex(
+                        function (track) {
+
+                            return track.classList.contains(
+                                "active"
+                            );
+
+                        }
+                    );
 
 
-                if (
-                    currentSong >= songs.length
-                ) {
-
-                    currentSong = 0;
-
-                }
+                const nextIndex =
+                    (
+                        currentIndex + 1
+                    ) % tracks.length;
 
 
-                selectSong(currentSong);
+                tracks[
+                    nextIndex
+                ].click();
 
-                playSong();
+
+                audioPlayer.play()
+                    .then(
+                        function () {
+
+                            isPlaying =
+                                true;
+
+                            musicButton.textContent =
+                                "❚❚";
+
+                        }
+                    )
+                    .catch(
+                        function () {
+
+                            musicButton.textContent =
+                                "▶";
+
+                        }
+                    );
 
             }
         );
@@ -1574,7 +1430,7 @@
 
 
         /* ================================= */
-        /*       ОТКРЫТЬ GITHUB               */
+        /*       КНОПКА ДОБАВИТЬ МУЗЫКУ       */
         /* ================================= */
 
         addMusicButton.addEventListener(
