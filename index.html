@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>кайфовать.вместе</title>
 
     <style>
-
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
@@ -17,293 +17,95 @@
         }
 
         body {
-            margin: 0;
             min-height: 100vh;
-            overflow-x: hidden;
-
             color: white;
-            font-family: Arial, sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             background:
-                radial-gradient(
-                    ellipse at 50% 45%,
-                    #11182b 0%,
-                    #080b18 38%,
-                    #03040a 72%,
-                    #000000 100%
-                );
+                radial-gradient(circle at 20% 20%, rgba(70, 40, 140, 0.18), transparent 30%),
+                radial-gradient(circle at 80% 30%, rgba(20, 70, 150, 0.16), transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(120, 20, 70, 0.12), transparent 35%),
+                #020208;
+            overflow-x: hidden;
         }
-
-
-        /* ================================= */
-        /*          ГЛУБОКИЙ КОСМОС            */
-        /* ================================= */
 
         body::before {
             content: "";
             position: fixed;
-            inset: -20%;
-
+            inset: 0;
             pointer-events: none;
-            z-index: 0;
+            z-index: -2;
 
-            background-image:
-
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.75) 0.35px,
-                    transparent 0.9px
-                ),
-
-                radial-gradient(
-                    circle,
-                    rgba(210,225,255,0.7) 0.45px,
-                    transparent 1px
-                ),
-
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.55) 0.6px,
-                    transparent 1.2px
-                ),
-
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.9) 0.8px,
-                    transparent 1.8px
-                ),
-
-                radial-gradient(
-                    circle,
-                    rgba(190,215,255,0.8) 0.9px,
-                    transparent 2px
-                ),
-
-                radial-gradient(
-                    ellipse at 25% 35%,
-                    rgba(55,95,190,0.18) 0%,
-                    rgba(35,65,145,0.10) 18%,
-                    transparent 45%
-                ),
-
-                radial-gradient(
-                    ellipse at 75% 25%,
-                    rgba(120,55,180,0.16) 0%,
-                    rgba(90,35,150,0.08) 20%,
-                    transparent 48%
-                ),
-
-                radial-gradient(
-                    ellipse at 65% 75%,
-                    rgba(160,45,65,0.11) 0%,
-                    rgba(100,25,45,0.06) 20%,
-                    transparent 45%
-                ),
-
-                radial-gradient(
-                    ellipse at 10% 80%,
-                    rgba(40,100,170,0.13) 0%,
-                    rgba(30,70,130,0.06) 22%,
-                    transparent 48%
-                );
+            background:
+                radial-gradient(circle at 10% 15%, white 0 1px, transparent 2px),
+                radial-gradient(circle at 25% 70%, white 0 1px, transparent 2px),
+                radial-gradient(circle at 45% 30%, white 0 1px, transparent 2px),
+                radial-gradient(circle at 70% 15%, white 0 1px, transparent 2px),
+                radial-gradient(circle at 85% 75%, white 0 1px, transparent 2px),
+                radial-gradient(circle at 60% 85%, white 0 1px, transparent 2px),
+                radial-gradient(circle at 90% 40%, white 0 1px, transparent 2px);
 
             background-size:
-                38px 42px,
-                67px 73px,
-                113px 127px,
-                190px 210px,
-                310px 340px,
-                100% 100%,
-                100% 100%,
-                100% 100%,
-                100% 100%;
+                180px 180px,
+                230px 230px,
+                260px 260px,
+                210px 210px,
+                300px 300px,
+                240px 240px,
+                190px 190px;
 
-            background-position:
-                0 0,
-                27px 51px,
-                83px 17px,
-                140px 90px,
-                210px 40px,
-                0 0,
-                0 0,
-                0 0,
-                0 0;
-
-            opacity: 0.9;
-
-            animation: spaceDrift 120s linear infinite;
+            opacity: 0.8;
+            animation: starsTwinkle 5s infinite alternate;
         }
-
-
-        /* ================================= */
-        /*           ЯРКИЕ ЗВЁЗДЫ              */
-        /* ================================= */
 
         body::after {
             content: "";
             position: fixed;
-            inset: -10%;
-
+            inset: -20%;
             pointer-events: none;
-            z-index: 0;
+            z-index: -3;
 
-            background-image:
-
+            background:
                 radial-gradient(
-                    circle,
-                    rgba(255,255,255,1) 0px,
-                    rgba(255,255,255,0.95) 1px,
-                    rgba(255,255,255,0.35) 2px,
-                    transparent 5px
+                    ellipse at 20% 30%,
+                    rgba(70, 40, 180, 0.13),
+                    transparent 30%
                 ),
-
                 radial-gradient(
-                    circle,
-                    rgba(205,225,255,1) 0px,
-                    rgba(175,210,255,0.85) 1px,
-                    rgba(100,160,255,0.25) 3px,
-                    transparent 7px
+                    ellipse at 75% 25%,
+                    rgba(20, 100, 200, 0.11),
+                    transparent 30%
                 ),
-
                 radial-gradient(
-                    circle,
-                    rgba(255,245,225,1) 0px,
-                    rgba(255,225,190,0.85) 1px,
-                    rgba(255,190,150,0.2) 3px,
-                    transparent 7px
-                ),
-
-                radial-gradient(
-                    ellipse at 35% 55%,
-                    rgba(50,90,190,0.13) 0%,
-                    rgba(40,65,150,0.08) 15%,
-                    rgba(30,45,100,0.04) 30%,
-                    transparent 58%
-                ),
-
-                radial-gradient(
-                    ellipse at 82% 65%,
-                    rgba(110,45,170,0.12) 0%,
-                    rgba(85,35,130,0.07) 18%,
-                    rgba(50,25,90,0.03) 35%,
-                    transparent 60%
+                    ellipse at 50% 75%,
+                    rgba(150, 30, 90, 0.08),
+                    transparent 35%
                 );
 
-            background-size:
-                330px 360px,
-                520px 570px,
-                700px 760px,
-                100% 100%,
-                100% 100%;
-
-            background-position:
-                35px 20px,
-                180px 100px,
-                390px 260px,
-                0 0,
-                0 0;
-
-            opacity: 0.65;
-
-            animation:
-                starsTwinkle 9s ease-in-out infinite alternate,
-                nebulaDrift 180s linear infinite;
+            filter: blur(45px);
+            animation: nebulaDrift 25s ease-in-out infinite alternate;
         }
-
-
-        @keyframes spaceDrift {
-
-            0% {
-                transform:
-                    translate3d(0, 0, 0)
-                    scale(1);
-            }
-
-            25% {
-                transform:
-                    translate3d(-10px, 7px, 0)
-                    scale(1.015);
-            }
-
-            50% {
-                transform:
-                    translate3d(-20px, 14px, 0)
-                    scale(1.03);
-            }
-
-            75% {
-                transform:
-                    translate3d(-10px, 20px, 0)
-                    scale(1.015);
-            }
-
-            100% {
-                transform:
-                    translate3d(0, 0, 0)
-                    scale(1);
-            }
-        }
-
 
         @keyframes starsTwinkle {
-
-            0% {
-                opacity: 0.42;
-            }
-
-            20% {
-                opacity: 0.52;
-            }
-
-            40% {
-                opacity: 0.68;
-            }
-
-            60% {
-                opacity: 0.48;
-            }
-
-            80% {
-                opacity: 0.72;
-            }
-
-            100% {
+            from {
                 opacity: 0.55;
             }
-        }
 
+            to {
+                opacity: 0.95;
+            }
+        }
 
         @keyframes nebulaDrift {
-
-            0% {
-                transform:
-                    translate3d(0, 0, 0)
-                    scale(1);
+            from {
+                transform: translate3d(-2%, -1%, 0) scale(1);
             }
 
-            50% {
-                transform:
-                    translate3d(18px, -12px, 0)
-                    scale(1.025);
-            }
-
-            100% {
-                transform:
-                    translate3d(0, 0, 0)
-                    scale(1);
+            to {
+                transform: translate3d(2%, 1%, 0) scale(1.08);
             }
         }
 
-
-        /* ================================= */
-        /*              МЕНЮ                  */
-        /* ================================= */
-
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-
             width: 100%;
             height: 60px;
 
@@ -313,64 +115,106 @@
 
             padding: 0 35px;
 
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 20;
 
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(2, 2, 8, 0.72);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
-            z-index: 1000;
+            backdrop-filter: blur(12px);
         }
-
 
         .logo {
-            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
             font-weight: 600;
-            white-space: nowrap;
+            letter-spacing: 0.5px;
         }
-
 
         nav {
             display: flex;
-            gap: 30px;
+            gap: 28px;
         }
 
-
         nav a {
-            color: white;
+            color: rgba(255, 255, 255, 0.72);
             text-decoration: none;
-
             font-size: 14px;
 
             transition: 0.25s;
         }
 
-
         nav a:hover {
-            color: #ff2b2b;
+            color: white;
         }
 
+        main {
+            position: relative;
+        }
 
-        /* ================================= */
-        /*              ГЛАВНАЯ                */
-        /* ================================= */
+        /* ГЛАВНАЯ */
 
         .hero {
+            width: 100%;
             min-height: calc(100vh - 60px);
-
-            margin-top: 60px;
 
             display: flex;
             align-items: center;
+            justify-content: space-between;
 
             position: relative;
-
-            z-index: 1;
+            overflow: hidden;
         }
 
+        .hero-text {
+            width: 42%;
+            padding-left: 7%;
 
-        /* ================================= */
-        /*            ПЕРСОНАЖИ                */
-        /* ================================= */
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(45px, 6vw, 90px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -4px;
+        }
+
+        .hero-text p {
+            margin-top: 25px;
+
+            max-width: 430px;
+
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .heart-button {
+            margin-top: 35px;
+
+            padding: 13px 24px;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 8px;
+
+            color: white;
+            background: rgba(255, 255, 255, 0.06);
+
+            font-size: 14px;
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .heart-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* ПЕРСОНАЖИ */
 
         .characters {
             width: 58%;
@@ -383,14 +227,11 @@
             position: relative;
         }
 
-
         .characters img {
             width: 1250px;
             max-width: 140%;
             height: auto;
-
             display: block;
-
             pointer-events: none;
 
             transform:
@@ -423,549 +264,365 @@
                 );
         }
 
-
-        /* ================================= */
-        /*                ТЕКСТ                */
-        /* ================================= */
-
-        .text {
-            width: 42%;
-
-            padding-left: 5px;
-
-            margin-top: -30px;
-
-            position: relative;
-
-            z-index: 20;
-        }
-
-
-        .text h1 {
-            margin: 0;
-
-            font-size: clamp(38px, 4vw, 54px);
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            max-width: 100%;
-
-            text-shadow:
-                0 0 10px rgba(255, 255, 255, 0.25),
-                0 0 30px rgba(255, 255, 255, 0.12);
-        }
-
-
-        .text p {
-            margin-top: 12px;
-
-            color: rgba(255,255,255,0.65);
-
-            font-size: 15px;
-        }
-
-
-        /* ================================= */
-        /*              КНОПКА                 */
-        /* ================================= */
-
-        button {
-            position: relative;
-
-            z-index: 10000;
-
-            margin-top: 25px;
-
-            padding: 13px 30px;
-
-            background: rgba(15, 15, 15, 0.9);
-
-            color: white;
-
-            border: 1px solid #ff2b2b;
-
-            border-radius: 8px;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-            transition: 0.25s;
-
-            pointer-events: auto;
-        }
-
-
-        button:hover {
-            background: #ff2b2b;
-
-            box-shadow:
-                0 0 20px rgba(255,43,43,0.4);
-        }
-
-
-        /* ================================= */
-        /*              СЕРДЦА                 */
-        /* ================================= */
+        /* СЕРДЦА */
 
         #hearts-container {
             position: fixed;
-
             inset: 0;
 
-            width: 100vw;
-            height: 100vh;
-
             pointer-events: none;
-
             overflow: hidden;
 
-            z-index: 9999;
+            z-index: 100;
         }
-
 
         .heart {
             position: absolute;
 
-            left: 0;
-            top: 0;
-
-            color: #ff2b2b;
-
-            line-height: 1;
+            color: #ff2525;
+            font-size: 22px;
 
             pointer-events: none;
 
-            user-select: none;
-
-            will-change:
-                transform,
-                opacity;
-
-            text-shadow:
-                0 0 8px rgba(255, 43, 43, 0.5);
-
-            animation-name: flyHeart;
-
-            animation-timing-function: ease-out;
-
-            animation-fill-mode: forwards;
+            animation: heartFly 1.8s ease-out forwards;
         }
 
-
-        @keyframes flyHeart {
-
+        @keyframes heartFly {
             0% {
                 transform:
-                    translate(
-                        var(--start-x),
-                        var(--start-y)
-                    )
+                    translate(-50%, -50%)
                     scale(0.3)
                     rotate(0deg);
 
                 opacity: 0;
             }
 
-            10% {
+            15% {
                 opacity: 1;
             }
 
             100% {
                 transform:
                     translate(
-                        var(--end-x),
-                        var(--end-y)
+                        calc(-50% + var(--x)),
+                        calc(-50% + var(--y))
                     )
-                    scale(var(--scale))
-                    rotate(var(--rotation));
+                    scale(1.1)
+                    rotate(var(--rotate));
 
                 opacity: 0;
             }
         }
 
-
-        /* ================================= */
-        /*              ФОТО                   */
-        /* ================================= */
+        /* ФОТО */
 
         .photos {
             min-height: 100vh;
 
-            padding: 100px 8%;
+            padding: 100px 7%;
 
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-            z-index: 1;
+            text-align: center;
         }
 
-
-        .photos h2 {
-            font-size: 42px;
-
-            margin-bottom: 40px;
+        .photos h2,
+        .music h2 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -2px;
         }
 
-
-        /* ================================= */
-        /*              МУЗЫКА                 */
-        /* ================================= */
+        /* МУЗЫКА */
 
         .music {
             min-height: 100vh;
 
-            padding: 100px 8%;
+            padding: 100px 7%;
 
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-            z-index: 1;
+            text-align: center;
         }
 
+        .music > p {
+            margin-top: 15px;
 
-        .music h2 {
-            font-size: 42px;
-
-            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 15px;
         }
-
-
-        .music p {
-            color: rgba(255,255,255,0.6);
-        }
-
 
         .music-card {
             width: 360px;
 
             margin-top: 40px;
-
             padding: 25px;
 
-            background:
-                rgba(10, 10, 18, 0.65);
+            background: rgba(10, 10, 18, 0.65);
 
-            border:
-                1px solid rgba(255,255,255,0.1);
-
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
 
             backdrop-filter: blur(12px);
-        }
 
+            text-align: left;
+        }
 
         .music-title {
-            color: rgba(255,255,255,0.5);
+            color: rgba(255, 255, 255, 0.45);
 
-            font-size: 13px;
-
-            margin-bottom: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
 
         .music-name {
-            font-size: 20px;
+            margin-top: 8px;
 
-            margin-bottom: 20px;
+            color: white;
+
+            font-size: 17px;
+            font-weight: 600;
+
+            min-height: 21px;
         }
-
 
         .music-controls {
             display: flex;
-
             align-items: center;
-
             gap: 12px;
         }
 
-
         .music-button {
-            margin-top: 0;
+            margin-top: 20px;
 
             width: 45px;
             height: 45px;
 
             padding: 0;
 
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50%;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
+
+            color: white;
+            background: rgba(255, 255, 255, 0.06);
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            transition: 0.2s;
         }
 
+        .music-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
 
         .add-music-button {
-            margin-top: 0;
+            margin-top: 20px;
 
             padding: 11px 18px;
 
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 8px;
+
+            color: white;
+            background: rgba(255, 255, 255, 0.06);
 
             font-size: 14px;
 
             white-space: nowrap;
-        }
-
-
-        .track-list {
-            margin-top: 25px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
-        }
-
-
-        .track {
-            padding: 12px 14px;
-
-            border-radius: 8px;
-
-            background: rgba(255,255,255,0.04);
-
-            border: 1px solid rgba(255,255,255,0.06);
-
-            color: rgba(255,255,255,0.7);
 
             cursor: pointer;
 
             transition: 0.2s;
         }
 
+        .add-music-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .track-list {
+            margin-top: 25px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .track {
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+
+            color: rgba(255, 255, 255, 0.7);
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
 
         .track:hover {
-            background: rgba(255,255,255,0.08);
-
+            background: rgba(255, 255, 255, 0.08);
             color: white;
         }
-
 
         .track.active {
-            background: rgba(255,43,43,0.12);
-
-            border-color: rgba(255,43,43,0.4);
-
+            background: rgba(255, 43, 43, 0.12);
+            border-color: rgba(255, 43, 43, 0.4);
             color: white;
         }
 
+        /* АДАПТИВ */
 
-        /* ================================= */
-        /*            АДАПТИВНОСТЬ             */
-        /* ================================= */
-
-        @media (max-width: 1000px) {
-
-            .hero {
-                flex-direction: column;
-
-                min-height: auto;
-
-                padding-top: 40px;
-            }
-
-
-            .characters {
-                width: 100%;
-
-                height: 65vh;
-            }
-
-
-            .characters img {
-                width: 1000px;
-
-                max-width: 120%;
-            }
-
-
-            .text {
-                width: 90%;
-
-                padding: 30px 0 80px;
-
-                margin-top: 0;
-            }
-
-
-            .text h1 {
-                white-space: normal;
-            }
-
-
+        @media (max-width: 900px) {
             header {
-                padding: 0 18px;
+                padding: 0 20px;
             }
-
 
             nav {
                 gap: 15px;
             }
-        }
 
-
-        @media (max-width: 600px) {
-
-            header {
-                height: 55px;
+            .hero {
+                flex-direction: column;
+                min-height: calc(100vh - 60px);
             }
 
-
-            .logo {
-                font-size: 13px;
+            .hero-text {
+                width: 100%;
+                padding: 80px 30px 20px;
+                text-align: center;
             }
 
-
-            nav {
-                gap: 10px;
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
             }
-
-
-            nav a {
-                font-size: 11px;
-            }
-
 
             .characters {
+                width: 100%;
                 height: 55vh;
             }
 
-
             .characters img {
-                width: 850px;
-
-                max-width: 150%;
-            }
-
-
-            .text {
-                width: 90%;
-            }
-
-
-            .text h1 {
-                font-size: 38px;
-            }
-
-
-            .photos,
-            .music {
-                padding: 80px 7%;
-            }
-
-
-            .music-card {
-                width: 100%;
-            }
-
-
-            .music-controls {
-                flex-wrap: wrap;
+                max-width: 120%;
             }
         }
 
+        @media (max-width: 600px) {
+            header {
+                height: auto;
+                min-height: 60px;
+
+                flex-direction: column;
+                gap: 12px;
+
+                padding: 15px 10px;
+            }
+
+            nav {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero-text h1 {
+                font-size: 50px;
+            }
+
+            .music-card {
+                width: min(360px, calc(100vw - 40px));
+            }
+
+            .photos h2,
+            .music h2 {
+                font-size: 38px;
+            }
+        }
     </style>
 </head>
 
-
 <body>
 
-
-    <!-- ================================= -->
-    <!--                МЕНЮ                -->
-    <!-- ================================= -->
+    <!-- ШАПКА -->
 
     <header>
-
-        <div class="logo">
+        <a href="#home" class="logo">
             suspectstyle for nikto242
-        </div>
+        </a>
 
         <nav>
-
-            <a href="#home">
-                Главная
-            </a>
-
-            <a href="#photos">
-                наши фотачке
-            </a>
-
-            <a href="#music">
-                музяка
-            </a>
-
+            <a href="#home">Главная</a>
+            <a href="#photos">наши фотачке</a>
+            <a href="#music">музяка</a>
         </nav>
-
     </header>
 
 
-
-    <!-- ================================= -->
-    <!--              ГЛАВНАЯ               -->
-    <!-- ================================= -->
-
     <main>
+
+        <!-- ГЛАВНАЯ -->
 
         <section class="hero" id="home">
 
-            <div class="characters">
-
-                <img
-                    src="characters.png"
-                    alt="Персонажи"
-                >
-
-            </div>
-
-
-            <div class="text">
+            <div class="hero-text">
 
                 <h1>
-                    кайфовать.вместе
+                    кайфовать.<br>
+                    вместе
                 </h1>
 
                 <p>
-                    просто оставайся здесь
+                    просто место, где можно быть собой,
+                    слушать музыку и кайфовать вместе.
                 </p>
 
-                <button id="heartButton">
+                <button class="heart-button" id="heartButton">
                     Нажми меня
                 </button>
 
             </div>
 
+
+            <div class="characters">
+                <img src="characters.png" alt="Персонажи">
+            </div>
+
         </section>
 
 
-
-        <!-- ================================= -->
-        <!--               ФОТО                  -->
-        <!-- ================================= -->
+        <!-- ФОТО -->
 
         <section class="photos" id="photos">
 
-            <h2>
-                Наши фото
-            </h2>
+            <h2>Наши фото</h2>
 
         </section>
 
 
-
-        <!-- ================================= -->
-        <!--               МУЗЫКА                -->
-        <!-- ================================= -->
+        <!-- МУЗЫКА -->
 
         <section class="music" id="music">
 
-            <h2>
-                музяка
-            </h2>
+            <h2>музяка</h2>
 
             <p>
                 Это наши плейлисты)
@@ -978,12 +635,8 @@
                     Сейчас играет
                 </div>
 
-
-                <div
-                    class="music-name"
-                    id="musicName"
-                >
-                    Название первой песни
+                <div class="music-name" id="musicName">
+                    maduro - u will be my girl
                 </div>
 
 
@@ -995,7 +648,6 @@
                     >
                         ▶
                     </button>
-
 
                     <button
                         class="add-music-button"
@@ -1012,27 +664,36 @@
                     <div
                         class="track active"
                         data-track="music/song1.mp3"
-                        data-name="Название первой песни"
+                        data-name="maduro - u will be my girl"
                     >
-                        Название первой песни
+                        maduro - u will be my girl
                     </div>
 
 
                     <div
                         class="track"
                         data-track="music/song2.mp3"
-                        data-name="Название второй песни"
+                        data-name="макулатура - лесбия"
                     >
-                        Название второй песни
+                        макулатура - лесбия
                     </div>
 
 
                     <div
                         class="track"
                         data-track="music/song3.mp3"
-                        data-name="Название третьей песни"
+                        data-name="макулатура - точка невозврата"
                     >
-                        Название третьей песни
+                        макулатура - точка невозврата
+                    </div>
+
+
+                    <div
+                        class="track"
+                        data-track="music/song4.mp3"
+                        data-name="Птицу ЕМЬ - Нумеро Уно"
+                    >
+                        Птицу ЕМЬ - Нумеро Уно
                     </div>
 
                 </div>
@@ -1044,47 +705,111 @@
     </main>
 
 
-
-    <!-- ================================= -->
-    <!--          КОНТЕЙНЕР СЕРДЕЦ           -->
-    <!-- ================================= -->
+    <!-- КОНТЕЙНЕР ДЛЯ СЕРДЕЦ -->
 
     <div id="hearts-container"></div>
 
 
+    <!-- АУДИО -->
 
-    <!-- ================================= -->
-    <!--               AUDIO                 -->
-    <!-- ================================= -->
-
-    <audio id="audioPlayer"></audio>
-
+    <audio id="audioPlayer" preload="metadata"></audio>
 
 
     <script>
 
-        /* ================================= */
-        /*              СЕРДЦА                */
-        /* ================================= */
+        /* =========================
+           СЕРДЦА
+        ========================= */
 
-        const button =
+        const heartButton =
             document.getElementById("heartButton");
 
-        const container =
+        const heartsContainer =
             document.getElementById("hearts-container");
 
 
-        button.addEventListener(
+        heartButton.addEventListener(
             "click",
             function () {
 
-                for (
-                    let i = 0;
-                    i < 70;
-                    i++
-                ) {
+                const rect =
+                    heartButton.getBoundingClientRect();
 
-                    createHeart();
+                const centerX =
+                    rect.left + rect.width / 2;
+
+                const centerY =
+                    rect.top + rect.height / 2;
+
+
+                for (let i = 0; i < 70; i++) {
+
+                    const heart =
+                        document.createElement("div");
+
+                    heart.className = "heart";
+
+                    heart.textContent = "♥";
+
+
+                    heart.style.left =
+                        centerX + "px";
+
+                    heart.style.top =
+                        centerY + "px";
+
+
+                    const angle =
+                        Math.random() * Math.PI * 2;
+
+                    const distance =
+                        100 + Math.random() * 350;
+
+
+                    const x =
+                        Math.cos(angle) * distance;
+
+                    const y =
+                        Math.sin(angle) * distance;
+
+
+                    const rotate =
+                        (Math.random() * 720 - 360) + "deg";
+
+
+                    heart.style.setProperty(
+                        "--x",
+                        x + "px"
+                    );
+
+                    heart.style.setProperty(
+                        "--y",
+                        y + "px"
+                    );
+
+                    heart.style.setProperty(
+                        "--rotate",
+                        rotate
+                    );
+
+
+                    heart.style.fontSize =
+                        (12 + Math.random() * 22) + "px";
+
+
+                    heart.style.animationDuration =
+                        (1.2 + Math.random() * 1.2) + "s";
+
+
+                    heartsContainer.appendChild(heart);
+
+
+                    setTimeout(
+                        function () {
+                            heart.remove();
+                        },
+                        2500
+                    );
 
                 }
 
@@ -1092,154 +817,21 @@
         );
 
 
-        function createHeart() {
-
-            const heart =
-                document.createElement("div");
-
-
-            heart.className =
-                "heart";
-
-
-            heart.innerHTML =
-                "♥";
-
-
-            const startX =
-                window.innerWidth / 2;
-
-
-            const startY =
-                window.innerHeight / 2;
-
-
-            const angle =
-                Math.random() *
-                Math.PI *
-                2;
-
-
-            const distance =
-                300 +
-                Math.random() *
-                1000;
-
-
-            const endX =
-                startX +
-                Math.cos(angle) *
-                distance;
-
-
-            const endY =
-                startY +
-                Math.sin(angle) *
-                distance;
-
-
-            const scale =
-                0.6 +
-                Math.random() *
-                1.4;
-
-
-            const rotation =
-                -360 +
-                Math.random() *
-                720;
-
-
-            const duration =
-                1.2 +
-                Math.random() *
-                1.8;
-
-
-            heart.style.setProperty(
-                "--start-x",
-                startX + "px"
-            );
-
-
-            heart.style.setProperty(
-                "--start-y",
-                startY + "px"
-            );
-
-
-            heart.style.setProperty(
-                "--end-x",
-                endX + "px"
-            );
-
-
-            heart.style.setProperty(
-                "--end-y",
-                endY + "px"
-            );
-
-
-            heart.style.setProperty(
-                "--scale",
-                scale
-            );
-
-
-            heart.style.setProperty(
-                "--rotation",
-                rotation + "deg"
-            );
-
-
-            heart.style.animationDuration =
-                duration + "s";
-
-
-            heart.style.fontSize =
-                (
-                    14 +
-                    Math.random() * 24
-                ) + "px";
-
-
-            container.appendChild(
-                heart
-            );
-
-
-            setTimeout(
-                function () {
-
-                    heart.remove();
-
-                },
-                duration * 1000 + 100
-            );
-
-        }
-
-
-
-        /* ================================= */
-        /*              МУЗЫКА                */
-        /* ================================= */
+        /* =========================
+           МУЗЫКА
+        ========================= */
 
         const audioPlayer =
             document.getElementById("audioPlayer");
 
-
         const musicButton =
             document.getElementById("musicButton");
-
 
         const musicName =
             document.getElementById("musicName");
 
-
         const addMusicButton =
             document.getElementById("addMusicButton");
-
 
         const tracks =
             document.querySelectorAll(".track");
@@ -1249,23 +841,11 @@
             "music/song1.mp3";
 
 
-        let isPlaying =
-            false;
-
-
-
-        /* ================================= */
-        /*        ЗАГРУЗКА ПЕРВОГО ТРЕКА      */
-        /* ================================= */
-
         audioPlayer.src =
             currentTrack;
 
 
-
-        /* ================================= */
-        /*          ВЫБОР ТРЕКА               */
-        /* ================================= */
+        /* ВЫБОР ТРЕКА */
 
         tracks.forEach(
             function (track) {
@@ -1276,18 +856,14 @@
 
                         tracks.forEach(
                             function (item) {
-
                                 item.classList.remove(
                                     "active"
                                 );
-
                             }
                         );
 
 
-                        track.classList.add(
-                            "active"
-                        );
+                        track.classList.add("active");
 
 
                         currentTrack =
@@ -1302,15 +878,11 @@
                             currentTrack;
 
 
-                        isPlaying =
-                            false;
+                        audioPlayer.load();
 
 
                         musicButton.textContent =
                             "▶";
-
-
-                        audioPlayer.load();
 
                     }
                 );
@@ -1319,29 +891,19 @@
         );
 
 
-
-        /* ================================= */
-        /*          КНОПКА PLAY                */
-        /* ================================= */
+        /* PLAY / PAUSE */
 
         musicButton.addEventListener(
             "click",
             function () {
 
-                if (
-                    audioPlayer.paused
-                ) {
+                if (audioPlayer.paused) {
 
                     audioPlayer.play()
                         .then(
                             function () {
-
-                                isPlaying =
-                                    true;
-
                                 musicButton.textContent =
                                     "❚❚";
-
                             }
                         )
                         .catch(
@@ -1359,9 +921,6 @@
 
                     audioPlayer.pause();
 
-                    isPlaying =
-                        false;
-
                     musicButton.textContent =
                         "▶";
 
@@ -1371,10 +930,7 @@
         );
 
 
-
-        /* ================================= */
-        /*       КОГДА ТРЕК ЗАКОНЧИЛСЯ        */
-        /* ================================= */
+        /* КОГДА ПЕСНЯ ЗАКОНЧИЛАСЬ */
 
         audioPlayer.addEventListener(
             "ended",
@@ -1383,44 +939,31 @@
                 const currentIndex =
                     Array.from(tracks).findIndex(
                         function (track) {
-
                             return track.classList.contains(
                                 "active"
                             );
-
                         }
                     );
 
 
                 const nextIndex =
-                    (
-                        currentIndex + 1
-                    ) % tracks.length;
+                    (currentIndex + 1) % tracks.length;
 
 
-                tracks[
-                    nextIndex
-                ].click();
+                tracks[nextIndex].click();
 
 
                 audioPlayer.play()
                     .then(
                         function () {
-
-                            isPlaying =
-                                true;
-
                             musicButton.textContent =
                                 "❚❚";
-
                         }
                     )
                     .catch(
                         function () {
-
                             musicButton.textContent =
                                 "▶";
-
                         }
                     );
 
@@ -1428,10 +971,22 @@
         );
 
 
+        /* ОШИБКА АУДИО */
 
-        /* ================================= */
-        /*       КНОПКА ДОБАВИТЬ МУЗЫКУ       */
-        /* ================================= */
+        audioPlayer.addEventListener(
+            "error",
+            function () {
+
+                console.log(
+                    "Не удалось загрузить:",
+                    currentTrack
+                );
+
+            }
+        );
+
+
+        /* ДОБАВИТЬ МУЗЫКУ */
 
         addMusicButton.addEventListener(
             "click",
