@@ -49,7 +49,6 @@
 
             background-image:
 
-                /* МЕЛКИЕ ДАЛЁКИЕ ЗВЁЗДЫ */
                 radial-gradient(
                     circle,
                     rgba(255,255,255,0.75) 0.35px,
@@ -68,7 +67,6 @@
                     transparent 1.2px
                 ),
 
-                /* РЕДКИЕ БОЛЕЕ ЯРКИЕ ЗВЁЗДЫ */
                 radial-gradient(
                     circle,
                     rgba(255,255,255,0.9) 0.8px,
@@ -81,7 +79,6 @@
                     transparent 2px
                 ),
 
-                /* ГОЛУБАЯ ТУМАННОСТЬ */
                 radial-gradient(
                     ellipse at 25% 35%,
                     rgba(55,95,190,0.18) 0%,
@@ -89,7 +86,6 @@
                     transparent 45%
                 ),
 
-                /* ФИОЛЕТОВАЯ ТУМАННОСТЬ */
                 radial-gradient(
                     ellipse at 75% 25%,
                     rgba(120,55,180,0.16) 0%,
@@ -97,7 +93,6 @@
                     transparent 48%
                 ),
 
-                /* КРАСНАЯ ТУМАННОСТЬ */
                 radial-gradient(
                     ellipse at 65% 75%,
                     rgba(160,45,65,0.11) 0%,
@@ -105,7 +100,6 @@
                     transparent 45%
                 ),
 
-                /* ХОЛОДНАЯ ТУМАННОСТЬ */
                 radial-gradient(
                     ellipse at 10% 80%,
                     rgba(40,100,170,0.13) 0%,
@@ -155,7 +149,6 @@
 
             background-image:
 
-                /* БЕЛЫЕ ЯРКИЕ ЗВЁЗДЫ */
                 radial-gradient(
                     circle,
                     rgba(255,255,255,1) 0px,
@@ -164,7 +157,6 @@
                     transparent 5px
                 ),
 
-                /* ГОЛУБЫЕ ЗВЁЗДЫ */
                 radial-gradient(
                     circle,
                     rgba(205,225,255,1) 0px,
@@ -173,7 +165,6 @@
                     transparent 7px
                 ),
 
-                /* ТЁПЛЫЕ ЗВЁЗДЫ */
                 radial-gradient(
                     circle,
                     rgba(255,245,225,1) 0px,
@@ -182,7 +173,6 @@
                     transparent 7px
                 ),
 
-                /* БОЛЬШАЯ ГОЛУБАЯ ТУМАННОСТЬ */
                 radial-gradient(
                     ellipse at 35% 55%,
                     rgba(50,90,190,0.13) 0%,
@@ -191,7 +181,6 @@
                     transparent 58%
                 ),
 
-                /* ФИОЛЕТОВАЯ ОБЛАЧНОСТЬ */
                 radial-gradient(
                     ellipse at 82% 65%,
                     rgba(110,45,170,0.12) 0%,
@@ -648,7 +637,7 @@
 
 
         .music-card {
-            width: 320px;
+            width: 360px;
 
             margin-top: 40px;
 
@@ -679,6 +668,95 @@
             font-size: 20px;
 
             margin-bottom: 20px;
+
+            min-height: 24px;
+        }
+
+
+        /* ================================= */
+        /*          ПЛЕЙЛИСТ                   */
+        /* ================================= */
+
+        .playlist {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .playlist-item {
+            width: 100%;
+
+            margin: 0;
+
+            padding: 10px 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 7px;
+
+            color: white;
+
+            font-size: 14px;
+
+            text-align: left;
+        }
+
+
+        .playlist-item:hover {
+            background:
+                rgba(255,255,255,0.08);
+
+            box-shadow: none;
+        }
+
+
+        .playlist-item.active {
+            border-color: #ff2b2b;
+
+            background:
+                rgba(255,43,43,0.12);
+        }
+
+
+        .playlist-number {
+            color: rgba(255,255,255,0.4);
+
+            min-width: 20px;
+        }
+
+
+        .playlist-song-name {
+            flex: 1;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        .playlist-status {
+            font-size: 12px;
+
+            color: rgba(255,255,255,0.45);
         }
 
 
@@ -848,6 +926,16 @@
                 padding: 80px 7%;
             }
 
+
+            .music-card {
+                width: 100%;
+            }
+
+
+            .music-controls {
+                flex-wrap: wrap;
+            }
+
         }
 
     </style>
@@ -932,7 +1020,7 @@
         <section class="photos" id="photos">
 
             <h2>
-                наши фотачке
+                Наши фото
             </h2>
 
         </section>
@@ -960,22 +1048,130 @@
                     Сейчас играет
                 </div>
 
-                <div class="music-name">
+
+                <div
+                    class="music-name"
+                    id="musicName"
+                >
                     Пока ничего
                 </div>
 
 
+                <!-- ПЛЕЙЛИСТ -->
+
+                <div
+                    class="playlist"
+                    id="playlist"
+                >
+
+                    <button
+                        class="playlist-item"
+                        data-index="0"
+                        type="button"
+                    >
+                        <span class="playlist-number">
+                            1
+                        </span>
+
+                        <span class="playlist-song-name">
+                            Название первой песни
+                        </span>
+
+                        <span class="playlist-status">
+                            ▶
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="playlist-item"
+                        data-index="1"
+                        type="button"
+                    >
+                        <span class="playlist-number">
+                            2
+                        </span>
+
+                        <span class="playlist-song-name">
+                            Название второй песни
+                        </span>
+
+                        <span class="playlist-status">
+                            ▶
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="playlist-item"
+                        data-index="2"
+                        type="button"
+                    >
+                        <span class="playlist-number">
+                            3
+                        </span>
+
+                        <span class="playlist-song-name">
+                            Название третьей песни
+                        </span>
+
+                        <span class="playlist-status">
+                            ▶
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="playlist-item"
+                        data-index="3"
+                        type="button"
+                    >
+                        <span class="playlist-number">
+                            4
+                        </span>
+
+                        <span class="playlist-song-name">
+                            Название четвёртой песни
+                        </span>
+
+                        <span class="playlist-status">
+                            ▶
+                        </span>
+                    </button>
+
+                </div>
+
+
+                <!-- КНОПКИ -->
+
                 <div class="music-controls">
 
-                    <button class="music-button">
+                    <button
+                        class="music-button"
+                        id="playButton"
+                        type="button"
+                    >
                         ▶
                     </button>
 
-                    <button class="add-music-button">
+
+                    <button
+                        class="add-music-button"
+                        id="addMusicButton"
+                        type="button"
+                    >
                         добавить музыку
                     </button>
 
                 </div>
+
+
+                <!-- АУДИО -->
+
+                <audio
+                    id="audioPlayer"
+                    preload="metadata"
+                ></audio>
 
             </div>
 
@@ -995,14 +1191,18 @@
 
     <script>
 
-        const button =
+        /* ================================= */
+        /*              СЕРДЦА                 */
+        /* ================================= */
+
+        const heartButton =
             document.getElementById("heartButton");
 
-        const container =
+        const heartsContainer =
             document.getElementById("hearts-container");
 
 
-        button.addEventListener(
+        heartButton.addEventListener(
             "click",
             function () {
 
@@ -1131,7 +1331,7 @@
                 ) + "px";
 
 
-            container.appendChild(
+            heartsContainer.appendChild(
                 heart
             );
 
@@ -1146,6 +1346,248 @@
             );
 
         }
+
+
+
+        /* ================================= */
+        /*              МУЗЫКА                 */
+        /* ================================= */
+
+        const songs = [
+
+            {
+                file: "music/song1.mp3",
+                name: "Название первой песни"
+            },
+
+            {
+                file: "music/song2.mp3",
+                name: "Название второй песни"
+            },
+
+            {
+                file: "music/song3.mp3",
+                name: "Название третьей песни"
+            },
+
+            {
+                file: "music/song4.mp3",
+                name: "Название четвёртой песни"
+            }
+
+        ];
+
+
+        const audioPlayer =
+            document.getElementById("audioPlayer");
+
+
+        const playButton =
+            document.getElementById("playButton");
+
+
+        const musicName =
+            document.getElementById("musicName");
+
+
+        const playlistItems =
+            document.querySelectorAll(
+                ".playlist-item"
+            );
+
+
+        const addMusicButton =
+            document.getElementById(
+                "addMusicButton"
+            );
+
+
+        let currentSong =
+            0;
+
+
+
+        /* ================================= */
+        /*        ВЫБОР ПЕСНИ                 */
+        /* ================================= */
+
+        function selectSong(index) {
+
+            if (
+                index < 0 ||
+                index >= songs.length
+            ) {
+                return;
+            }
+
+
+            currentSong =
+                index;
+
+
+            audioPlayer.src =
+                songs[currentSong].file;
+
+
+            musicName.textContent =
+                songs[currentSong].name;
+
+
+            playlistItems.forEach(
+                function (item, itemIndex) {
+
+                    item.classList.toggle(
+                        "active",
+                        itemIndex === currentSong
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* ================================= */
+        /*          ВОСПРОИЗВЕДЕНИЕ           */
+        /* ================================= */
+
+        function playSong() {
+
+            if (!audioPlayer.src) {
+
+                selectSong(currentSong);
+
+            }
+
+
+            audioPlayer.play()
+                .then(
+                    function () {
+
+                        playButton.textContent =
+                            "❚❚";
+
+                    }
+                )
+                .catch(
+                    function () {
+
+                        playButton.textContent =
+                            "▶";
+
+                    }
+                );
+
+        }
+
+
+
+        function pauseSong() {
+
+            audioPlayer.pause();
+
+            playButton.textContent =
+                "▶";
+
+        }
+
+
+
+        playButton.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    audioPlayer.paused
+                ) {
+
+                    playSong();
+
+                } else {
+
+                    pauseSong();
+
+                }
+
+            }
+        );
+
+
+
+        /* ================================= */
+        /*        НАЖАТИЕ НА ПЕСНУ             */
+        /* ================================= */
+
+        playlistItems.forEach(
+            function (item) {
+
+                item.addEventListener(
+                    "click",
+                    function () {
+
+                        const index =
+                            Number(
+                                item.dataset.index
+                            );
+
+
+                        selectSong(index);
+
+                        playSong();
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* ================================= */
+        /*       СЛЕДУЮЩАЯ ПЕСНЯ              */
+        /* ================================= */
+
+        audioPlayer.addEventListener(
+            "ended",
+            function () {
+
+                currentSong++;
+
+
+                if (
+                    currentSong >= songs.length
+                ) {
+
+                    currentSong = 0;
+
+                }
+
+
+                selectSong(currentSong);
+
+                playSong();
+
+            }
+        );
+
+
+
+        /* ================================= */
+        /*       ОТКРЫТЬ GITHUB               */
+        /* ================================= */
+
+        addMusicButton.addEventListener(
+            "click",
+            function () {
+
+                window.open(
+                    "https://github.com/dmetro2484285-debug/my-site/tree/main/music",
+                    "_blank"
+                );
+
+            }
+        );
 
     </script>
 
