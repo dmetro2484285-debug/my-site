@@ -330,7 +330,8 @@
         }
 
         .photos h2,
-        .music h2 {
+        .music h2,
+        .calls h2 {
             font-size: 48px;
             font-weight: 700;
             letter-spacing: -2px;
@@ -639,6 +640,110 @@
             color: white;
         }
 
+        /* ЗВОНКИ */
+
+        .calls {
+            min-height: 100vh;
+
+            padding: 100px 7%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .calls > p {
+            margin-top: 15px;
+
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 15px;
+        }
+
+        .call-card {
+            width: 360px;
+
+            margin-top: 40px;
+            padding: 25px;
+
+            background: rgba(10, 10, 18, 0.65);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+
+            backdrop-filter: blur(12px);
+
+            text-align: center;
+        }
+
+        .call-input {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 10px;
+
+            border-radius: 8px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            background: rgba(255, 255, 255, 0.06);
+
+            color: white;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        .call-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .call-input:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .call-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .call-button {
+            padding: 11px 18px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+
+            color: white;
+            background: rgba(255, 255, 255, 0.06);
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .call-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .call-status {
+            margin-top: 15px;
+
+            min-height: 18px;
+
+            color: rgba(255, 255, 255, 0.5);
+
+            font-size: 13px;
+        }
+
         /* АДАПТИВ */
 
         @media (max-width: 900px) {
@@ -701,12 +806,14 @@
                 font-size: 50px;
             }
 
-            .music-card {
+            .music-card,
+            .call-card {
                 width: min(360px, calc(100vw - 40px));
             }
 
             .photos h2,
-            .music h2 {
+            .music h2,
+            .calls h2 {
                 font-size: 38px;
             }
         }
@@ -726,6 +833,7 @@
             <a href="#home">Главная</a>
             <a href="#photos">наши фотачке</a>
             <a href="#music">музяка</a>
+            <a href="#calls">звонки</a>
         </nav>
     </header>
 
@@ -941,6 +1049,84 @@
                     </div>
 
                 </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ЗВОНКИ -->
+
+        <section class="calls" id="calls">
+
+            <h2>Звонки</h2>
+
+            <p>
+                Звонок 1 на 1
+            </p>
+
+            <div class="call-card">
+
+                <input
+                    id="myId"
+                    class="call-input"
+                    type="text"
+                    placeholder="Твой ID"
+                    autocomplete="off"
+                >
+
+                <input
+                    id="targetId"
+                    class="call-input"
+                    type="text"
+                    placeholder="ID пользователя"
+                    autocomplete="off"
+                >
+
+                <div class="call-buttons">
+
+                    <button
+                        id="connectButton"
+                        class="call-button"
+                    >
+                        Подключиться
+                    </button>
+
+                    <button
+                        id="callButton"
+                        class="call-button"
+                    >
+                        Позвонить
+                    </button>
+
+                    <button
+                        id="micButton"
+                        class="call-button"
+                    >
+                        Выключить микрофон
+                    </button>
+
+                    <button
+                        id="hangupButton"
+                        class="call-button"
+                    >
+                        Завершить звонок
+                    </button>
+
+                </div>
+
+                <p
+                    id="callStatus"
+                    class="call-status"
+                    aria-live="polite"
+                >
+                    Подключение к серверу...
+                </p>
+
+                <audio
+                    id="remoteAudio"
+                    autoplay
+                ></audio>
 
             </div>
 
@@ -1586,6 +1772,786 @@
                 window.open(
                     "https://github.com/dmetro2484285-debug/my-site/tree/main/music",
                     "_blank"
+                );
+
+            }
+        );
+
+
+        /* =========================
+           ЗВОНОК 1 НА 1
+        ========================= */
+
+        const myIdInput =
+            document.getElementById("myId");
+
+        const targetIdInput =
+            document.getElementById("targetId");
+
+        const connectButton =
+            document.getElementById("connectButton");
+
+        const callButton =
+            document.getElementById("callButton");
+
+        const micButton =
+            document.getElementById("micButton");
+
+        const hangupButton =
+            document.getElementById("hangupButton");
+
+        const callStatus =
+            document.getElementById("callStatus");
+
+        const remoteAudio =
+            document.getElementById("remoteAudio");
+
+
+        /*
+           Публичный сервер звонков Waifly
+        */
+
+        const socket =
+            new WebSocket(
+                "wss://node.waifly.com:27327"
+            );
+
+
+        let peerConnection =
+            null;
+
+        let localStream =
+            null;
+
+        let connected =
+            false;
+
+        let micEnabled =
+            true;
+
+
+        /* =========================
+           СТАТУС
+        ========================= */
+
+        function setCallStatus(text) {
+
+            callStatus.textContent =
+                text;
+
+        }
+
+
+        /* =========================
+           WEBRTC
+        ========================= */
+
+        function createPeerConnection() {
+
+            peerConnection =
+                new RTCPeerConnection({
+
+                    iceServers: [
+
+                        {
+                            urls:
+                                "stun:stun.l.google.com:19302"
+                        }
+
+                    ]
+
+                });
+
+
+            peerConnection.onicecandidate =
+                function(event) {
+
+                    if (!event.candidate) {
+                        return;
+                    }
+
+
+                    const targetId =
+                        targetIdInput.value.trim();
+
+
+                    if (!targetId) {
+                        return;
+                    }
+
+
+                    if (
+                        socket.readyState ===
+                        WebSocket.OPEN
+                    ) {
+
+                        socket.send(
+                            JSON.stringify({
+
+                                type:
+                                    "candidate",
+
+                                to:
+                                    targetId,
+
+                                candidate:
+                                    event.candidate
+
+                            })
+                        );
+
+                    }
+
+                };
+
+
+            peerConnection.ontrack =
+                function(event) {
+
+                    if (
+                        event.streams &&
+                        event.streams[0]
+                    ) {
+
+                        remoteAudio.srcObject =
+                            event.streams[0];
+
+                    }
+
+                };
+
+
+            peerConnection.onconnectionstatechange =
+                function() {
+
+                    if (!peerConnection) {
+                        return;
+                    }
+
+
+                    const state =
+                        peerConnection.connectionState;
+
+
+                    if (
+                        state === "connected"
+                    ) {
+
+                        setCallStatus(
+                            "Звонок подключён"
+                        );
+
+                    }
+
+
+                    if (
+                        state === "connecting"
+                    ) {
+
+                        setCallStatus(
+                            "Звонок подключается..."
+                        );
+
+                    }
+
+
+                    if (
+                        state === "disconnected" ||
+                        state === "failed"
+                    ) {
+
+                        setCallStatus(
+                            "Соединение со звонком потеряно"
+                        );
+
+                    }
+
+                };
+
+        }
+
+
+        /* =========================
+           ПОДКЛЮЧЕНИЕ
+        ========================= */
+
+        connectButton.addEventListener(
+            "click",
+            async function() {
+
+                const myId =
+                    myIdInput.value.trim();
+
+
+                if (!myId) {
+
+                    setCallStatus(
+                        "Введи свой ID"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    socket.readyState !==
+                    WebSocket.OPEN
+                ) {
+
+                    setCallStatus(
+                        "Сервер звонков ещё не подключён"
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    localStream =
+                        await navigator.mediaDevices.getUserMedia({
+
+                            audio: true
+
+                        });
+
+
+                    createPeerConnection();
+
+
+                    localStream
+                        .getTracks()
+                        .forEach(
+                            function(track) {
+
+                                peerConnection.addTrack(
+                                    track,
+                                    localStream
+                                );
+
+                            }
+                        );
+
+
+                    socket.send(
+                        JSON.stringify({
+
+                            type:
+                                "register",
+
+                            userId:
+                                myId
+
+                        })
+                    );
+
+
+                    connected =
+                        true;
+
+
+                    setCallStatus(
+                        "Подключаем тебя..."
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Ошибка микрофона:",
+                        error
+                    );
+
+
+                    setCallStatus(
+                        "Не удалось получить доступ к микрофону"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           СООБЩЕНИЯ ОТ СЕРВЕРА
+        ========================= */
+
+        socket.addEventListener(
+            "message",
+            async function(event) {
+
+                let data;
+
+
+                try {
+
+                    data =
+                        JSON.parse(
+                            event.data
+                        );
+
+                } catch {
+
+                    return;
+
+                }
+
+
+                /* РЕГИСТРАЦИЯ */
+
+                if (
+                    data.type ===
+                    "registered"
+                ) {
+
+                    setCallStatus(
+                        "Готов к звонку"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ВХОДЯЩИЙ ЗВОНОК */
+
+                if (
+                    data.type ===
+                    "offer"
+                ) {
+
+                    if (
+                        !peerConnection
+                    ) {
+
+                        createPeerConnection();
+
+                    }
+
+
+                    try {
+
+                        if (!localStream) {
+
+                            localStream =
+                                await navigator.mediaDevices.getUserMedia({
+
+                                    audio: true
+
+                                });
+
+
+                            localStream
+                                .getTracks()
+                                .forEach(
+                                    function(track) {
+
+                                        peerConnection.addTrack(
+                                            track,
+                                            localStream
+                                        );
+
+                                    }
+                                );
+
+                        }
+
+
+                        await peerConnection
+                            .setRemoteDescription(
+                                data.offer
+                            );
+
+
+                        const answer =
+                            await peerConnection
+                                .createAnswer();
+
+
+                        await peerConnection
+                            .setLocalDescription(
+                                answer
+                            );
+
+
+                        if (
+                            socket.readyState ===
+                            WebSocket.OPEN
+                        ) {
+
+                            socket.send(
+                                JSON.stringify({
+
+                                    type:
+                                        "answer",
+
+                                    to:
+                                        data.from,
+
+                                    answer:
+                                        answer
+
+                                })
+                            );
+
+                        }
+
+
+                        setCallStatus(
+                            "Звонок подключается..."
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Ошибка входящего звонка:",
+                            error
+                        );
+
+
+                        setCallStatus(
+                            "Ошибка подключения звонка"
+                        );
+
+                    }
+
+                }
+
+
+                /* ОТВЕТ */
+
+                if (
+                    data.type ===
+                    "answer"
+                ) {
+
+                    if (
+                        !peerConnection
+                    ) {
+                        return;
+                    }
+
+
+                    try {
+
+                        await peerConnection
+                            .setRemoteDescription(
+                                data.answer
+                            );
+
+
+                        setCallStatus(
+                            "Звонок подключается..."
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Ошибка ответа:",
+                            error
+                        );
+
+                    }
+
+                }
+
+
+                /* ICE */
+
+                if (
+                    data.type ===
+                    "candidate"
+                ) {
+
+                    if (
+                        !peerConnection
+                    ) {
+                        return;
+                    }
+
+
+                    try {
+
+                        await peerConnection
+                            .addIceCandidate(
+                                data.candidate
+                            );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Ошибка ICE:",
+                            error
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           ПОЗВОНИТЬ
+        ========================= */
+
+        callButton.addEventListener(
+            "click",
+            async function() {
+
+                if (!connected) {
+
+                    setCallStatus(
+                        "Сначала нажми «Подключиться»"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!peerConnection) {
+
+                    setCallStatus(
+                        "Соединение ещё не готово"
+                    );
+
+                    return;
+
+                }
+
+
+                const targetId =
+                    targetIdInput.value.trim();
+
+
+                if (!targetId) {
+
+                    setCallStatus(
+                        "Введи ID пользователя"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    socket.readyState !==
+                    WebSocket.OPEN
+                ) {
+
+                    setCallStatus(
+                        "Сервер звонков недоступен"
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    const offer =
+                        await peerConnection
+                            .createOffer();
+
+
+                    await peerConnection
+                        .setLocalDescription(
+                            offer
+                        );
+
+
+                    socket.send(
+                        JSON.stringify({
+
+                            type:
+                                "offer",
+
+                            to:
+                                targetId,
+
+                            offer:
+                                offer
+
+                        })
+                    );
+
+
+                    setCallStatus(
+                        "Звоним..."
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Ошибка звонка:",
+                        error
+                    );
+
+
+                    setCallStatus(
+                        "Не удалось начать звонок"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           МИКРОФОН
+        ========================= */
+
+        micButton.addEventListener(
+            "click",
+            function() {
+
+                if (!localStream) {
+
+                    setCallStatus(
+                        "Сначала подключись"
+                    );
+
+                    return;
+
+                }
+
+
+                micEnabled =
+                    !micEnabled;
+
+
+                localStream
+                    .getAudioTracks()
+                    .forEach(
+                        function(track) {
+
+                            track.enabled =
+                                micEnabled;
+
+                        }
+                    );
+
+
+                micButton.textContent =
+                    micEnabled
+                        ? "Выключить микрофон"
+                        : "Включить микрофон";
+
+            }
+        );
+
+
+        /* =========================
+           ЗАВЕРШИТЬ ЗВОНОК
+        ========================= */
+
+        hangupButton.addEventListener(
+            "click",
+            function() {
+
+                if (peerConnection) {
+
+                    peerConnection.close();
+
+                    peerConnection =
+                        null;
+
+                }
+
+
+                if (localStream) {
+
+                    localStream
+                        .getTracks()
+                        .forEach(
+                            function(track) {
+
+                                track.stop();
+
+                            }
+                        );
+
+                    localStream =
+                        null;
+
+                }
+
+
+                remoteAudio.srcObject =
+                    null;
+
+
+                connected =
+                    false;
+
+
+                micEnabled =
+                    true;
+
+
+                micButton.textContent =
+                    "Выключить микрофон";
+
+
+                setCallStatus(
+                    "Звонок завершён"
+                );
+
+            }
+        );
+
+
+        /* =========================
+           WEBSOCKET
+        ========================= */
+
+        socket.addEventListener(
+            "open",
+            function() {
+
+                setCallStatus(
+                    "Сервер звонков подключён"
+                );
+
+            }
+        );
+
+
+        socket.addEventListener(
+            "error",
+            function(error) {
+
+                console.error(
+                    "WebSocket ошибка:",
+                    error
+                );
+
+
+                setCallStatus(
+                    "Ошибка подключения к серверу"
+                );
+
+            }
+        );
+
+
+        socket.addEventListener(
+            "close",
+            function() {
+
+                connected =
+                    false;
+
+
+                setCallStatus(
+                    "Соединение с сервером закрыто"
                 );
 
             }
