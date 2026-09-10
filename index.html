@@ -744,6 +744,36 @@
             font-size: 13px;
         }
 
+        /* АВАТАРКИ ЗВОНКА */
+
+        .call-avatars {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            margin: 0 auto 25px;
+            padding: 0 5px;
+            box-sizing: border-box;
+        }
+
+        .call-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            flex-shrink: 0;
+        }
+
+        .call-avatar img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
         /* АДАПТИВ */
 
         @media (max-width: 900px) {
@@ -1066,6 +1096,16 @@
             </p>
 
             <div class="call-card">
+
+                <div class="call-avatars" id="callAvatars">
+                    <div class="call-avatar">
+                        <img src="avatars/me.jpg" alt="Моя аватарка">
+                    </div>
+
+                    <div class="call-avatar">
+                        <img src="avatars/friend.jpg" alt="Аватарка собеседника">
+                    </div>
+                </div>
 
                 <input
                     id="myId"
