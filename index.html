@@ -774,6 +774,53 @@
             object-fit: cover;
         }
 
+        .user-choice-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.72);
+        }
+
+        .user-choice-box {
+            width: min(420px, 100%);
+            padding: 28px;
+            box-sizing: border-box;
+            border-radius: 18px;
+            background: #151515;
+            border: 1px solid rgba(255,255,255,.12);
+            text-align: center;
+        }
+
+        .user-choice-box h2 {
+            margin: 0 0 8px;
+        }
+
+        .user-choice-box p {
+            margin: 0 0 22px;
+            opacity: .7;
+        }
+
+        .user-choice-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .user-choice-button {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 16px;
+            border: 0;
+            border-radius: 12px;
+            cursor: pointer;
+            font: inherit;
+        }
+
         /* АДАПТИВ */
 
         @media (max-width: 900px) {
@@ -1085,6 +1132,18 @@
         </section>
 
 
+        <!-- ВЫБОР ПОЛЬЗОВАТЕЛЯ -->
+        <div class="user-choice-overlay" id="userChoiceOverlay" style="display:none;">
+            <div class="user-choice-box">
+                <h2>Кто ты?</h2>
+                <p>Выбери своего пользователя</p>
+                <div class="user-choice-buttons">
+                    <button type="button" class="user-choice-button" id="chooseUser1">Mushroom abortion</button>
+                    <button type="button" class="user-choice-button" id="chooseUser2">nikto242</button>
+                </div>
+            </div>
+        </div>
+
         <!-- ЗВОНКИ -->
 
         <section class="calls" id="calls">
@@ -1107,50 +1166,13 @@
                     </div>
                 </div>
 
-                <input
-                    id="myId"
-                    class="call-input"
-                    type="text"
-                    placeholder="Твой ID"
-                    autocomplete="off"
-                >
-
-                <input
-                    id="targetId"
-                    class="call-input"
-                    type="text"
-                    placeholder="ID пользователя"
-                    autocomplete="off"
-                >
-
                 <div class="call-buttons">
-
-                    <button
-                        id="connectButton"
-                        class="call-button"
-                    >
-                        Подключиться
-                    </button>
 
                     <button
                         id="callButton"
                         class="call-button"
                     >
                         Позвонить
-                    </button>
-
-                    <button
-                        id="micButton"
-                        class="call-button"
-                    >
-                        Выключить микрофон
-                    </button>
-
-                    <button
-                        id="hangupButton"
-                        class="call-button"
-                    >
-                        Завершить звонок
                     </button>
 
                 </div>
@@ -1822,23 +1844,63 @@
            ЗВОНОК 1 НА 1
         ========================= */
 
-        const myIdInput =
-            document.getElementById("myId");
+        /*
+           Выбор пользователя сохраняется в браузере.
+           При первом открытии сайта появится окно «Кто ты?».
+        */
 
-        const targetIdInput =
-            document.getElementById("targetId");
+        const USER_1_ID = "Mushroom abortion";
+        const USER_2_ID = "nikto242";
 
-        const connectButton =
-            document.getElementById("connectButton");
+        const userChoiceOverlay =
+            document.getElementById("userChoiceOverlay");
+
+        const chooseUser1 =
+            document.getElementById("chooseUser1");
+
+        const chooseUser2 =
+            document.getElementById("chooseUser2");
+
+        let savedUser = null;
+
+        try {
+            savedUser = localStorage.getItem("callUserId");
+        } catch (error) {
+            savedUser = null;
+        }
+
+        let myId = savedUser === USER_2_ID
+            ? USER_2_ID
+            : savedUser === USER_1_ID
+                ? USER_1_ID
+                : null;
+
+        let targetId =
+            myId === USER_2_ID ? USER_1_ID : USER_2_ID;
+
+        function saveUserChoice(userId) {
+            myId = userId;
+            targetId =
+                myId === USER_2_ID ? USER_1_ID : USER_2_ID;
+
+            try {
+                localStorage.setItem("callUserId", userId);
+            } catch (error) {}
+
+            if (userChoiceOverlay) {
+                userChoiceOverlay.style.display = "none";
+            }
+
+            setCallStatus("Подключение к серверу...");
+
+            createCallSocket();
+        }
 
         const callButton =
             document.getElementById("callButton");
 
         const micButton =
             document.getElementById("micButton");
-
-        const hangupButton =
-            document.getElementById("hangupButton");
 
         const callStatus =
             document.getElementById("callStatus");
@@ -1866,10 +1928,19 @@
            Публичный сервер звонков Waifly
         */
 
-        const socket =
-            new WebSocket(
+        let socket = null;
+
+        function createCallSocket() {
+            if (!myId) {
+                return;
+            }
+
+            socket = new WebSocket(
                 "wss://call-server-proxy.dmetro2484285.workers.dev"
             );
+
+            setupCallSocket();
+        }
 
 
         let peerConnection =
@@ -1883,6 +1954,9 @@
 
         let micEnabled =
             true;
+
+        let callActive =
+            false;
 
 
         /* =========================
@@ -1926,11 +2000,10 @@
                     }
 
 
-                    const targetId =
-                        targetIdInput.value.trim();
+                    const targetIdForIce = targetId;
 
 
-                    if (!targetId) {
+                    if (!targetIdForIce) {
                         return;
                     }
 
@@ -1947,7 +2020,7 @@
                                     "candidate",
 
                                 to:
-                                    targetId,
+                                    targetIdForIce,
 
                                 candidate:
                                     event.candidate
@@ -2017,6 +2090,12 @@
                         state === "failed"
                     ) {
 
+                        callActive =
+                            false;
+
+                        callButton.textContent =
+                            "Позвонить";
+
                         hideCallAvatars();
 
                         setCallStatus(
@@ -2034,334 +2113,72 @@
            ПОДКЛЮЧЕНИЕ
         ========================= */
 
-        connectButton.addEventListener(
-            "click",
-            async function() {
+        /* =========================
+           АВТОПОДКЛЮЧЕНИЕ
+        ========================= */
 
-                const myId =
-                    myIdInput.value.trim();
+        async function connectToCallServer() {
 
+            if (socket.readyState !== WebSocket.OPEN) {
+                setCallStatus(
+                    "Сервер звонков ещё подключается..."
+                );
+                return;
+            }
 
-                if (!myId) {
+            try {
 
-                    setCallStatus(
-                        "Введи свой ID"
-                    );
-
-                    return;
-
-                }
-
-
-                if (
-                    socket.readyState !==
-                    WebSocket.OPEN
-                ) {
-
-                    setCallStatus(
-                        "Сервер звонков ещё не подключён"
-                    );
-
-                    return;
-
-                }
-
-
-                try {
+                if (!localStream) {
 
                     localStream =
                         await navigator.mediaDevices.getUserMedia({
-
                             audio: {
-                        noiseSuppression: true,
-                        echoCancellation: true,
-                        autoGainControl: true
-                    }
-
-                        });
-
-
-                    createPeerConnection();
-
-
-                    localStream
-                        .getTracks()
-                        .forEach(
-                            function(track) {
-
-                                peerConnection.addTrack(
-                                    track,
-                                    localStream
-                                );
-
+                                noiseSuppression: true,
+                                echoCancellation: true,
+                                autoGainControl: true
                             }
-                        );
-
-
-                    socket.send(
-                        JSON.stringify({
-
-                            type:
-                                "register",
-
-                            userId:
-                                myId
-
-                        })
-                    );
-
-
-                    connected =
-                        true;
-
-
-                    setCallStatus(
-                        "Подключаем тебя..."
-                    );
-
-                } catch (error) {
-
-                    console.error(
-                        "Ошибка микрофона:",
-                        error
-                    );
-
-
-                    setCallStatus(
-                        "Не удалось получить доступ к микрофону"
-                    );
+                        });
 
                 }
 
+                if (!peerConnection) {
+                    createPeerConnection();
+
+                    localStream
+                        .getTracks()
+                        .forEach(function(track) {
+                            peerConnection.addTrack(
+                                track,
+                                localStream
+                            );
+                        });
+                }
+
+                connected = true;
+
+                setCallStatus(
+                    "Готов к звонку"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Ошибка микрофона:",
+                    error
+                );
+
+                setCallStatus(
+                    "Разреши доступ к микрофону"
+                );
+
             }
-        );
+
+        }
 
 
         /* =========================
            СООБЩЕНИЯ ОТ СЕРВЕРА
         ========================= */
-
-        socket.addEventListener(
-            "message",
-            async function(event) {
-
-                let data;
-
-
-                try {
-
-                    data =
-                        JSON.parse(
-                            event.data
-                        );
-
-                } catch {
-
-                    return;
-
-                }
-
-
-                /* РЕГИСТРАЦИЯ */
-
-                if (
-                    data.type ===
-                    "registered"
-                ) {
-
-                    setCallStatus(
-                        "Готов к звонку"
-                    );
-
-                    return;
-
-                }
-
-
-                /* ВХОДЯЩИЙ ЗВОНОК */
-
-                if (
-                    data.type ===
-                    "offer"
-                ) {
-
-                    showCallAvatars();
-
-                    if (
-                        !peerConnection
-                    ) {
-
-                        createPeerConnection();
-
-                    }
-
-
-                    try {
-
-                        if (!localStream) {
-
-                            localStream =
-                                await navigator.mediaDevices.getUserMedia({
-
-                                    audio: {
-                        noiseSuppression: true,
-                        echoCancellation: true,
-                        autoGainControl: true
-                    }
-
-                                });
-
-
-                            localStream
-                                .getTracks()
-                                .forEach(
-                                    function(track) {
-
-                                        peerConnection.addTrack(
-                                            track,
-                                            localStream
-                                        );
-
-                                    }
-                                );
-
-                        }
-
-
-                        await peerConnection
-                            .setRemoteDescription(
-                                data.offer
-                            );
-
-
-                        const answer =
-                            await peerConnection
-                                .createAnswer();
-
-
-                        await peerConnection
-                            .setLocalDescription(
-                                answer
-                            );
-
-
-                        if (
-                            socket.readyState ===
-                            WebSocket.OPEN
-                        ) {
-
-                            socket.send(
-                                JSON.stringify({
-
-                                    type:
-                                        "answer",
-
-                                    to:
-                                        data.from,
-
-                                    answer:
-                                        answer
-
-                                })
-                            );
-
-                        }
-
-
-                        setCallStatus(
-                            "Звонок подключается..."
-                        );
-
-                    } catch (error) {
-
-                        console.error(
-                            "Ошибка входящего звонка:",
-                            error
-                        );
-
-
-                        setCallStatus(
-                            "Ошибка подключения звонка"
-                        );
-
-                    }
-
-                }
-
-
-                /* ОТВЕТ */
-
-                if (
-                    data.type ===
-                    "answer"
-                ) {
-
-                    if (
-                        !peerConnection
-                    ) {
-                        return;
-                    }
-
-
-                    try {
-
-                        await peerConnection
-                            .setRemoteDescription(
-                                data.answer
-                            );
-
-
-                        setCallStatus(
-                            "Звонок подключается..."
-                        );
-
-                    } catch (error) {
-
-                        console.error(
-                            "Ошибка ответа:",
-                            error
-                        );
-
-                    }
-
-                }
-
-
-                /* ICE */
-
-                if (
-                    data.type ===
-                    "candidate"
-                ) {
-
-                    if (
-                        !peerConnection
-                    ) {
-                        return;
-                    }
-
-
-                    try {
-
-                        await peerConnection
-                            .addIceCandidate(
-                                data.candidate
-                            );
-
-                    } catch (error) {
-
-                        console.error(
-                            "Ошибка ICE:",
-                            error
-                        );
-
-                    }
-
-                }
-
-            }
-        );
-
 
         /* =========================
            ПОЗВОНИТЬ
@@ -2371,56 +2188,29 @@
             "click",
             async function() {
 
-                if (!connected) {
-
-                    setCallStatus(
-                        "Сначала нажми «Подключиться»"
-                    );
-
+                if (callActive) {
+                    hangupCall();
                     return;
-
                 }
 
-
-                if (!peerConnection) {
-
-                    setCallStatus(
-                        "Соединение ещё не готово"
-                    );
-
-                    return;
-
+                if (!socket) {
+                    createCallSocket();
                 }
 
-
-                const targetId =
-                    targetIdInput.value.trim();
-
-
-                if (!targetId) {
-
+                if (!socket || socket.readyState !== WebSocket.OPEN) {
                     setCallStatus(
-                        "Введи ID пользователя"
+                        "Сервер звонков ещё подключается..."
                     );
-
                     return;
-
                 }
 
-
-                if (
-                    socket.readyState !==
-                    WebSocket.OPEN
-                ) {
-
-                    setCallStatus(
-                        "Сервер звонков недоступен"
-                    );
-
-                    return;
-
+                if (!localStream || !peerConnection) {
+                    await connectToCallServer();
                 }
 
+                if (!localStream || !peerConnection) {
+                    return;
+                }
 
                 try {
 
@@ -2452,6 +2242,12 @@
                         })
                     );
 
+
+                    callActive =
+                        true;
+
+                    callButton.textContent =
+                        "Завершить вызов";
 
                     setCallStatus(
                         "Звоним..."
@@ -2523,9 +2319,7 @@
            ЗАВЕРШИТЬ ЗВОНОК
         ========================= */
 
-        hangupButton.addEventListener(
-            "click",
-            function() {
+        function hangupCall() {
 
                 if (peerConnection) {
 
@@ -2570,6 +2364,12 @@
                 micButton.textContent =
                     "Выключить микрофон";
 
+                callActive =
+                    false;
+
+                callButton.textContent =
+                    "Позвонить";
+
                 hideCallAvatars();
 
 
@@ -2578,66 +2378,331 @@
                 );
 
             }
-        );
 
 
         /* =========================
            WEBSOCKET
         ========================= */
 
-        socket.addEventListener(
-            "open",
-            function() {
+        function setupCallSocket() {
+            socket.addEventListener(
+                "message",
+                async function(event) {
 
-                setCallStatus(
-                    "Сервер звонков подключён"
-                );
-
-            }
-        );
+                    let data;
 
 
-        socket.addEventListener(
-            "error",
-            function(error) {
+                    try {
 
-                console.error(
-                    "WebSocket ошибка:",
-                    error
-                );
+                        data =
+                            JSON.parse(
+                                event.data
+                            );
 
+                    } catch {
 
-                setCallStatus(
-                    "Ошибка подключения к серверу"
-                );
+                        return;
 
-            }
-        );
+                    }
 
 
-        socket.addEventListener(
-            "close",
-            function() {
+                    /* РЕГИСТРАЦИЯ */
 
-                connected =
-                    false;
+                    if (
+                        data.type ===
+                        "registered"
+                    ) {
 
-                hideCallAvatars();
+                        setCallStatus(
+                            "Готов к звонку"
+                        );
+
+                        return;
+
+                    }
 
 
-                setCallStatus(
-                    "Соединение с сервером закрыто"
-                );
+                    /* ВХОДЯЩИЙ ЗВОНОК */
 
-            }
-        );
+                    if (
+                        data.type ===
+                        "offer"
+                    ) {
 
+                        showCallAvatars();
+
+                        callActive =
+                            true;
+
+                        callButton.textContent =
+                            "Завершить вызов";
+
+                        if (
+                            !peerConnection
+                        ) {
+
+                            createPeerConnection();
+
+                        }
+
+
+                        try {
+
+                            if (!localStream) {
+
+                                localStream =
+                                    await navigator.mediaDevices.getUserMedia({
+
+                                        audio: {
+                            noiseSuppression: true,
+                            echoCancellation: true,
+                            autoGainControl: true
+                        }
+
+                                    });
+
+
+                                localStream
+                                    .getTracks()
+                                    .forEach(
+                                        function(track) {
+
+                                            peerConnection.addTrack(
+                                                track,
+                                                localStream
+                                            );
+
+                                        }
+                                    );
+
+                            }
+
+
+                            await peerConnection
+                                .setRemoteDescription(
+                                    data.offer
+                                );
+
+
+                            const answer =
+                                await peerConnection
+                                    .createAnswer();
+
+
+                            await peerConnection
+                                .setLocalDescription(
+                                    answer
+                                );
+
+
+                            if (
+                                socket.readyState ===
+                                WebSocket.OPEN
+                            ) {
+
+                                socket.send(
+                                    JSON.stringify({
+
+                                        type:
+                                            "answer",
+
+                                        to:
+                                            data.from,
+
+                                        answer:
+                                            answer
+
+                                    })
+                                );
+
+                            }
+
+
+                            setCallStatus(
+                                "Звонок подключается..."
+                            );
+
+                        } catch (error) {
+
+                            console.error(
+                                "Ошибка входящего звонка:",
+                                error
+                            );
+
+
+                            setCallStatus(
+                                "Ошибка подключения звонка"
+                            );
+
+                        }
+
+                    }
+
+
+                    /* ОТВЕТ */
+
+                    if (
+                        data.type ===
+                        "answer"
+                    ) {
+
+                        if (
+                            !peerConnection
+                        ) {
+                            return;
+                        }
+
+
+                        try {
+
+                            await peerConnection
+                                .setRemoteDescription(
+                                    data.answer
+                                );
+
+
+                            setCallStatus(
+                                "Звонок подключается..."
+                            );
+
+                        } catch (error) {
+
+                            console.error(
+                                "Ошибка ответа:",
+                                error
+                            );
+
+                        }
+
+                    }
+
+
+                    /* ICE */
+
+                    if (
+                        data.type ===
+                        "candidate"
+                    ) {
+
+                        if (
+                            !peerConnection
+                        ) {
+                            return;
+                        }
+
+
+                        try {
+
+                            await peerConnection
+                                .addIceCandidate(
+                                    data.candidate
+                                );
+
+                        } catch (error) {
+
+                            console.error(
+                                "Ошибка ICE:",
+                                error
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+
+            socket.addEventListener(
+                "open",
+                function() {
+
+                    socket.send(
+                        JSON.stringify({
+                            type: "register",
+                            userId: myId
+                        })
+                    );
+
+                    connected = true;
+
+                    setCallStatus(
+                        "Готов к звонку"
+                    );
+
+                }
+            );
+
+
+            socket.addEventListener(
+                "error",
+                function(error) {
+
+                    console.error(
+                        "WebSocket ошибка:",
+                        error
+                    );
+
+
+                    setCallStatus(
+                        "Ошибка подключения к серверу"
+                    );
+
+                }
+            );
+
+
+            socket.addEventListener(
+                "close",
+                function() {
+
+                    connected =
+                        false;
+
+                    callActive =
+                        false;
+
+                    callButton.textContent =
+                        "Позвонить";
+
+                    hideCallAvatars();
+
+
+                    setCallStatus(
+                        "Соединение с сервером закрыто"
+                    );
+
+                }
+            );
+
+
+        }
 
         /* =========================
            ЗАПУСК
         ========================= */
 
         audioPlayer.volume = 1;
+
+        if (myId) {
+            if (userChoiceOverlay) {
+                userChoiceOverlay.style.display = "none";
+            }
+            createCallSocket();
+        } else {
+            if (userChoiceOverlay) {
+                userChoiceOverlay.style.display = "flex";
+            }
+        }
+
+        chooseUser1?.addEventListener("click", function () {
+            saveUserChoice(USER_1_ID);
+        });
+
+        chooseUser2?.addEventListener("click", function () {
+            saveUserChoice(USER_2_ID);
+        });
 
         loadTrack(0);
 
