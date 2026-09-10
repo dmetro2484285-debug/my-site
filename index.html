@@ -1099,7 +1099,7 @@
 
     <audio
         id="audioPlayer"
-        preload="metadata"
+        preload="auto"
     ></audio>
 
 
@@ -1316,8 +1316,137 @@
 
 
         /* =========================
-           ЗАГРУЗКА ПЕСНИ
+           ЗАГРУЗКА И ПРЕДЗАГРУЗКА ПЕСНИ
         ========================= */
+
+        const preloadedTracks = new Map();
+        let playRequestId = 0;
+
+        function preloadTrack(index) {
+
+            if (
+                index < 0 ||
+                index >= trackData.length ||
+                preloadedTracks.has(index)
+            ) {
+                return;
+            }
+
+            const track = trackData[index];
+            const preloadAudio = new Audio();
+
+            preloadAudio.preload = "auto";
+            preloadAudio.src = track.file;
+            preloadAudio.load();
+
+            preloadedTracks.set(index, preloadAudio);
+
+        }
+
+        function preloadNextTrack(index) {
+
+            if (!trackData.length) {
+                return;
+            }
+
+            const nextIndex =
+                (index + 1) % trackData.length;
+
+            preloadTrack(nextIndex);
+
+        }
+
+        function setMusicLoading(loading) {
+
+            if (!musicButton) {
+                return;
+            }
+
+            if (loading) {
+                musicButton.textContent = "…";
+                musicButton.disabled = true;
+            } else {
+                musicButton.disabled = false;
+            }
+
+        }
+
+        function playCurrentTrack() {
+
+            const requestId = ++playRequestId;
+
+            setMusicLoading(true);
+
+            const tryPlay = function () {
+
+                if (requestId !== playRequestId) {
+                    return;
+                }
+
+                audioPlayer.play()
+                    .then(
+                        function () {
+
+                            if (requestId !== playRequestId) {
+                                return;
+                            }
+
+                            musicButton.textContent =
+                                "❚❚";
+
+                            setMusicLoading(false);
+
+                            preloadNextTrack(currentIndex);
+
+                        }
+                    )
+                    .catch(
+                        function (error) {
+
+                            if (requestId !== playRequestId) {
+                                return;
+                            }
+
+                            console.log(
+                                "Ошибка воспроизведения:",
+                                error
+                            );
+
+                            musicButton.textContent =
+                                "▶";
+
+                            setMusicLoading(false);
+
+                        }
+                    );
+
+            };
+
+            if (
+                audioPlayer.readyState >=
+                HTMLMediaElement.HAVE_FUTURE_DATA
+            ) {
+                tryPlay();
+                return;
+            }
+
+            const onCanPlay = function () {
+
+                audioPlayer.removeEventListener(
+                    "canplay",
+                    onCanPlay
+                );
+
+                tryPlay();
+
+            };
+
+            audioPlayer.addEventListener(
+                "canplay",
+                onCanPlay
+            );
+
+        }
 
         function loadTrack(index) {
 
@@ -1328,36 +1457,30 @@
                 return;
             }
 
+            playRequestId++;
+            setMusicLoading(false);
 
             currentIndex = index;
-
 
             const track =
                 trackData[currentIndex];
 
-
             audioPlayer.src =
                 track.file;
-
 
             musicName.textContent =
                 track.name;
 
-
             trackCover.src =
                 track.cover;
 
-
             progressBar.value = 0;
-
 
             currentTimeElement.textContent =
                 "0:00";
 
-
             durationElement.textContent =
                 "0:00";
-
 
             tracks.forEach(
                 function (item, i) {
@@ -1370,12 +1493,12 @@
                 }
             );
 
-
             audioPlayer.load();
-
 
             musicButton.textContent =
                 "▶";
+
+            preloadNextTrack(currentIndex);
 
         }
 
@@ -1389,33 +1512,16 @@
             function () {
 
                 if (audioPlayer.paused) {
-
-                    audioPlayer.play()
-                        .then(
-                            function () {
-
-                                musicButton.textContent =
-                                    "❚❚";
-
-                            }
-                        )
-                        .catch(
-                            function (error) {
-
-                                console.log(
-                                    "Ошибка воспроизведения:",
-                                    error
-                                );
-
-                            }
-                        );
-
+                    playCurrentTrack();
                 } else {
 
+                    playRequestId++;
                     audioPlayer.pause();
 
                     musicButton.textContent =
                         "▶";
+
+                    setMusicLoading(false);
 
                 }
 
@@ -1438,23 +1544,8 @@
                         trackData.length - 1;
                 }
 
-
                 loadTrack(currentIndex);
-
-
-                audioPlayer.play()
-                    .then(
-                        function () {
-                            musicButton.textContent =
-                                "❚❚";
-                        }
-                    )
-                    .catch(
-                        function () {
-                            musicButton.textContent =
-                                "▶";
-                        }
-                    );
+                playCurrentTrack();
 
             }
         );
@@ -1477,23 +1568,8 @@
                     currentIndex = 0;
                 }
 
-
                 loadTrack(currentIndex);
-
-
-                audioPlayer.play()
-                    .then(
-                        function () {
-                            musicButton.textContent =
-                                "❚❚";
-                        }
-                    )
-                    .catch(
-                        function () {
-                            musicButton.textContent =
-                                "▶";
-                        }
-                    );
+                playCurrentTrack();
 
             }
         );
@@ -1515,23 +1591,8 @@
                                 track.dataset.index
                             );
 
-
                         loadTrack(index);
-
-
-                        audioPlayer.play()
-                            .then(
-                                function () {
-                                    musicButton.textContent =
-                                        "❚❚";
-                                }
-                            )
-                            .catch(
-                                function () {
-                                    musicButton.textContent =
-                                        "▶";
-                                }
-                            );
+                        playCurrentTrack();
 
                     }
                 );
@@ -1665,7 +1726,6 @@
 
                 currentIndex++;
 
-
                 if (
                     currentIndex >=
                     trackData.length
@@ -1673,28 +1733,43 @@
                     currentIndex = 0;
                 }
 
-
                 loadTrack(currentIndex);
+                playCurrentTrack();
+
+            }
+        );
 
 
-                audioPlayer.play()
-                    .then(
-                        function () {
+        /* =========================
+           СОСТОЯНИЕ ЗАГРУЗКИ
+        ========================= */
 
-                            musicButton.textContent =
-                                "❚❚";
+        audioPlayer.addEventListener(
+            "waiting",
+            function () {
+                setMusicLoading(true);
+            }
+        );
 
-                        }
-                    )
-                    .catch(
-                        function () {
+        audioPlayer.addEventListener(
+            "playing",
+            function () {
 
-                            musicButton.textContent =
-                                "▶";
+                musicButton.textContent =
+                    "❚❚";
 
-                        }
-                    );
+                setMusicLoading(false);
+                preloadNextTrack(currentIndex);
 
+            }
+        );
+
+        audioPlayer.addEventListener(
+            "canplay",
+            function () {
+                if (!audioPlayer.paused) {
+                    setMusicLoading(false);
+                }
             }
         );
 
@@ -2553,6 +2628,8 @@
         });
 
         loadTrack(0);
+        preloadTrack(0);
+        preloadNextTrack(0);
 
     </script>
 
