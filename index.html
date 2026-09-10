@@ -1133,7 +1133,7 @@
 
 
         <!-- ВЫБОР ПОЛЬЗОВАТЕЛЯ -->
-        <div class="user-choice-overlay" id="userChoiceOverlay" style="display:none;">
+        <div class="user-choice-overlay" id="userChoiceOverlay" style="display:flex;">
             <div class="user-choice-box">
                 <h2>Кто ты?</h2>
                 <p>Выбери своего пользователя</p>
@@ -1878,6 +1878,12 @@
         let targetId =
             myId === USER_2_ID ? USER_1_ID : USER_2_ID;
 
+        // Если пользователь уже выбирался на этом устройстве,
+        // сразу скрываем окно и подключаем WebSocket.
+        if (myId && userChoiceOverlay) {
+            userChoiceOverlay.style.display = "none";
+        }
+
         function saveUserChoice(userId) {
             myId = userId;
             targetId =
@@ -1911,6 +1917,12 @@
         const callAvatars =
             document.getElementById("callAvatars");
 
+        // Если выбор уже сохранён, сервер звонков подключается автоматически.
+        if (myId) {
+            setCallStatus("Подключение к серверу...");
+            createCallSocket();
+        }
+
         function showCallAvatars() {
             if (callAvatars) {
                 callAvatars.style.display = "flex";
@@ -1932,6 +1944,13 @@
 
         function createCallSocket() {
             if (!myId) {
+                return;
+            }
+
+            if (socket && (
+                socket.readyState === WebSocket.OPEN ||
+                socket.readyState === WebSocket.CONNECTING
+            )) {
                 return;
             }
 
