@@ -774,127 +774,20 @@
             object-fit: cover;
         }
 
-        .user-choice-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.72);
-        }
+                .user-choice-overlay { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; background:rgba(4,4,6,.78); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); animation:userChoiceFade .25s ease; }
+        .user-choice-box { width:min(420px,100%); padding:34px 30px 30px; box-sizing:border-box; border-radius:24px; background:linear-gradient(180deg,rgba(30,30,34,.96),rgba(17,17,20,.97)); border:1px solid rgba(255,255,255,.13); box-shadow:0 24px 70px rgba(0,0,0,.48),0 0 0 1px rgba(255,255,255,.025) inset; text-align:center; animation:userChoicePop .3s cubic-bezier(.2,.8,.2,1); }
+        .user-choice-box h2 { margin:0 0 9px; color:#fff; font-size:30px; line-height:1.1; font-weight:600; letter-spacing:-.5px; }
+        .user-choice-box p { margin:0 0 25px; color:rgba(255,255,255,.52); font-size:14px; line-height:1.5; }
+        .user-choice-buttons { display:flex; flex-direction:column; gap:11px; }
+        .user-choice-button { width:100%; min-height:54px; padding:14px 18px; border:1px solid rgba(255,255,255,.11); border-radius:14px; box-sizing:border-box; color:#fff; background:rgba(255,255,255,.055); font:inherit; font-size:15px; font-weight:500; cursor:pointer; transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease; }
+        .user-choice-button:hover { transform:translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.22); box-shadow:0 10px 25px rgba(0,0,0,.20); }
+        .user-choice-button:active { transform:translateY(0) scale(.99); background:rgba(255,255,255,.075); }
+        .user-choice-button:focus-visible { outline:2px solid rgba(255,255,255,.65); outline-offset:3px; }
+        @keyframes userChoiceFade { from{opacity:0} to{opacity:1} }
+        @keyframes userChoicePop { from{opacity:0;transform:translateY(10px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+        @media (max-width:600px) { .user-choice-box{padding:30px 20px 22px;border-radius:20px;} .user-choice-box h2{font-size:27px;} .user-choice-button{min-height:52px;} }
 
-        .user-choice-box {
-            width: min(420px, 100%);
-            padding: 28px;
-            box-sizing: border-box;
-            border-radius: 18px;
-            background: #151515;
-            border: 1px solid rgba(255,255,255,.12);
-            text-align: center;
-        }
-
-        .user-choice-box h2 {
-            margin: 0 0 8px;
-        }
-
-        .user-choice-box p {
-            margin: 0 0 22px;
-            opacity: .7;
-        }
-
-        .user-choice-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .user-choice-button {
-            width: 100%;
-            min-height: 48px;
-            padding: 12px 16px;
-            border: 0;
-            border-radius: 12px;
-            cursor: pointer;
-            font: inherit;
-        }
-
-        /* АДАПТИВ */
-
-        @media (max-width: 900px) {
-            header {
-                padding: 0 20px;
-            }
-
-            nav {
-                gap: 15px;
-            }
-
-            .hero {
-                flex-direction: column;
-                min-height: calc(100vh - 60px);
-            }
-
-            .hero-text {
-                width: 100%;
-                padding: 80px 30px 20px;
-                text-align: center;
-            }
-
-            .hero-text p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .characters {
-                width: 100%;
-                height: 55vh;
-            }
-
-            .characters img {
-                max-width: 120%;
-            }
-        }
-
-        @media (max-width: 600px) {
-            header {
-                height: auto;
-                min-height: 60px;
-
-                flex-direction: column;
-                gap: 12px;
-
-                padding: 15px 10px;
-            }
-
-            nav {
-                gap: 12px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            nav a {
-                font-size: 12px;
-            }
-
-            .hero-text h1 {
-                font-size: 50px;
-            }
-
-            .music-card,
-            .call-card {
-                width: min(360px, calc(100vw - 40px));
-            }
-
-            .photos h2,
-            .music h2,
-            .calls h2 {
-                font-size: 38px;
-            }
-        }
-    </style>
+</style>
 </head>
 
 <body>
