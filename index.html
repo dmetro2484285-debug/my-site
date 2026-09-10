@@ -1798,9 +1798,6 @@
         const callButton =
             document.getElementById("callButton");
 
-        const micButton =
-            document.getElementById("micButton");
-
         const callStatus =
             document.getElementById("callStatus");
 
@@ -1809,12 +1806,6 @@
 
         const callAvatars =
             document.getElementById("callAvatars");
-
-        // Если выбор уже сохранён, сервер звонков подключается автоматически.
-        if (myId) {
-            setCallStatus("Подключение к серверу...");
-            createCallSocket();
-        }
 
         function showCallAvatars() {
             if (callAvatars) {
@@ -1864,9 +1855,6 @@
         let connected =
             false;
 
-        let micEnabled =
-            true;
-
         let callActive =
             false;
 
@@ -1876,10 +1864,9 @@
         ========================= */
 
         function setCallStatus(text) {
-
-            callStatus.textContent =
-                text;
-
+            if (callStatus) {
+                callStatus.textContent = text;
+            }
         }
 
 
@@ -2096,7 +2083,7 @@
            ПОЗВОНИТЬ
         ========================= */
 
-        callButton.addEventListener(
+        callButton?.addEventListener(
             "click",
             async function() {
 
@@ -2184,50 +2171,6 @@
 
 
         /* =========================
-           МИКРОФОН
-        ========================= */
-
-        micButton.addEventListener(
-            "click",
-            function() {
-
-                if (!localStream) {
-
-                    setCallStatus(
-                        "Сначала подключись"
-                    );
-
-                    return;
-
-                }
-
-
-                micEnabled =
-                    !micEnabled;
-
-
-                localStream
-                    .getAudioTracks()
-                    .forEach(
-                        function(track) {
-
-                            track.enabled =
-                                micEnabled;
-
-                        }
-                    );
-
-
-                micButton.textContent =
-                    micEnabled
-                        ? "Выключить микрофон"
-                        : "Включить микрофон";
-
-            }
-        );
-
-
-        /* =========================
            ЗАВЕРШИТЬ ЗВОНОК
         ========================= */
 
@@ -2268,13 +2211,6 @@
                 connected =
                     false;
 
-
-                micEnabled =
-                    true;
-
-
-                micButton.textContent =
-                    "Выключить микрофон";
 
                 callActive =
                     false;
