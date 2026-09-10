@@ -1285,51 +1285,39 @@
         let currentIndex = 0;
 
         /* =========================
-           ПРЕДЗАГРУЗКА ВСЕЙ МУЗЫКИ
+           ПОТОКОВАЯ ЗАГРУЗКА МУЗЫКИ
         ========================= */
 
-        const preloadedTracks = new Array(trackData.length);
-        const preloadedBlobUrls = new Array(trackData.length);
-        let preloadStarted = false;
+        /*
+           Главный audioPlayer не ждёт полной загрузки файла.
+           Браузер загружает музыку постепенно и может начать
+           воспроизведение, когда данных для старта уже достаточно.
+        */
+        audioPlayer.preload = "auto";
 
-        async function preloadAllTracks() {
-            if (preloadStarted) return;
-            preloadStarted = true;
+        /*
+           Отдельные audio-элементы мягко подгружают остальные песни
+           в фоне. Если браузер решит ограничить такую загрузку,
+           основной плеер всё равно продолжит работать обычным
+           потоковым способом.
+        */
+        const backgroundPreloads = trackData.map(
+            function (track, index) {
 
-            for (let i = 0; i < trackData.length; i++) {
-                const track = trackData[i];
-
-                try {
-                    const response = await fetch(track.file, {
-                        cache: "force-cache"
-                    });
-
-                    if (!response.ok) {
-                        throw new Error("HTTP " + response.status);
-                    }
-
-                    const blob = await response.blob();
-                    const blobUrl = URL.createObjectURL(blob);
-
-                    preloadedBlobUrls[i] = blobUrl;
-                    preloadedTracks[i] = new Audio();
-                    preloadedTracks[i].preload = "auto";
-                    preloadedTracks[i].src = blobUrl;
-                    preloadedTracks[i].load();
-
-                    console.log("Песня загружена:", track.file);
-
-                    if (i === currentIndex) {
-                        audioPlayer.src = blobUrl;
-                        audioPlayer.load();
-                    }
-                } catch (error) {
-                    console.log("Не удалось заранее загрузить:", track.file, error);
+                if (index === 0) {
+                    return audioPlayer;
                 }
-            }
-        }
 
-        preloadAllTracks();
+                const audio = new Audio();
+                audio.preload = "auto";
+                audio.src = track.file;
+                audio.load();
+
+                return audio;
+            }
+        );
+
+        console.log("Начата потоковая загрузка всех песен");
 
 
         /* =========================
@@ -1363,45 +1351,10 @@
 
 
         /* =========================
-           ЗАГРУЗКА И ПРЕДЗАГРУЗКА ПЕСНИ
+           СОСТОЯНИЕ ЗАГРУЗКИ
         ========================= */
 
-        const preloadedTracks = new Map();
         let playRequestId = 0;
-
-        function preloadTrack(index) {
-
-            if (
-                index < 0 ||
-                index >= trackData.length ||
-                preloadedTracks.has(index)
-            ) {
-                return;
-            }
-
-            const track = trackData[index];
-            const preloadAudio = new Audio();
-
-            preloadAudio.preload = "auto";
-            preloadAudio.src = track.file;
-            preloadAudio.load();
-
-            preloadedTracks.set(index, preloadAudio);
-
-        }
-
-        function preloadNextTrack(index) {
-
-            if (!trackData.length) {
-                return;
-            }
-
-            const nextIndex =
-                (index + 1) % trackData.length;
-
-            preloadTrack(nextIndex);
-
-        }
 
         function setMusicLoading(loading) {
 
@@ -1422,76 +1375,42 @@
 
             const requestId = ++playRequestId;
 
-            setMusicLoading(true);
+            /*
+               Если браузер уже имеет данные для текущей позиции,
+               play() начнёт воспроизведение сразу. Если данных пока
+               недостаточно, браузер продолжит загрузку и сам начнёт
+               воспроизведение, когда появится достаточно данных.
+            */
+            audioPlayer.play()
+                .then(
+                    function () {
 
-            const tryPlay = function () {
-
-                if (requestId !== playRequestId) {
-                    return;
-                }
-
-                audioPlayer.play()
-                    .then(
-                        function () {
-
-                            if (requestId !== playRequestId) {
-                                return;
-                            }
-
-                            musicButton.textContent =
-                                "❚❚";
-
-                            setMusicLoading(false);
-
-                            preloadNextTrack(currentIndex);
-
+                        if (requestId !== playRequestId) {
+                            return;
                         }
-                    )
-                    .catch(
-                        function (error) {
 
-                            if (requestId !== playRequestId) {
-                                return;
-                            }
+                        musicButton.textContent = "❚❚";
+                        setMusicLoading(false);
 
-                            console.log(
-                                "Ошибка воспроизведения:",
-                                error
-                            );
+                    }
+                )
+                .catch(
+                    function (error) {
 
-                            musicButton.textContent =
-                                "▶";
-
-                            setMusicLoading(false);
-
+                        if (requestId !== playRequestId) {
+                            return;
                         }
-                    );
 
-            };
+                        console.log(
+                            "Ошибка воспроизведения:",
+                            error
+                        );
 
-            if (
-                audioPlayer.readyState >=
-                HTMLMediaElement.HAVE_FUTURE_DATA
-            ) {
-                tryPlay();
-                return;
-            }
+                        musicButton.textContent = "▶";
+                        setMusicLoading(false);
 
-            const onCanPlay = function () {
-
-                audioPlayer.removeEventListener(
-                    "canplay",
-                    onCanPlay
+                    }
                 );
-
-                tryPlay();
-
-            };
-
-            audioPlayer.addEventListener(
-                "canplay",
-                onCanPlay
-            );
 
         }
 
@@ -1505,6 +1424,7 @@
             }
 
             playRequestId++;
+            audioPlayer.pause();
             setMusicLoading(false);
 
             currentIndex = index;
@@ -1513,7 +1433,9 @@
                 trackData[currentIndex];
 
             audioPlayer.src =
-                preloadedBlobUrls[currentIndex] || track.file;
+                track.file;
+
+            audioPlayer.preload = "auto";
 
             musicName.textContent =
                 track.name;
@@ -1544,8 +1466,6 @@
 
             musicButton.textContent =
                 "▶";
-
-            preloadNextTrack(currentIndex);
 
         }
 
@@ -1647,6 +1567,82 @@
             }
         );
 
+
+        /* =========================
+           СОСТОЯНИЕ БУФЕРА
+        ========================= */
+
+        audioPlayer.addEventListener(
+            "progress",
+            function () {
+
+                if (
+                    !Number.isFinite(audioPlayer.duration) ||
+                    audioPlayer.duration <= 0 ||
+                    !audioPlayer.buffered.length
+                ) {
+                    return;
+                }
+
+                try {
+                    const bufferedEnd =
+                        audioPlayer.buffered.end(
+                            audioPlayer.buffered.length - 1
+                        );
+
+                    const bufferedPercent =
+                        Math.min(
+                            100,
+                            (bufferedEnd / audioPlayer.duration) * 100
+                        );
+
+                    console.log(
+                        "Загружено:",
+                        Math.round(bufferedPercent) + "%"
+                    );
+                } catch (error) {
+                    console.log("Не удалось определить буфер:", error);
+                }
+
+            }
+        );
+
+        audioPlayer.addEventListener(
+            "waiting",
+            function () {
+
+                if (!audioPlayer.paused) {
+                    console.log("Буферизация: ждём новые данные");
+                }
+
+            }
+        );
+
+        audioPlayer.addEventListener(
+            "playing",
+            function () {
+
+                musicButton.textContent =
+                    "❚❚";
+
+                setMusicLoading(false);
+
+            }
+        );
+
+        audioPlayer.addEventListener(
+            "canplay",
+            function () {
+                setMusicLoading(false);
+            }
+        );
+
+        audioPlayer.addEventListener(
+            "stalled",
+            function () {
+                console.log("Загрузка временно остановилась, браузер продолжает попытку загрузки");
+            }
+        );
 
         /* =========================
            ДЛИТЕЛЬНОСТЬ
