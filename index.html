@@ -1284,6 +1284,53 @@
 
         let currentIndex = 0;
 
+        /* =========================
+           ПРЕДЗАГРУЗКА ВСЕЙ МУЗЫКИ
+        ========================= */
+
+        const preloadedTracks = new Array(trackData.length);
+        const preloadedBlobUrls = new Array(trackData.length);
+        let preloadStarted = false;
+
+        async function preloadAllTracks() {
+            if (preloadStarted) return;
+            preloadStarted = true;
+
+            for (let i = 0; i < trackData.length; i++) {
+                const track = trackData[i];
+
+                try {
+                    const response = await fetch(track.file, {
+                        cache: "force-cache"
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("HTTP " + response.status);
+                    }
+
+                    const blob = await response.blob();
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    preloadedBlobUrls[i] = blobUrl;
+                    preloadedTracks[i] = new Audio();
+                    preloadedTracks[i].preload = "auto";
+                    preloadedTracks[i].src = blobUrl;
+                    preloadedTracks[i].load();
+
+                    console.log("Песня загружена:", track.file);
+
+                    if (i === currentIndex) {
+                        audioPlayer.src = blobUrl;
+                        audioPlayer.load();
+                    }
+                } catch (error) {
+                    console.log("Не удалось заранее загрузить:", track.file, error);
+                }
+            }
+        }
+
+        preloadAllTracks();
+
 
         /* =========================
            ВРЕМЯ
@@ -1466,7 +1513,7 @@
                 trackData[currentIndex];
 
             audioPlayer.src =
-                track.file;
+                preloadedBlobUrls[currentIndex] || track.file;
 
             musicName.textContent =
                 track.name;
