@@ -1097,7 +1097,7 @@
 
             <div class="call-card">
 
-                <div class="call-avatars" id="callAvatars">
+                <div class="call-avatars" id="callAvatars" style="display:none;">
                     <div class="call-avatar">
                         <img src="avatars/me.jpg" alt="Моя аватарка">
                     </div>
@@ -1846,6 +1846,21 @@
         const remoteAudio =
             document.getElementById("remoteAudio");
 
+        const callAvatars =
+            document.getElementById("callAvatars");
+
+        function showCallAvatars() {
+            if (callAvatars) {
+                callAvatars.style.display = "flex";
+            }
+        }
+
+        function hideCallAvatars() {
+            if (callAvatars) {
+                callAvatars.style.display = "none";
+            }
+        }
+
 
         /*
            Публичный сервер звонков Waifly
@@ -1977,6 +1992,8 @@
                         state === "connected"
                     ) {
 
+                        showCallAvatars();
+
                         setCallStatus(
                             "Звонок подключён"
                         );
@@ -1999,6 +2016,8 @@
                         state === "disconnected" ||
                         state === "failed"
                     ) {
+
+                        hideCallAvatars();
 
                         setCallStatus(
                             "Соединение со звонком потеряно"
@@ -2165,6 +2184,8 @@
                     data.type ===
                     "offer"
                 ) {
+
+                    showCallAvatars();
 
                     if (
                         !peerConnection
@@ -2403,6 +2424,8 @@
 
                 try {
 
+                    showCallAvatars();
+
                     const offer =
                         await peerConnection
                             .createOffer();
@@ -2547,6 +2570,8 @@
                 micButton.textContent =
                     "Выключить микрофон";
 
+                hideCallAvatars();
+
 
                 setCallStatus(
                     "Звонок завершён"
@@ -2596,6 +2621,8 @@
 
                 connected =
                     false;
+
+                hideCallAvatars();
 
 
                 setCallStatus(
