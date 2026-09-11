@@ -2159,18 +2159,18 @@
 
             try {
 
+                const params = new URLSearchParams({
+                    client_id: JAMENDO_CLIENT_ID,
+                    format: "json",
+                    limit: "12",
+                    order: "relevance",
+                    audioformat: "mp32",
+                    search: cleanQuery
+                });
+
                 const url =
-                    "https://api.jamendo.com/v3.0/tracks/" +
-                    "?client_id=" +
-                    encodeURIComponent(JAMENDO_CLIENT_ID) +
-                    "&format=json" +
-                    "&limit=12" +
-                    "&type=single%20albumtrack" +
-                    "&order=relevance" +
-                    "&audioformat=mp32" +
-                    "&audiodlformat=mp32" +
-                    "&search=" +
-                    encodeURIComponent(cleanQuery);
+                    "https://api.jamendo.com/v3.0/tracks/?" +
+                    params.toString();
 
                 const response =
                     await fetch(url);
@@ -2182,6 +2182,17 @@
                 const data =
                     await response.json();
 
+                if (
+                    data.headers &&
+                    data.headers.status &&
+                    data.headers.status !== "success"
+                ) {
+                    throw new Error(
+                        data.headers.error_message ||
+                        "Ошибка Jamendo API"
+                    );
+                }
+
                 const results =
                     Array.isArray(data.results)
                         ? data.results
@@ -2189,7 +2200,7 @@
 
                 if (!results.length) {
                     musicSearchStatus.textContent =
-                        "Ничего не нашли.";
+                        "По этому запросу ничего не нашли. Попробуй другое название или исполнителя.";
                     return;
                 }
 
