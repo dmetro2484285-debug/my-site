@@ -640,6 +640,198 @@
             color: white;
         }
 
+
+        /* ПОИСК МУЗЫКИ */
+
+        .music-search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            background: rgba(4, 4, 6, 0.78);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .music-search-box {
+            width: min(620px, 100%);
+            max-height: min(760px, 90vh);
+            overflow-y: auto;
+            padding: 28px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(30,30,34,.98), rgba(17,17,20,.98));
+            border: 1px solid rgba(255,255,255,.13);
+            box-shadow: 0 24px 70px rgba(0,0,0,.48);
+        }
+
+        .music-search-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .music-search-head h3 {
+            margin: 0;
+            color: white;
+            font-size: 25px;
+        }
+
+        .music-search-close {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,.05);
+            color: rgba(255,255,255,.75);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .music-search-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .music-search-input {
+            min-width: 0;
+            flex: 1;
+            height: 48px;
+            padding: 0 15px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 12px;
+            outline: none;
+            background: rgba(255,255,255,.055);
+            color: white;
+            font: inherit;
+        }
+
+        .music-search-input::placeholder {
+            color: rgba(255,255,255,.35);
+        }
+
+        .music-search-input:focus {
+            border-color: rgba(255,255,255,.3);
+        }
+
+        .music-search-submit {
+            min-width: 100px;
+            height: 48px;
+            padding: 0 16px;
+            border: 0;
+            border-radius: 12px;
+            background: white;
+            color: #111;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .music-search-status {
+            margin-top: 14px;
+            min-height: 20px;
+            color: rgba(255,255,255,.45);
+            font-size: 13px;
+        }
+
+        .music-search-results {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .music-search-result {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 13px;
+            background: rgba(255,255,255,.035);
+        }
+
+        .music-search-cover {
+            width: 52px;
+            height: 52px;
+            flex: 0 0 52px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: rgba(255,255,255,.06);
+        }
+
+        .music-search-info {
+            min-width: 0;
+            flex: 1;
+            text-align: left;
+        }
+
+        .music-search-name {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .music-search-artist {
+            margin-top: 4px;
+            color: rgba(255,255,255,.42);
+            font-size: 12px;
+            word-break: break-word;
+        }
+
+        .music-search-add {
+            flex: 0 0 auto;
+            padding: 9px 12px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 9px;
+            background: rgba(255,255,255,.06);
+            color: white;
+            font: inherit;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .music-search-add:hover {
+            background: rgba(255,255,255,.11);
+        }
+
+        .music-search-add:disabled {
+            opacity: .45;
+            cursor: default;
+        }
+
+        @media (max-width: 600px) {
+            .music-search-box {
+                padding: 20px;
+                border-radius: 17px;
+            }
+
+            .music-search-form {
+                flex-direction: column;
+            }
+
+            .music-search-submit {
+                width: 100%;
+            }
+
+            .music-search-result {
+                align-items: flex-start;
+            }
+
+            .music-search-add {
+                margin-left: auto;
+            }
+        }
+
         /* ЗВОНКИ */
 
         .calls {
@@ -985,45 +1177,37 @@
 
                 <!-- СПИСОК ПЕСЕН -->
 
-                <div class="track-list">
-
-                    <div
-                        class="track active"
-                        data-index="0"
-                    >
-                        maduro - u will be my girl
-                    </div>
-
-
-                    <div
-                        class="track"
-                        data-index="1"
-                    >
-                        макулатура - лесбия
-                    </div>
-
-
-                    <div
-                        class="track"
-                        data-index="2"
-                    >
-                        макулатура - точка невозврата
-                    </div>
-
-
-                    <div
-                        class="track"
-                        data-index="3"
-                    >
-                        Птицу ЕМЬ - Нумеро Уно
-                    </div>
-
-                </div>
+                <div class="track-list" id="trackList"></div>
 
             </div>
 
         </section>
 
+
+
+        <!-- ПОИСК МУЗЫКИ -->
+        <div class="music-search-overlay" id="musicSearchOverlay">
+            <div class="music-search-box">
+                <div class="music-search-head">
+                    <h3>Найти музыку</h3>
+                    <button type="button" class="music-search-close" id="musicSearchClose">×</button>
+                </div>
+
+                <form class="music-search-form" id="musicSearchForm">
+                    <input
+                        class="music-search-input"
+                        id="musicSearchInput"
+                        type="search"
+                        placeholder="Название песни или исполнитель"
+                        autocomplete="off"
+                    >
+                    <button class="music-search-submit" type="submit">Найти</button>
+                </form>
+
+                <div class="music-search-status" id="musicSearchStatus"></div>
+                <div class="music-search-results" id="musicSearchResults"></div>
+            </div>
+        </div>
 
         <!-- ВЫБОР ПОЛЬЗОВАТЕЛЯ -->
         <div class="user-choice-overlay" id="userChoiceOverlay" style="display:flex;">
@@ -1245,15 +1429,38 @@
         const addMusicButton =
             document.getElementById("addMusicButton");
 
-        const tracks =
+        const musicSearchOverlay =
+            document.getElementById("musicSearchOverlay");
+
+        const musicSearchClose =
+            document.getElementById("musicSearchClose");
+
+        const musicSearchForm =
+            document.getElementById("musicSearchForm");
+
+        const musicSearchInput =
+            document.getElementById("musicSearchInput");
+
+        const musicSearchStatus =
+            document.getElementById("musicSearchStatus");
+
+        const musicSearchResults =
+            document.getElementById("musicSearchResults");
+
+        const JAMENDO_CLIENT_ID = "709fa152";
+
+        let tracks =
             document.querySelectorAll(".track");
+
+        const trackList =
+            document.getElementById("trackList");
 
 
         /* =========================
            ДАННЫЕ ПЕСЕН
         ========================= */
 
-        const trackData = [
+        let trackData = [
 
             {
                 file: "music/song1.mp3",
@@ -1289,36 +1496,33 @@
         ========================= */
 
         /*
-           Главный audioPlayer не ждёт полной загрузки файла.
-           Браузер загружает музыку постепенно и может начать
-           воспроизведение, когда данных для старта уже достаточно.
+           Главный audioPlayer загружает трек постепенно.
+           Браузер может начать воспроизведение до полной загрузки.
         */
         audioPlayer.preload = "auto";
 
-        /*
-           Отдельные audio-элементы мягко подгружают остальные песни
-           в фоне. Если браузер решит ограничить такую загрузку,
-           основной плеер всё равно продолжит работать обычным
-           потоковым способом.
-        */
-        const backgroundPreloads = trackData.map(
-            function (track, index) {
+        let backgroundPreloads = [];
 
-                if (index === 0) {
-                    return audioPlayer;
-                }
+        function preloadBackgroundTracks() {
+            backgroundPreloads.forEach(function (audio) {
+                try {
+                    audio.pause();
+                    audio.src = "";
+                } catch (error) {}
+            });
 
+            backgroundPreloads = [];
+
+            for (let i = 1; i < trackData.length; i++) {
                 const audio = new Audio();
                 audio.preload = "auto";
-                audio.src = track.file;
+                audio.src = trackData[i].file;
                 audio.load();
-
-                return audio;
+                backgroundPreloads.push(audio);
             }
-        );
+        }
 
-        console.log("Начата потоковая загрузка всех песен");
-
+        console.log("Начата потоковая загрузка музыки");
 
         /* =========================
            ВРЕМЯ
@@ -1414,6 +1618,42 @@
 
         }
 
+        function renderPlaylist() {
+
+            if (!trackList) {
+                return;
+            }
+
+            trackList.innerHTML = "";
+
+            trackData.forEach(function (track, index) {
+
+                const item = document.createElement("div");
+
+                item.className =
+                    "track" +
+                    (index === currentIndex ? " active" : "");
+
+                item.dataset.index = String(index);
+                item.textContent = track.name;
+
+                item.addEventListener(
+                    "click",
+                    function () {
+                        loadTrack(index);
+                        playCurrentTrack();
+                    }
+                );
+
+                trackList.appendChild(item);
+
+            });
+
+            tracks =
+                trackList.querySelectorAll(".track");
+        }
+
+
         function loadTrack(index) {
 
             if (
@@ -1451,16 +1691,7 @@
             durationElement.textContent =
                 "0:00";
 
-            tracks.forEach(
-                function (item, i) {
-
-                    item.classList.toggle(
-                        "active",
-                        i === currentIndex
-                    );
-
-                }
-            );
+            renderPlaylist();
 
             audioPlayer.load();
 
@@ -1537,32 +1768,6 @@
 
                 loadTrack(currentIndex);
                 playCurrentTrack();
-
-            }
-        );
-
-
-        /* =========================
-           ВЫБОР ПЕСНИ ИЗ СПИСКА
-        ========================= */
-
-        tracks.forEach(
-            function (track) {
-
-                track.addEventListener(
-                    "click",
-                    function () {
-
-                        const index =
-                            Number(
-                                track.dataset.index
-                            );
-
-                        loadTrack(index);
-                        playCurrentTrack();
-
-                    }
-                );
 
             }
         );
@@ -1802,7 +2007,7 @@
                     "❚❚";
 
                 setMusicLoading(false);
-                preloadNextTrack(currentIndex);
+                /* Фоновая загрузка уже запущена */
 
             }
         );
@@ -1835,20 +2040,316 @@
 
 
         /* =========================
-           ДОБАВИТЬ МУЗЫКУ
+           ПОИСК И ДОБАВЛЕНИЕ МУЗЫКИ
         ========================= */
 
-        addMusicButton.addEventListener(
-            "click",
-            function () {
+        function openMusicSearch() {
 
-                window.open(
-                    "https://github.com/dmetro2484285-debug/my-site/tree/main/music",
-                    "_blank"
+            if (!musicSearchOverlay) {
+                return;
+            }
+
+            musicSearchOverlay.style.display = "flex";
+            musicSearchStatus.textContent = "";
+            musicSearchResults.innerHTML = "";
+
+            setTimeout(function () {
+                musicSearchInput?.focus();
+            }, 0);
+
+        }
+
+
+        function closeMusicSearch() {
+
+            if (musicSearchOverlay) {
+                musicSearchOverlay.style.display = "none";
+            }
+
+        }
+
+
+        function escapeHtml(value) {
+
+            return String(value || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        function isTrackAlreadyAdded(track) {
+
+            return trackData.some(function (item) {
+                return String(item.remoteId || "") === String(track.id || "");
+            });
+
+        }
+
+
+        function addSearchTrack(track, button) {
+
+            if (!track || !track.audio) {
+                return;
+            }
+
+            if (isTrackAlreadyAdded(track)) {
+                button.textContent = "Добавлено";
+                button.disabled = true;
+                return;
+            }
+
+            const newTrack = {
+                file: track.audio,
+                name: track.artist_name
+                    ? track.name + " — " + track.artist_name
+                    : track.name,
+                cover: track.image || "music/covers/cover1.png",
+                remoteId: String(track.id),
+                source: "Jamendo"
+            };
+
+            trackData.push(newTrack);
+
+            try {
+                const saved =
+                    JSON.parse(
+                        localStorage.getItem("siteMusicPlaylist") || "[]"
+                    );
+
+                saved.push(newTrack);
+
+                localStorage.setItem(
+                    "siteMusicPlaylist",
+                    JSON.stringify(saved)
+                );
+
+            } catch (error) {
+                console.log("Не удалось сохранить плейлист:", error);
+            }
+
+            button.textContent = "Добавлено";
+            button.disabled = true;
+
+            renderPlaylist();
+            preloadBackgroundTracks();
+
+        }
+
+
+        async function searchMusic(query) {
+
+            const cleanQuery =
+                String(query || "").trim();
+
+            if (!cleanQuery) {
+                musicSearchStatus.textContent =
+                    "Введи название песни или исполнителя.";
+                musicSearchResults.innerHTML = "";
+                return;
+            }
+
+            musicSearchStatus.textContent =
+                "Ищем музыку...";
+
+            musicSearchResults.innerHTML = "";
+
+            try {
+
+                const url =
+                    "https://api.jamendo.com/v3.0/tracks/" +
+                    "?client_id=" +
+                    encodeURIComponent(JAMENDO_CLIENT_ID) +
+                    "&format=json" +
+                    "&limit=12" +
+                    "&type=single%20albumtrack" +
+                    "&order=relevance" +
+                    "&audioformat=mp32" +
+                    "&audiodlformat=mp32" +
+                    "&search=" +
+                    encodeURIComponent(cleanQuery);
+
+                const response =
+                    await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+
+                const data =
+                    await response.json();
+
+                const results =
+                    Array.isArray(data.results)
+                        ? data.results
+                        : [];
+
+                if (!results.length) {
+                    musicSearchStatus.textContent =
+                        "Ничего не нашли.";
+                    return;
+                }
+
+                musicSearchStatus.textContent =
+                    "Найдено: " + results.length;
+
+                results.forEach(function (track) {
+
+                    const canUseAudio =
+                        Boolean(track.audio);
+
+                    const item =
+                        document.createElement("div");
+
+                    item.className =
+                        "music-search-result";
+
+                    item.innerHTML = `
+                        <img
+                            class="music-search-cover"
+                            src="${escapeHtml(track.image || "")}"
+                            alt=""
+                        >
+                        <div class="music-search-info">
+                            <div class="music-search-name">
+                                ${escapeHtml(track.name)}
+                            </div>
+                            <div class="music-search-artist">
+                                ${escapeHtml(track.artist_name || "Неизвестный исполнитель")}
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            class="music-search-add"
+                            ${canUseAudio ? "" : "disabled"}
+                        >
+                            ${canUseAudio ? "Добавить" : "Недоступно"}
+                        </button>
+                    `;
+
+                    const button =
+                        item.querySelector(".music-search-add");
+
+                    if (canUseAudio) {
+
+                        if (isTrackAlreadyAdded(track)) {
+                            button.textContent = "Добавлено";
+                            button.disabled = true;
+                        } else {
+                            button.addEventListener(
+                                "click",
+                                function () {
+                                    addSearchTrack(track, button);
+                                }
+                            );
+                        }
+
+                    }
+
+                    musicSearchResults.appendChild(item);
+
+                });
+
+            } catch (error) {
+
+                console.log(
+                    "Ошибка поиска музыки:",
+                    error
+                );
+
+                musicSearchStatus.textContent =
+                    "Не удалось выполнить поиск. Попробуй ещё раз.";
+
+            }
+
+        }
+
+
+        if (addMusicButton) {
+            addMusicButton.addEventListener(
+                "click",
+                openMusicSearch
+            );
+        }
+
+        musicSearchClose?.addEventListener(
+            "click",
+            closeMusicSearch
+        );
+
+        musicSearchOverlay?.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === musicSearchOverlay) {
+                    closeMusicSearch();
+                }
+
+            }
+        );
+
+        musicSearchForm?.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                searchMusic(
+                    musicSearchInput.value
                 );
 
             }
         );
+
+        musicSearchInput?.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+                    closeMusicSearch();
+                }
+
+            }
+        );
+
+
+        /* =========================
+           ЗАГРУЗКА СОХРАНЁННОГО ПЛЕЙЛИСТА
+        ========================= */
+
+        try {
+
+            const saved =
+                JSON.parse(
+                    localStorage.getItem("siteMusicPlaylist") || "[]"
+                );
+
+            if (Array.isArray(saved)) {
+
+                saved.forEach(function (track) {
+
+                    if (
+                        track &&
+                        track.file &&
+                        track.name &&
+                        !trackData.some(function (item) {
+                            return String(item.remoteId || "") ===
+                                String(track.remoteId || "");
+                        })
+                    ) {
+                        trackData.push(track);
+                    }
+
+                });
+
+            }
+
+        } catch (error) {
+            console.log("Не удалось загрузить сохранённый плейлист:", error);
+        }
 
 
         /* =========================
@@ -2670,9 +3171,9 @@
             saveUserChoice(USER_2_ID);
         });
 
+        renderPlaylist();
         loadTrack(0);
-        preloadTrack(0);
-        preloadNextTrack(0);
+        preloadBackgroundTracks();
 
     </script>
 
